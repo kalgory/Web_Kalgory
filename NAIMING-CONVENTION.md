@@ -1,6 +1,5 @@
 # Kalgory Web Naming Convention
 
----
 ## Index
 - File
   - sfc
