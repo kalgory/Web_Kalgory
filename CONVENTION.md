@@ -20,7 +20,7 @@
   - [options / assets](#options--assets)
     - [components](#components)
   
-- [Git](Git)
+- [Git](#Git)
   - [branch](#branch)
   - [commit message](#commit-message)
 
