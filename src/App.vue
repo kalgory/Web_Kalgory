@@ -102,12 +102,11 @@
 export default {
   name: 'App',
 
-  components: {
-
-  },
+  components: {},
 
   data: () => ({
     links: [
+      'test',
       'Problem solve',
       'Algorithm',
       'Profile',

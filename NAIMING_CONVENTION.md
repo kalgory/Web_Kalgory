@@ -40,6 +40,7 @@ kebab-case.js
 ```
 kebab-case
 ```
+
 ---
 
 ### Options / Data
@@ -60,6 +61,7 @@ camelCase
 ```
 verbObject
 ```
+
 ---
 
 ### Options / Assets
@@ -68,3 +70,16 @@ verbObject
 ```
 PascalCase
 ```
+
+---
+
+### Git
+
+#### branch
+|Type|Object|Array|
+|---|---|---|
+|Prefix|obj_|arr_|
+```
+
+```
+#### commit
