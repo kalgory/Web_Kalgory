@@ -1,52 +1,53 @@
-# Kalgory Web Naming Convention
+# Kalgory Web Convention
 
-## Index
-- Naming
-  - file
-    - sfc
-    - js
+- [Naming](#Naming)
+  - [file](#file)
+    - [sfc](#sfc)
+    - [js](#js)
     
-  - directory
+  - [directory](#directory)
     
-  - options / data
-    - data
-    - props
-    - computed
-    - methods
-    - watch
+  - [options / data](#options--data)
+    - [data](#data)
+    - [props](#props)
+    - [computed](#computed)
+    - [methods](#methods)
+    - [watch](#watch)
     
-  - options / DOM
-    - el
+  - [options / DOM](#options--data)
+    - [el](#el)
   
-  - options / assets
-    - components
+  - [options / assets](#options--assets)
+    - [components](#components)
   
-- Git
-  - branch
-  - commit message
+- [Git](Git)
+  - [branch](#branch)
+  - [commit message](#commit-message)
 
+  
+## Naming
 
----
 
 ### File
+
 
 #### sfc
 ```
 PascalCase.vue
 ```
+
+
 #### js
 ```
 kebab-case.js
 ```
 
----
 
 ### Directory
 ```
 kebab-case
 ```
 
----
 
 ### Options / Data
 
@@ -58,29 +59,33 @@ kebab-case
 ```
 camelCase
 ```
+
+
 #### computed, watch
 ```
 camelCase
 ```
+
+
 #### methods
 ```
 verbObject
 ```
 
----
 
 ### Options / Assets
+
 
 #### components
 ```
 PascalCase
 ```
 
----
 
-### Git
+## Git
 
-#### branch
+
+### branch
 ```
 directory/camel_case
 
@@ -93,4 +98,6 @@ feature
     feature_title
 ```
 
-#### [commit message](https://doublesprogramming.tistory.com/256)
+
+### [commit message](https://doublesprogramming.tistory.com/256)
+
