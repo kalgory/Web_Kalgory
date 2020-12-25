@@ -1,24 +1,29 @@
 # Kalgory Web Naming Convention
 
 ## Index
-- File
-  - sfc
-  - js
+- Naming
+  - file
+    - sfc
+    - js
+    
+  - directory
+    
+  - options / data
+    - data
+    - props
+    - computed
+    - methods
+    - watch
+    
+  - options / DOM
+    - el
   
-- Directory
+  - options / assets
+    - components
   
-- Options / Data
-  - data
-  - props
-  - computed
-  - methods
-  - watch
-  
-- Options / DOM
-  - el
-
-- Options / Assets
-  - components
+- Git
+  - branch
+  - commit message
 
 
 ---
@@ -76,10 +81,16 @@ PascalCase
 ### Git
 
 #### branch
-|Type|Object|Array|
-|---|---|---|
-|Prefix|obj_|arr_|
+```
+directory/camel_case
+
+ex)
+main
+develop
+  developer
+feature
+  developer
+    feature_title
 ```
 
-```
-#### commit
+#### [commit message](https://doublesprogramming.tistory.com/256)
