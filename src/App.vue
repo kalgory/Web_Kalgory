@@ -4,11 +4,19 @@
       app
       color="#121212"
     >
+      <v-img
+        src="./assets/logo-initial-background.svg"
+      >
+      </v-img>
+      <v-img
+        src="./assets/logo-text.svg"
+      >
+      </v-img>
 
     </v-app-bar>
 
     <v-main>
-
+      <router-view></router-view>
     </v-main>
     
     <v-footer
