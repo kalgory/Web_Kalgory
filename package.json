@@ -10,7 +10,7 @@
   "dependencies": {
     "@mdi/font": "^5.8.55",
     "core-js": "^3.6.5",
-    "firebase": "^8.2.2",
+    "firebase": "^8.2.3",
     "roboto-fontface": "*",
     "vue": "^2.6.12",
     "vue-router": "^3.4.9",
@@ -47,5 +47,17 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "description": "",
+  "main": "babel.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalgory/Web_Kalgory.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalgory/Web_Kalgory/issues"
+  },
+  "homepage": "https://github.com/kalgory/Web_Kalgory#readme"
 }
