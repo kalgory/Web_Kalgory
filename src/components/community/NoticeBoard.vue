@@ -1,5 +1,7 @@
 <template>
-
+  <p>
+    notice
+  </p>
 </template>
 
 <script>

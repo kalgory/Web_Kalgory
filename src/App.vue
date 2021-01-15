@@ -3,7 +3,11 @@
     <v-app-bar app color="">
       <initial-logo></initial-logo>
       <v-spacer/>
-      <v-btn>qwerty</v-btn>
+      <v-btn
+        @click="test"
+      >
+        Sign in
+      </v-btn>
     </v-app-bar>
     
     <v-main>
@@ -27,13 +31,12 @@ export default {
   },
   
   data: () => ({
-    links: [
-      'test',
-      'Problem solve',
-      'Algorithm',
-      'Profile',
-      'Updates',
-    ],
   }),
+  
+  methods: {
+    test() {
+      this.$router.push('auth/signin')
+    }
+  }
 }
 </script>
