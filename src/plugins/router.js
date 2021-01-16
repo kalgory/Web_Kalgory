@@ -6,8 +6,8 @@ import BaseCommunity from '@/components/BaseCommunity'
 import BaseConcept from '@/components/BaseConcept'
 
 // Auth
-import SignIn from '@/components/auth/SignIn'
-import SignUp from '@/components/auth/SignUp'
+import SignInForm from '@/components/auth/SignInForm'
+import SignUpForm from '@/components/auth/SignUpForm'
 
 // Community
 import InformationBoard from '@/components/community/InformationBoard'
@@ -29,12 +29,12 @@ const routes = [
       {
         name: 'sign in',
         path: 'signin',
-        component: SignIn
+        component: SignInForm
       },
       {
         name: 'sign up',
         path: 'signup',
-        component: SignUp
+        component: SignUpForm
       },
     ]
   },
