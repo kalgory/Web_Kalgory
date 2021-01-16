@@ -1,7 +1,12 @@
 <template>
   <v-app>
-    <v-app-bar app color="">
+    <v-app-bar app>
       <initial-logo></initial-logo>
+      <v-btn
+        @click="$router.push('concept')"
+      >
+        home
+      </v-btn>
       <v-spacer/>
       <v-btn
         @click="test"
@@ -11,7 +16,7 @@
     </v-app-bar>
     
     <v-main>
-      <router-view></router-view>
+      <router-view/>
     </v-main>
     
     <v-footer app>
