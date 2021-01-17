@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import BaseAuth from '@/components/BaseAuth'
+import BaseProblem from '@/components/BaseProblem'
 import BaseCommunity from '@/components/BaseCommunity'
 import BaseConcept from '@/components/BaseConcept'
 
@@ -16,27 +17,34 @@ import QuestionBoard from '@/components/community/QuestionBoard'
 
 Vue.use(Router)
 
+
 const routes = [
+  {
+    name: 'problem',
+    path: '/problem',
+    component: BaseProblem,
+  },
   {
     name: 'concept',
     path: '/concept',
     component: BaseConcept,
   },
-  { name: 'auth',
+  {
+    name: 'auth',
     path: '/auth',
     component: BaseAuth,
     children: [
       {
         name: 'sign in',
         path: 'signin',
-        component: SignInForm
+        component: SignInForm,
       },
       {
         name: 'sign up',
         path: 'signup',
-        component: SignUpForm
+        component: SignUpForm,
       },
-    ]
+    ],
   },
   {
     name: 'community',
@@ -46,22 +54,23 @@ const routes = [
       {
         name: 'notice',
         path: 'notice',
-        component: NoticeBoard
+        component: NoticeBoard,
       },
       {
         name: 'question',
         path: 'question',
-        component: QuestionBoard
+        component: QuestionBoard,
       },
       {
         name: 'information',
         path: 'information',
         component: InformationBoard,
       },
-    ]
+    ],
   },
 ]
 
 export default new Router({
+  mode: 'history',
   routes,
 })
