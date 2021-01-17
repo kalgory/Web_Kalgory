@@ -1,7 +1,7 @@
 <template>
-  <p>
+  <v-container>
     problem
-  </p>
+  </v-container>
 </template>
 
 <script>

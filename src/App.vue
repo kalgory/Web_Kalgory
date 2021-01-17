@@ -1,15 +1,25 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app v-if="true">
       <initial-logo></initial-logo>
       <v-btn
-        @click="$router.push('concept')"
+        @click="$router.push({name: 'problem'})"
       >
-        home
+        problem
+      </v-btn>
+      <v-btn
+        @click="$router.push({name: 'concept'})"
+      >
+        concept
+      </v-btn>
+      <v-btn
+        @click="$router.push({name: 'community'})"
+      >
+        community
       </v-btn>
       <v-spacer/>
       <v-btn
-        @click="test"
+        @click="$router.push({name: 'sign in'})"
       >
         Sign in
       </v-btn>
@@ -34,14 +44,5 @@ export default {
   components: {
     InitialLogo,
   },
-  
-  data: () => ({
-  }),
-  
-  methods: {
-    test() {
-      this.$router.push('auth/signin')
-    }
-  }
 }
 </script>

@@ -1,6 +1,17 @@
 <template>
-  <v-container fluid fill-height class="justify">
-    <router-view></router-view>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="12">
+        <p class="text-center text-h2">
+        
+        </p>
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col>
+        <router-view></router-view>
+      </v-col>
+    </v-row>
   </v-container>
 
 </template>

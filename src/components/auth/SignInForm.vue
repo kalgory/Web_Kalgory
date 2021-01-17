@@ -1,71 +1,111 @@
 <template>
-  <v-card>
-    <v-card-title>
-      Sign in
-    </v-card-title>
-    <v-card-subtitle>
-      계속 하려면 아래의 방법중 하나로 인증을 완료 해주세요.
-    </v-card-subtitle>
+  <v-card
+    width="400"
+    class="mx-auto"
+  >
+    <div class="text-center pt-10">
+      <v-btn
+        @click="$router.push({name: 'home'})"
+      >
+        Home
+      </v-btn>
+    </div>
     
-    <v-card-text>
-      <v-container>
-        <v-row justify="center">
-          <v-col cols="10">
-            <v-text-field
-              placeholder="email"
-            />
-          </v-col>
-          
-          <v-col cols="10">
-            <v-text-field
-              placeholder="password"
-            >
-            
-            </v-text-field>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card-text>
+    <div class="text-center font-weight-black py-6 pt-2">
+      Sign in to Kalgory
+    </div>
     
-    <v-card-actions>
-      <v-container fluid>
-        <v-row justify="center">
-          <v-col cols="10">
-            <v-btn>로그인</v-btn>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-
-            <v-btn class="col-4">
-              칼고리 회원가입
-            </v-btn>
-
-        </v-row>
-        <v-row>
-          <v-col cols="2">
-            <v-btn>
-              카카오
-            </v-btn>
-          </v-col>
-          <v-col cols="2">
-            <v-btn>
-              구글
-            </v-btn>
-          </v-col>
-          <v-col cols="2">
-            <v-btn>
-              페이스북
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card-actions>
+    <v-container>
+      <v-row justify="center">
+        <v-col cols="4">
+          <v-btn block>
+            Google
+          </v-btn>
+        </v-col>
+        <v-col cols="4">
+          <v-btn block>
+            Facebook
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+    
+    <v-divider
+      class="ma-8"
+    />
+    <v-form
+      class="mx-12"
+    >
+      <v-text-field
+        type="email"
+        label="Email"
+        prepend-inner-icon="mdi-account-outline"
+        placeholder="Type your email"
+      />
+      <v-text-field
+        type="password"
+        label="Password"
+        prepend-inner-icon="mdi-lock-outline"
+        placeholder="Type your password"
+        
+      >
+      </v-text-field>
+      <v-btn
+        block
+        class="my-3"
+        color="primary"
+        @click="signIn"
+      >
+        Sign in
+      </v-btn>
+    </v-form>
+    
+    <v-container>
+      <v-row class="mx-4">
+        <v-col>
+          <v-btn
+            text
+            class="caption"
+          >
+            Forgot password?
+          </v-btn>
+        </v-col>
+        <v-spacer/>
+        <v-col>
+          <v-btn
+            text
+            class="caption"
+            router
+            @click="$router.push({name: 'sign up'})"
+          >
+            Sign up
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-card>
 </template>
 
 <script>
+import firebase from 'firebase/app'
+
 export default {
   name: 'SignIn',
+  data: () => ({
+    email: '',
+    password: '',
+  }),
+  methods: {
+    signIn () {
+      const email = this.email
+      const password = this.password
+      firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+        console.log(user)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+  },
 }
 </script>
 

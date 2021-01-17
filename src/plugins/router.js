@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import NotFoundComponent from '@/components/community/NotFoundComponent'
+
 import BaseAuth from '@/components/BaseAuth'
 import BaseProblem from '@/components/BaseProblem'
 import BaseCommunity from '@/components/BaseCommunity'
@@ -17,8 +19,16 @@ import QuestionBoard from '@/components/community/QuestionBoard'
 
 Vue.use(Router)
 
-
 const routes = [
+  {
+    name: 'home',
+    path: '/',
+    redirect: '/concept',
+  },
+  {
+    path: '*',
+    component: NotFoundComponent,
+  },
   {
     name: 'problem',
     path: '/problem',

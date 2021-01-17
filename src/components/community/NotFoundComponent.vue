@@ -1,5 +1,7 @@
 <template>
-$END$
+  <v-container>
+    404 temp
+  </v-container>
 </template>
 
 <script>
