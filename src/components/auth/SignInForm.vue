@@ -41,13 +41,14 @@
         label="Email"
         prepend-inner-icon="mdi-account-outline"
         placeholder="Type your email"
+        v-model="email"
       />
       <v-text-field
         type="password"
         label="Password"
         prepend-inner-icon="mdi-lock-outline"
         placeholder="Type your password"
-        
+        v-model="password"
       >
       </v-text-field>
       <v-btn
@@ -102,7 +103,7 @@ export default {
       firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
         console.log(user)
       }).catch((error) => {
-        console.log(error)
+        console.error(error)
       })
     },
   },
