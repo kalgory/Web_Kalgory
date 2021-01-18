@@ -85,38 +85,11 @@
       </v-row>
     </v-container>
   </v-card>
-  <!--  <sign-in-card-->
-  <!--    -->
-  <!--  ></sign-in-card>-->
 </template>
 
 <script>
-import firebase from 'firebase/app'
-// import SignInCard from '@/components/auth/SignInCard'
-
 export default {
-  name: 'SignIn',
-  components: {
-    // SignInCard
-  },
-  data: () => ({
-    email: '',
-    password: '',
-  }),
-  
-  methods: {
-    signIn () {
-      const email = this.email
-      const password = this.password
-      firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
-        console.log('Sign in success')
-        console.log(user)
-        this.$router.go(-1)
-      }).catch((error) => {
-        console.error(error)
-      })
-    },
-  },
+  name: 'SignInCard',
 }
 </script>
 
