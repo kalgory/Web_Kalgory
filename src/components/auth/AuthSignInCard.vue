@@ -92,15 +92,18 @@ import firebase from 'firebase/app'
 
 export default {
   name: 'SignIn',
+  
   data: () => ({
     email: '',
     password: '',
   }),
+  
   methods: {
     signIn () {
       const email = this.email
       const password = this.password
       firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+        console.log('Sign in success: ')
         console.log(user)
       }).catch((error) => {
         console.error(error)
