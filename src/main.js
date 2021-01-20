@@ -6,9 +6,6 @@ import Store from './store'
 import Vuetify from './vuetify'
 import Router from './router'
 
-console.log(typeof (Vue))
-console.log(typeof (App))
-
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 
