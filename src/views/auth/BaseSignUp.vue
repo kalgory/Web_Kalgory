@@ -1,16 +1,15 @@
 <template>
-  <v-card
-    width="400"
-    class="mx-auto"
-  >
-    copy later
-  </v-card>
+  <auth-card auth-type="sign up"/>
 </template>
 
 <script>
+import AuthCard from '@/components/auth/AuthCard'
+
 export default {
   name: 'SignUp',
-  methods: {},
+  components: {
+    AuthCard
+  },
 }
 </script>
 

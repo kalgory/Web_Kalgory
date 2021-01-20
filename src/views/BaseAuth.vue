@@ -1,6 +1,6 @@
 <template>
   <v-container fill-height>
-    <v-row justify="center">
+    <v-row>
       <v-col>
         <router-view/>
       </v-col>
