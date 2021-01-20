@@ -4,6 +4,6 @@ import 'firebase/analytics'
 import 'firebase/auth'
 import 'firebase/firestore'
 
-import firebaseConfig from '/firebaseConfig'
+import firebaseConfig from '/Users/hyunmin/Library/Mobile Documents/com~apple~CloudDocs/Develops/Web/kalgory/firebaseConfig'
 
 firebase.initializeApp(firebaseConfig)
