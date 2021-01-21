@@ -4,7 +4,6 @@
     
     <v-main>
       <router-view/>
-      {{ isAuth }}
     </v-main>
     
     <app-footer/>
@@ -14,7 +13,6 @@
 <script>
 import AppBar from '@/components/app/AppBar'
 import AppFooter from '@/components/app/AppFooter'
-import Firebase from 'firebase/app'
 
 export default {
   name: 'App',
@@ -23,9 +21,7 @@ export default {
     AppBar,
     AppFooter,
   },
-  data: () => ({
-    isAuth: '',
-  }),
+
   computed: {
     isAppBarShow () {
       switch (this.$route.name) {
@@ -36,14 +32,6 @@ export default {
         default:
           return true
       }
-    },
-  },
-  created () {
-    this.getIsAuth()
-  },
-  methods: {
-    getIsAuth () {
-      Firebase.auth().onAuthStateChanged(user => this.isAuth = !!user)
     },
   },
 }
