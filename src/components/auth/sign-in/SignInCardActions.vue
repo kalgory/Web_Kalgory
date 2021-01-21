@@ -14,8 +14,7 @@
         <v-btn
           text
           class="caption"
-          router
-          @click="$router.push({name: 'sign up'})"
+          to="/auth/signup"
         >
           Sign up
         </v-btn>
@@ -26,17 +25,7 @@
 
 <script>
 export default {
-  name: 'AuthCardActions',
-  
-  props: {
-    authType: {
-      type: String,
-      required: true,
-      validator: function (value) {
-        return value === 'sign in' || value === 'sign up'
-      },
-    },
-  },
+  name: 'SignInCardActions',
 }
 </script>
 

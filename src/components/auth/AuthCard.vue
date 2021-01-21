@@ -3,7 +3,7 @@
     width="400"
     class="mx-auto"
   >
-    <auth-card-title/>
+    <auth-card-title :auth-type="authType"/>
     
     <auth-social-container/>
     
@@ -12,7 +12,8 @@
     <sign-in-form v-if="authType==='sign in'"/>
     <sign-up-form v-if="authType==='sign up'"/>
     
-    <auth-card-actions :auth-type="authType"/>
+    <sign-in-card-actions v-if="authType==='sign in'"/>
+    <sign-up-card-actions v-if="authType==='sign up'"/>
   </v-card>
 </template>
 
@@ -21,7 +22,8 @@ import AuthSocialContainer from '@/components/auth/AuthSocialContainer'
 import SignInForm from '@/components/auth/sign-in/SignInForm'
 import SignUpForm from '@/components/auth/sign-up/SignUpForm'
 import AuthCardTitle from '@/components/auth/AuthCardTitle'
-import AuthCardActions from '@/components/auth/AuthCardActions'
+import SignInCardActions from '@/components/auth/sign-in/SignInCardActions'
+import SignUpCardActions from '@/components/auth/sign-up/SignUpCardActions'
 
 export default {
   name: 'AuthCard',
@@ -31,7 +33,8 @@ export default {
     AuthSocialContainer,
     SignInForm,
     SignUpForm,
-    AuthCardActions,
+    SignInCardActions,
+    SignUpCardActions,
   },
   
   props: {
