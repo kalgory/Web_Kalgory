@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app>
-    <initial-logo></initial-logo>
+    <initial-logo/>
     <v-btn text to="/problem">
       problem
     </v-btn>
@@ -11,20 +11,18 @@
       community
     </v-btn>
     <v-spacer/>
-    <v-btn
-      @click="signOut"
-    >
+    
+    <v-btn v-if="$store.getters.getIsAuth" @click="signOut">
       sign out
     </v-btn>
     
-    <div>
-      <v-btn text to="/auth/signin">
-        Sign in
-      </v-btn>
-      <v-btn to="/auth/signup">
-        Sign up
-      </v-btn>
-    </div>
+    <v-btn v-if="!$store.getters.getIsAuth" text to="/auth/signin">
+      Sign in
+    </v-btn>
+    <v-btn v-if="!$store.getters.getIsAuth" to="/auth/signup">
+      Sign up
+    </v-btn>
+  
   </v-app-bar>
 </template>
 

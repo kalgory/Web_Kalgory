@@ -4,6 +4,7 @@
     
     <v-main>
       <router-view/>
+      {{ $store.getters.getIsAuth }}
     </v-main>
     
     <app-footer/>
@@ -21,7 +22,6 @@ export default {
     AppBar,
     AppFooter,
   },
-
   computed: {
     isAppBarShow () {
       switch (this.$route.name) {
@@ -33,6 +33,10 @@ export default {
           return true
       }
     },
+  },
+  
+  created () {
+    this.$store.dispatch('actOnAuthChanged')
   },
 }
 </script>
