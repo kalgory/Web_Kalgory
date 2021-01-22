@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import Firebase from 'firebase/app'
 import InitialLogo from '@/assets/InitialLogo'
 
 export default {
@@ -39,11 +38,7 @@ export default {
   
   methods: {
     signOut () {
-      Firebase.auth().signOut().then(() => {
-        console.log('Sign out success')
-      }).catch((error) => {
-        console.log(error)
-      })
+      this.$store.dispatch('actSignOut')
     },
   },
 }

@@ -22,6 +22,7 @@ export default {
     AppBar,
     AppFooter,
   },
+  
   computed: {
     isAppBarShow () {
       switch (this.$route.name) {

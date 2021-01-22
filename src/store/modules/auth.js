@@ -3,7 +3,7 @@ import Firebase from 'firebase/app'
 export default {
   // namespace: true,
   state: {
-    isAuth: false,
+    isAuth: null,
     user: null,
   },
   
@@ -17,46 +17,60 @@ export default {
   },
   
   mutations: {
-    setUserSignIn (state, payload) {
-      state.user = payload
-      state.isAuth = true
+    setIsAuth (state, value) {
+      state.isAuth = value
     },
-    setUserSignOut (state) {
-      state.user = null
-      state.isAuth = false
+    setUser (state, payload) {
+      state.user = payload
     },
   },
   
   actions: {
-    actOnAuthChanged (context) {
+    actOnAuthChanged ({ commit }) {
       Firebase.auth().onAuthStateChanged((user) => {
+        console.log('act on auth changed')
         if (user) {
-          console.log('store: sign in')
-          context.commit('setUserSignIn', user)
+          commit('setIsAuth', user)
+          commit('setUser', user)
+          console.log('in')
         } else {
-          console.log('store: sign out')
-          context.commit('setUserSignOut')
+          commit('setIsAuth', user)
+          commit('setUser', user)
+          console.log('out')
         }
       })
     },
-    actSignUp (payload) {
+    // eslint-disable-next-line no-unused-vars
+    actSignUp ({ commit }, payload) {
       Firebase.auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
+        .then((user) => {
+          console.log(user)
+          console.log('act sign up')
+        })
         .catch(error => {
           console.error(error)
         })
     },
-    actSignIn (payload) {
+    // eslint-disable-next-line no-unused-vars
+    actSignIn ({ commit }, payload) {
       Firebase.auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
-        .catch(error => {
+        .then((user) => {
+          console.log(user)
+          console.log('act sign in')
+        })
+        .catch((error) => {
           console.error(error)
         })
     },
     actSignOut () {
       Firebase.auth()
         .signOut()
-        .catch(error => {
+        .then(() => {
+          console.log('act sign in')
+        })
+        .catch((error) => {
           console.error(error)
         })
     },

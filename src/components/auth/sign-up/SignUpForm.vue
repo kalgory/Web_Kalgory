@@ -44,8 +44,6 @@
 </template>
 
 <script>
-import Firebase from 'firebase/app'
-
 export default {
   name: 'SignUpForm',
   
@@ -58,23 +56,9 @@ export default {
   
   methods: {
     signUp () {
-      const email = this.email
-      const password = this.password
-      Firebase.auth()
-        .signInWithEmailAndPassword(email, password)
-        .then((user) => {
-          console.log('Sign in success')
-          console.log(user)
-          this.$router.go(-1)
-        })
-        .catch((error) => {
-          console.error(error)
-        })
+      this.$store.dispatch('actSignUp',
+        { email: this.email, password: this.password })
     },
   },
 }
 </script>
-
-<style scoped>
-
-</style>
