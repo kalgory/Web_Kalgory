@@ -1,12 +1,12 @@
 <template>
-  <p>
-    question
-  </p>
+  <v-container>
+
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: 'QuestionBoard',
+  name: "QuestionContainer"
 }
 </script>
 

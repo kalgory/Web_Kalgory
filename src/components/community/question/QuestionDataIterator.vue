@@ -1,12 +1,12 @@
 <template>
-  <router-view></router-view>
+  <v-data-iterator>
+
+  </v-data-iterator>
 </template>
 
 <script>
 export default {
-  components: {
-  },
-  name: 'BaseCommunity',
+name: "QuestionDataIterator"
 }
 </script>
 
