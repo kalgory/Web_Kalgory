@@ -1,10 +1,12 @@
 <template>
-$END$
+  <v-container>
+
+  </v-container>
 </template>
 
 <script>
 export default {
-name: "QuestionForm"
+  name: "QuestionContainer"
 }
 </script>
 
