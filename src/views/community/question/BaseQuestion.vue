@@ -1,7 +1,7 @@
 <template>
-  <p>
-    question
-  </p>
+  <v-container>
+    <router-view></router-view>
+  </v-container>
 </template>
 
 <script>

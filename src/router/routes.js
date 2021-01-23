@@ -2,16 +2,17 @@ import Base404 from '@/views/Base404'
 
 import BaseAuth from '@/views/BaseAuth'
 import BaseProblem from '@/views/BaseProblem'
-import BaseCommunity from '@/views/BaseCommunity'
+const BaseCommunity = () => import('@/views/BaseCommunity')
 import BaseConcept from '@/views/BaseConcept'
+
 
 // Auth
 import BaseSignIn from '@/views/auth/BaseSignIn'
 import BaseSignUp from '@/views/auth/BaseSignUp'
 
 // Community
-import BaseInformation from '@/views/community/BaseInformation'
-import BaseQuestion from '@/views/community/BaseQuestion'
+const BaseInformation = () => import('@/views/community/BaseInformation')
+const BaseQuestion = () => import('@/views/community/question/BaseQuestion')
 
 export default [
   {
@@ -55,12 +56,12 @@ export default [
     name: 'community',
     path: '/community',
     component: BaseCommunity,
-    redirect: '/community/question',
     children: [
       {
         name: 'question',
         path: 'question',
         component: BaseQuestion,
+
       },
       {
         name: 'information',

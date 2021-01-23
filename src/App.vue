@@ -16,7 +16,7 @@ import AppFooter from '@/components/app/AppFooter'
 
 export default {
   name: 'App',
-  
+
   components: {
     AppBar,
     AppFooter,
