@@ -28,6 +28,7 @@
 
 <script>
 import InitialLogo from '@/assets/InitialLogo'
+import { signOut } from '@/firebase/auth'
 
 export default {
   name: 'AppBar',
@@ -38,12 +39,8 @@ export default {
   
   methods: {
     signOut () {
-      this.$store.dispatch('actSignOut')
+      signOut()
     },
   },
 }
 </script>
-
-<style scoped>
-
-</style>

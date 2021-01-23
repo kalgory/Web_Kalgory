@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { createUserWithEmailAndPassword } from '@/firebase/auth'
+
 export default {
   name: 'SignUpForm',
   
@@ -56,8 +58,7 @@ export default {
   
   methods: {
     signUp () {
-      this.$store.dispatch('actSignUp',
-        { email: this.email, password: this.password })
+      createUserWithEmailAndPassword(this.email, this.password)
     },
   },
 }

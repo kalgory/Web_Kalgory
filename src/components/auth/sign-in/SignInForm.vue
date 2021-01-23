@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { signInWithEmailAndPassword } from '@/firebase/auth'
+
 export default {
   name: 'SignInForm',
   
@@ -38,14 +40,9 @@ export default {
   }),
   
   methods: {
-    signIn () {
-      this.$store.dispatch('actSignIn',
-        { email: this.email, password: this.password })
-    },
+    signIn: function () {
+      signInWithEmailAndPassword(this.email, this.password)
+    }
   },
 }
 </script>
-
-<style scoped>
-
-</style>
