@@ -1,15 +1,15 @@
-import Base404 from '@/views/Base404'
+const Base404 = () => import('@/views/Base404')
 
-import BaseAuth from '@/views/BaseAuth'
-import BaseProblem from '@/views/BaseProblem'
+const BaseAuth = () => import('@/views/BaseAuth')
+const BaseProblem = () => import('@/views/BaseProblem')
 
 const BaseCommunity = () => import('@/views/BaseCommunity')
-import BaseConcept from '@/views/BaseConcept'
+const BaseConcept = () => import('@/views/BaseConcept')
 
 
 // Auth
-import BaseSignIn from '@/views/auth/BaseSignIn'
-import BaseSignUp from '@/views/auth/BaseSignUp'
+const BaseSignIn = () => import('@/views/auth/BaseSignIn')
+const BaseSignUp = () => import('@/views/auth/BaseSignUp')
 
 // Community
 const BaseBoard = () => import('@/views/community/BaseBoard')
