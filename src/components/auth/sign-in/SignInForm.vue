@@ -40,9 +40,9 @@ export default {
   }),
   
   methods: {
-    signIn: function () {
+    signIn () {
       signInWithEmailAndPassword(this.email, this.password)
-    }
+    },
   },
 }
 </script>
