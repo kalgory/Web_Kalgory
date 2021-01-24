@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app>
+  <v-app-bar v-if="isAppBarShow" app>
     <initial-logo/>
     <v-btn text to="/problem">
       problem
@@ -37,9 +37,28 @@ export default {
     InitialLogo,
   },
   
+  computed: {
+    isAppBarShow () {
+      switch (this.$route.name) {
+        case'sign in':
+          return false
+        case'sign up':
+          return false
+        default:
+          return true
+      }
+    },
+  },
+  
   methods: {
     signOut () {
       signOut()
+        .then(() => {
+        
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
     },
   },
 }

@@ -1,5 +1,6 @@
 export default {
   state: {
+    isLoading: true,
     isAuth: null,
     user: null,
   },

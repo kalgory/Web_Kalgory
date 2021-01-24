@@ -59,6 +59,12 @@ export default {
   methods: {
     signUp () {
       createUserWithEmailAndPassword(this.email, this.password)
+        .then((user) => {
+          console.log(user)
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
     },
   },
 }

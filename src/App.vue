@@ -1,10 +1,9 @@
 <template>
   <v-app>
-    <app-bar v-if="isAppBarShow"/>
+    <app-bar/>
     
     <v-main>
       <router-view/>
-      {{ $store.getters.getIsAuth }}
     </v-main>
     
     <app-footer/>
@@ -18,23 +17,10 @@ import { onAuthStateChanged } from '@/firebase/auth'
 
 export default {
   name: 'App',
-
+  
   components: {
     AppBar,
     AppFooter,
-  },
-  
-  computed: {
-    isAppBarShow () {
-      switch (this.$route.name) {
-        case'sign in':
-          return false
-        case'sign up':
-          return false
-        default:
-          return true
-      }
-    },
   },
   
   created () {
