@@ -42,6 +42,13 @@ export default {
   methods: {
     signIn () {
       signInWithEmailAndPassword(this.email, this.password)
+        .then((user) => {
+          console.log(user)
+          this.$router.back()
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
     },
   },
 }

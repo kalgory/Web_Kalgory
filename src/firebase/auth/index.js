@@ -12,33 +12,44 @@ export function onAuthStateChanged (onUserExist, onUserNotExist) {
 }
 
 export function createUserWithEmailAndPassword (email, password) {
-  Firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((user) => {
-      console.log('create user with email and password')
-      console.log(user)
-    })
-    .catch(error => {
-      console.error(error)
-    })
+  return new Promise(function (resolve, reject) {
+    Firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        console.log('create user with email and password')
+        resolve(user)
+      })
+      .catch((error) => {
+        console.error(error)
+        reject(error)
+      })
+  })
 }
 
 export function signInWithEmailAndPassword (email, password) {
-  Firebase.auth().signInWithEmailAndPassword(email, password)
-    .then((user) => {
-      console.log('sign in with email and password')
-      console.log(user)
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+  return new Promise(function (resolve, reject) {
+    Firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        console.log('sign in with email and password')
+        resolve(user)
+      })
+      .catch((error) => {
+        console.error(error)
+        reject(error)
+      })
+  })
 }
 
 export function signOut () {
-  Firebase.auth().signOut()
-    .then(() => {
-      console.log('sign out with email and password')
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+  return new Promise(function (resolve, reject) {
+    Firebase.auth().signOut()
+      .then(() => {
+        console.log('sign out with email and password')
+        resolve()
+      })
+      .catch((error) => {
+        console.error(error)
+        reject()
+      })
+  })
+
 }
