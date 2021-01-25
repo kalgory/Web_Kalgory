@@ -1,5 +1,7 @@
-const Base404 = () => import('@/views/Base404')
+import Store from '@/store'
 
+// Base
+const Base404 = () => import('@/views/Base404')
 const BaseAuth = () => import('@/views/BaseAuth')
 const BaseProblem = () => import('@/views/BaseProblem')
 const BaseCommunity = () => import('@/views/BaseCommunity')
@@ -11,8 +13,20 @@ const AuthSignUp = () => import('@/views/auth/AuthSignUp')
 
 // Community
 const CommunityDefault = () => import('@/views/community/CommunityDefault')
-const CommunityInformaion = () => import('@/views/community/CommunityInformation')
+const CommunityInformation = () => import('@/views/community/CommunityInformation')
 const CommunityQuestion = () => import('@/views/community/CommunityQuestion')
+
+const requireUnauthorized = () => (to, from, next) => {
+  if (Store.getters.getIsLoading) {
+    next('/')
+  } else {
+    if (Store.getters.getIsAuth) {
+      next('/')
+    } else {
+      next()
+    }
+  }
+}
 
 export default [
   {
@@ -39,6 +53,7 @@ export default [
     path: '/auth',
     component: BaseAuth,
     redirect: '/auth/signin',
+    beforeEnter: requireUnauthorized(),
     children: [
       {
         name: 'sign in',
@@ -71,7 +86,7 @@ export default [
       {
         name: 'information',
         path: 'information',
-        component: CommunityInformaion,
+        component: CommunityInformation,
       },
     ],
   },

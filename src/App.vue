@@ -26,15 +26,15 @@ export default {
   created () {
     this.$store.commit('setIsLoading', true)
     onAuthStateChanged((user) => {
-      // this.$cookies.set('isAuth', true)
-      this.$store.commit('setIsAuth', true)
-      this.$store.commit('setUser', user)
-      this.$store.commit('setIsLoading', false)
-    }, () => {
-      // this.$cookies.set('isAuth', false)
-      this.$store.commit('setIsAuth', false)
-      this.$store.commit('setUser', null)
-      this.$store.commit('setIsLoading', false)
+      if (user) {
+        this.$store.commit('setIsAuth', true)
+        this.$store.commit('setUser', user)
+        this.$store.commit('setIsLoading', false)
+      } else {
+        this.$store.commit('setIsAuth', false)
+        this.$store.commit('setUser', null)
+        this.$store.commit('setIsLoading', false)
+      }
     })
   },
 }

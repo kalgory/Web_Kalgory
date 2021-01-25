@@ -1,13 +1,9 @@
 import Firebase from 'firebase/app'
 
-export function onAuthStateChanged (onUserExist, onUserNotExist) {
+export function onAuthStateChanged (onAuthStateChanged) {
   Firebase.auth().onAuthStateChanged((user) => {
     console.log('auth state changed')
-    if (user) {
-      onUserExist(user)
-    } else {
-      onUserNotExist()
-    }
+    onAuthStateChanged(user)
   })
 }
 
