@@ -2,7 +2,7 @@
   <v-card-text>
     <v-simple-table>
       <tbody>
-      <tr v-for="item in textArray"
+      <tr v-for="item in threadList"
           :key="item.name"
           class="text-center"
       >
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import {communityNewThreadRead} from '@/firebase/community'
 export default {
   name: "CommunityCardText",
   props: {
@@ -26,28 +27,11 @@ export default {
     }
   },
   created() {
-
+    communityNewThreadRead(this.communityType)
   },
   data() {
     return {
-      textArray: [
-        {
-          name: 'a',
-        },
-        {
-          name: 'b',
-        },
-        {
-          name: 'c',
-        },
-        {
-          name: 'd',
-        },
-        {
-          name: 'e',
-        },
-
-      ],
+      threadList:[],
     }
   }
 
