@@ -1,12 +1,8 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col align="end">
-        <v-btn></v-btn>
-      </v-col>
-    </v-row>
+    <router-view></router-view>
   </v-container>
-</template>s
+</template>
 
 <script>
 export default {

@@ -5,6 +5,8 @@
       <tr v-for="(item,index) in threadList"
           :key="index"
           class="text-center"
+          @click="$router.push({name:'question thread',params:{id:item.id, currentThread:item}})"
+
       >
         <td>{{ item.header }}</td>
       </tr>

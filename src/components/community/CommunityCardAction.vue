@@ -21,7 +21,7 @@ name: "CommunityCardAction",
       type: String,
       required: true,
       validator: function (value) {
-        return ['questions', 'information'].indexOf(value) !== -1
+        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1
       },
     }
   },

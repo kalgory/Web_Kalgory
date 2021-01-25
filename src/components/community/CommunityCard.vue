@@ -2,6 +2,7 @@
   <v-card
       class="mx-auto"
       max-width="800"
+      min-width="400"
   >
     <CommunityCardTitle :community-type="communityType"></CommunityCardTitle>
     <CommunityCardText :community-type="communityType"></CommunityCardText>
