@@ -5,7 +5,7 @@
   >
     <CommunityCardTitle :community-type="communityType"></CommunityCardTitle>
     <CommunityCardText :community-type="communityType"></CommunityCardText>
-    <CommunityCardAction></CommunityCardAction>
+    <CommunityCardAction :community-type="communityType"></CommunityCardAction>
   </v-card>
 </template>
 

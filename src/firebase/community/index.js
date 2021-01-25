@@ -28,7 +28,7 @@ function getDocument(threadType) {
 
 export function communityNewThreadRead(threadType, threadList) {
     const doc = getDocument(threadType)
-    doc.limit(5).get().then(sn => {
+    doc.orderBy('created_time','desc').limit(5).get().then(sn => {
         sn.forEach(doc => {
             const newThread = doc.data()
             {newThread.id = doc.id, newThread.created_time = changeDateFormat(doc.data().created_time)}
