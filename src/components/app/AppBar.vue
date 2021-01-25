@@ -12,14 +12,14 @@
     </v-btn>
     <v-spacer/>
     
-    <v-btn v-if="$store.getters.getIsAuth" @click="signOut">
+    <v-btn v-if="isSignOutShow" @click="signOut">
       sign out
     </v-btn>
     
-    <v-btn v-if="!$store.getters.getIsAuth" text to="/auth/signin">
+    <v-btn v-if="isAuthShow" text to="/auth/signin">
       Sign in
     </v-btn>
-    <v-btn v-if="!$store.getters.getIsAuth" to="/auth/signup">
+    <v-btn v-if="isAuthShow" to="/auth/signup">
       Sign up
     </v-btn>
   
@@ -46,6 +46,20 @@ export default {
           return false
         default:
           return true
+      }
+    },
+    isSignOutShow () {
+      if (this.$store.getters.getIsLoading) {
+        return false
+      } else {
+        return this.$store.getters.getIsAuth
+      }
+    },
+    isAuthShow () {
+      if (this.$store.getters.getIsLoading) {
+        return false
+      } else {
+        return !this.$store.getters.getIsAuth
       }
     },
   },

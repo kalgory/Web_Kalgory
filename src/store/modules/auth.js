@@ -1,11 +1,14 @@
 export default {
   state: {
     isLoading: true,
-    isAuth: null,
+    isAuth: false,
     user: null,
   },
   
   getters: {
+    getIsLoading (state) {
+      return state.isLoading
+    },
     getIsAuth (state) {
       return state.isAuth
     },
@@ -15,6 +18,9 @@ export default {
   },
   
   mutations: {
+    setIsLoading (state, value) {
+      state.isLoading = value
+    },
     setIsAuth (state, value) {
       state.isAuth = value
     },
