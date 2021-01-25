@@ -14,8 +14,6 @@ const BaseBoard = () => import('@/views/community/BaseBoard')
 const BaseInformation = () => import('@/views/community/BaseInformation')
 const BaseQuestion = () => import('@/views/community/question/BaseQuestion')
 
-import Store from '@/store'
-
 export default [
   {
     name: 'home',
@@ -41,13 +39,6 @@ export default [
     path: '/auth',
     component: BaseAuth,
     redirect: '/auth/signin',
-    beforeEnter: (to, from, next) => {
-      console.log('test')
-      console.log(!Store.getters.getIsAuth)
-      if (!Store.getters.getIsAuth) {
-        next()
-      }
-    },
     children: [
       {
         name: 'sign in',
@@ -64,7 +55,7 @@ export default [
   {
     name: 'community',
     path: '/community',
-    redirect: { name: 'base board' },
+    redirect: '',
     component: BaseCommunity,
     children: [
       {

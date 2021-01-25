@@ -58,12 +58,15 @@ export default {
   
   methods: {
     signUp () {
+      this.$store.commit('setIsLoading', true)
       createUserWithEmailAndPassword(this.email, this.password)
+        // eslint-disable-next-line no-unused-vars
         .then((user) => {
-          console.log(user)
+          this.$store.commit('setIsLoading', false)
         })
+        // eslint-disable-next-line no-unused-vars
         .catch((error) => {
-          console.warn(error)
+          this.$store.commit('setIsLoading', false)
         })
     },
   },

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 
 import './firebase'
+import './cookies'
 import Store from './store'
 import Vuetify from './vuetify'
 import Router from './router'

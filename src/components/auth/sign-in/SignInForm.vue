@@ -39,15 +39,31 @@ export default {
     password: '',
   }),
   
+  computed: {
+    isAuth () {
+      return this.$store.getters.getIsAuth
+    }
+  },
+  
+  watch: {
+    isAuth (value) {
+      if (value) {
+        this.$router.back()
+      }
+    }
+  },
+  
   methods: {
     signIn () {
+      this.$store.commit('setIsLoading', true)
       signInWithEmailAndPassword(this.email, this.password)
-        .then((user) => {
-          console.log(user)
-          this.$router.back()
+        .then(() => {
+          // this.$router.back()
+          this.$store.commit('setIsLoading', false)
         })
+        // eslint-disable-next-line no-unused-vars
         .catch((error) => {
-          console.warn(error)
+          this.$store.commit('setIsLoading', false)
         })
     },
   },

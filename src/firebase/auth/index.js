@@ -51,5 +51,4 @@ export function signOut () {
         reject()
       })
   })
-
 }
