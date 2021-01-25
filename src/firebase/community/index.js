@@ -1,4 +1,5 @@
 import firebase from 'firebase/app'
+
 function changeDateFormat(timestamp) {
     const date = timestamp.toDate()
     const now = new Date()
@@ -17,21 +18,23 @@ function changeDateFormat(timestamp) {
         return year + '년' + month + '월 ' + day + '일 ' + hour + '시 ' + minute + '분'
     }
 }
-function getDocument(threadType){
-    if(threadType==="questions" || threadType==="popular questions")
-        return firebase.firestore().collection('COMMUNITY').doc('6zh2VISAhIJnRTBTm2iY').collection('Question')
-    else if(threadType==="information"||threadType==="popular information")
-        return firebase.firestore().collection('COMMUNITY').doc('3Cgg1Dgk1skk1FcD1JHq').collection('Information')
+
+function getDocument(threadType) {
+    if (threadType === "questions" || threadType === "popular questions")
+        return firebase.firestore().collection('COMMUNITY').doc('6zh2VISAhIJnRTBTm2iY').collection('QUESTION')
+    else if (threadType === "information" || threadType === "popular information")
+        return firebase.firestore().collection('COMMUNITY').doc('3Cgg1Dgk1skk1FcD1JHq').collection('INFORMATION')
 }
 
-export function communityNewThreadRead(threadType){
-    const doc=getDocument(threadType)
-    doc.limit(5).get().then(sn=>{
-        sn.forEach(doc=>{
+export function communityNewThreadRead(threadType, threadList) {
+    const doc = getDocument(threadType)
+    doc.limit(5).get().then(sn => {
+        sn.forEach(doc => {
             const newThread = doc.data()
-            {newThread.id=doc.id, newThread.created_time = changeDateFormat(doc.data().created_time)}
-            console.log(newThread)
-            console.log(changeDateFormat(doc.data().created_time))
+            {newThread.id = doc.id, newThread.created_time = changeDateFormat(doc.data().created_time)}
+            threadList.push(newThread)
         })
+    }).catch(function (err) {
+        console.log(err)
     })
 }

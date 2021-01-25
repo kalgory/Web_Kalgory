@@ -2,11 +2,11 @@
   <v-card-text>
     <v-simple-table>
       <tbody>
-      <tr v-for="item in threadList"
-          :key="item.name"
+      <tr v-for="(item,index) in threadList"
+          :key="index"
           class="text-center"
       >
-        <td>{{ item.name }}</td>
+        <td>{{ item.header }}</td>
       </tr>
       </tbody>
     </v-simple-table>
@@ -15,6 +15,7 @@
 
 <script>
 import {communityNewThreadRead} from '@/firebase/community'
+
 export default {
   name: "CommunityCardText",
   props: {
@@ -27,11 +28,11 @@ export default {
     }
   },
   created() {
-    communityNewThreadRead(this.communityType)
+    communityNewThreadRead(this.communityType, this.threadList)
   },
   data() {
     return {
-      threadList:[],
+      threadList: [],
     }
   }
 
