@@ -10,9 +10,9 @@ export function onAuthStateChanged (onAuthStateChanged) {
 export function createUserWithEmailAndPassword (email, password) {
   return new Promise(function (resolve, reject) {
     Firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((user) => {
+      .then((userCredential) => {
         console.log('create user with email and password')
-        resolve(user)
+        resolve(userCredential)
       })
       .catch((error) => {
         console.error(error)
@@ -24,9 +24,9 @@ export function createUserWithEmailAndPassword (email, password) {
 export function signInWithEmailAndPassword (email, password) {
   return new Promise(function (resolve, reject) {
     Firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((user) => {
+      .then((userCredential) => {
         console.log('sign in with email and password')
-        resolve(user)
+        resolve(userCredential)
       })
       .catch((error) => {
         console.error(error)
@@ -47,4 +47,24 @@ export function signOut () {
         reject()
       })
   })
+}
+
+export function signInWithGoogle () {
+  const GoogleAuthProvider = new Firebase.auth.GoogleAuthProvider()
+  // GoogleAuthProvider.addScope('')
+  return new Promise(function (resolve, reject) {
+    Firebase.auth().signInWithPopup(GoogleAuthProvider)
+      .then((user) => {
+        console.log(user)
+        resolve(user)
+      })
+      .catch((error) => {
+        console.error(error)
+        reject()
+      })
+  })
+}
+
+export function signInWithFaceBook () {
+
 }

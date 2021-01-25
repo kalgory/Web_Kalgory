@@ -61,7 +61,8 @@ export default {
       this.$store.commit('setIsLoading', true)
       createUserWithEmailAndPassword(this.email, this.password)
         // eslint-disable-next-line no-unused-vars
-        .then((user) => {
+        .then(() => {
+          this.$router.back()
           this.$store.commit('setIsLoading', false)
         })
         // eslint-disable-next-line no-unused-vars
