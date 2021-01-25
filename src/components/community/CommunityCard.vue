@@ -2,10 +2,11 @@
   <v-card
       class="mx-auto"
       max-width="800"
+      min-width="400"
   >
     <CommunityCardTitle :community-type="communityType"></CommunityCardTitle>
     <CommunityCardText :community-type="communityType"></CommunityCardText>
-    <CommunityCardAction></CommunityCardAction>
+    <CommunityCardAction :community-type="communityType"></CommunityCardAction>
   </v-card>
 </template>
 

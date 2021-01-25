@@ -2,11 +2,13 @@
   <v-card-text>
     <v-simple-table>
       <tbody>
-      <tr v-for="item in textArray"
-          :key="item.name"
+      <tr v-for="(item,index) in threadList"
+          :key="index"
           class="text-center"
+          @click="$router.push({name:'question thread',params:{id:item.id, currentThread:item}})"
+
       >
-        <td>{{ item.name }}</td>
+        <td>{{ item.header }}</td>
       </tr>
       </tbody>
     </v-simple-table>
@@ -14,6 +16,8 @@
 </template>
 
 <script>
+import {communityNewThreadRead} from '@/firebase/community'
+
 export default {
   name: "CommunityCardText",
   props: {
@@ -26,28 +30,11 @@ export default {
     }
   },
   created() {
-
+    communityNewThreadRead(this.communityType, this.threadList)
   },
   data() {
     return {
-      textArray: [
-        {
-          name: 'a',
-        },
-        {
-          name: 'b',
-        },
-        {
-          name: 'c',
-        },
-        {
-          name: 'd',
-        },
-        {
-          name: 'e',
-        },
-
-      ],
+      threadList: [],
     }
   }
 
