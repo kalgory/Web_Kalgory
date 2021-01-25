@@ -1,14 +1,24 @@
 <template>
   <div>
     <div v-once class="text-h4 text-center font-weight-black pb-6 pt-2">
-      Kalgory Community
+      {{communityType}}
     </div>
   </div>
 </template>
 
 <script>
 export default {
-name: "CommunityCardTitle"
+name: "CommunityCardTitle",
+  props: {
+    communityType: {
+      type: String,
+      required: true,
+      validator: function (value) {
+        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1
+      },
+    }
+  },
+
 }
 </script>
 

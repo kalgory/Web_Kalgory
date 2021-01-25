@@ -10,7 +10,7 @@ const BaseSignIn = () => import('@/views/auth/BaseSignIn')
 const BaseSignUp = () => import('@/views/auth/BaseSignUp')
 
 // Community
-const BaseBoard = () => import('@/views/community/BaseBoard')
+const BaseCommunityDefault = () => import('@/views/community/BaseCommunityDefault')
 const BaseInformation = () => import('@/views/community/BaseInformation')
 const BaseQuestion = () => import('@/views/community/question/BaseQuestion')
 
@@ -55,13 +55,13 @@ export default [
   {
     name: 'community',
     path: '/community',
-    redirect: '',
+    redirect: '/community',
     component: BaseCommunity,
     children: [
       {
         name: 'base board',
         path: '',
-        component: BaseBoard,
+        component: BaseCommunityDefault,
       },
       {
         name: 'question',
