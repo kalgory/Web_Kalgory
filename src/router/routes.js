@@ -20,8 +20,15 @@ const CommunityQuestion = () => import('@/views/community/CommunityQuestion')
 const QuestionThread = () => import('@/views/community/question/QuestionThread')
 
 const requireUnauthorized = () => (to, from, next) => {
-    if (Store.getters.getIsLoading) {
-        next('/')
+  if (Store.getters.getIsLoading) {
+    if (localStorage.getItem('isAuth') === "true") {
+      next('/')
+    } else {
+      next()
+    }
+  } else {
+    if (Store.getters.getIsAuth) {
+      next('/')
     } else {
         if (Store.getters.getIsAuth) {
             next('/')

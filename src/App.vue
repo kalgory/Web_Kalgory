@@ -27,10 +27,12 @@ export default {
     this.$store.commit('setIsLoading', true)
     onAuthStateChanged((user) => {
       if (user) {
+        localStorage.setItem('isAuth', "true")
         this.$store.commit('setIsAuth', true)
         this.$store.commit('setUser', user)
         this.$store.commit('setIsLoading', false)
       } else {
+        localStorage.setItem('isAuth', "false")
         this.$store.commit('setIsAuth', false)
         this.$store.commit('setUser', null)
         this.$store.commit('setIsLoading', false)

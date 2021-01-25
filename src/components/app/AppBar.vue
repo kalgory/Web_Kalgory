@@ -50,14 +50,14 @@ export default {
     },
     isSignOutShow () {
       if (this.$store.getters.getIsLoading) {
-        return false
+        return localStorage.getItem('isAuth') === 'true'
       } else {
         return this.$store.getters.getIsAuth
       }
     },
     isAuthShow () {
       if (this.$store.getters.getIsLoading) {
-        return false
+        return localStorage.getItem('isAuth') === 'false'
       } else {
         return !this.$store.getters.getIsAuth
       }
