@@ -6,13 +6,13 @@ const BaseCommunity = () => import('@/views/BaseCommunity')
 const BaseConcept = () => import('@/views/BaseConcept')
 
 // Auth
-const BaseSignIn = () => import('@/views/auth/BaseSignIn')
-const BaseSignUp = () => import('@/views/auth/BaseSignUp')
+const AuthSignIn = () => import('@/views/auth/AuthSignIn')
+const AuthSignUp = () => import('@/views/auth/AuthSignUp')
 
 // Community
-const BaseCommunityDefault = () => import('@/views/community/BaseCommunityDefault')
-const BaseInformation = () => import('@/views/community/BaseInformation')
-const BaseQuestion = () => import('@/views/community/question/BaseQuestion')
+const CommunityDefault = () => import('@/views/community/CommunityDefault')
+const CommunityInformaion = () => import('@/views/community/CommunityInformation')
+const CommunityQuestion = () => import('@/views/community/CommunityQuestion')
 
 export default [
   {
@@ -43,12 +43,12 @@ export default [
       {
         name: 'sign in',
         path: 'signin',
-        component: BaseSignIn,
+        component: AuthSignIn,
       },
       {
         name: 'sign up',
         path: 'signup',
-        component: BaseSignUp,
+        component: AuthSignUp,
       },
     ],
   },
@@ -61,17 +61,17 @@ export default [
       {
         name: 'base board',
         path: '',
-        component: BaseCommunityDefault,
+        component: CommunityDefault,
       },
       {
         name: 'question',
         path: 'question',
-        component: BaseQuestion,
+        component: CommunityQuestion,
       },
       {
         name: 'information',
         path: 'information',
-        component: BaseInformation,
+        component: CommunityInformaion,
       },
     ],
   },
