@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import AppBar from '@/components/app/AppBar';
-import AppFooter from '@/components/app/AppFooter';
+import AppBar from '@/components/app/AppBar.vue';
+import AppFooter from '@/components/app/AppFooter.vue';
 import { onAuthStateChanged } from '@/plugins/firebase/auth';
 
 export default {

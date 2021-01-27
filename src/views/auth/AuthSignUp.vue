@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import AuthCard from '@/components/auth/AuthCard';
+import AuthCard from '@/components/auth/AuthCard.vue';
 
 export default {
   name: 'SignUp',

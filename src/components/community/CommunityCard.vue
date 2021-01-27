@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import CommunityCardTitle from '@/components/community/CommunityCardTitle';
-import CommunityCardAction from '@/components/community/CommunityCardAction';
-import CommunityCardText from '@/components/community/CommunityCardText';
+import CommunityCardTitle from '@/components/community/CommunityCardTitle.vue';
+import CommunityCardAction from '@/components/community/CommunityCardAction.vue';
+import CommunityCardText from '@/components/community/CommunityCardText.vue';
 
 export default {
   name: 'CommunityCard',

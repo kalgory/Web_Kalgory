@@ -18,12 +18,12 @@
 </template>
 
 <script>
-import AuthSocialContainer from '@/components/auth/AuthSocialContainer';
-import SignInForm from '@/components/auth/sign-in/SignInForm';
-import SignUpForm from '@/components/auth/sign-up/SignUpForm';
-import AuthCardTitle from '@/components/auth/AuthCardTitle';
-import SignInCardActions from '@/components/auth/sign-in/SignInCardActions';
-import SignUpCardActions from '@/components/auth/sign-up/SignUpCardActions';
+import AuthSocialContainer from '@/components/auth/AuthSocialContainer.vue';
+import SignInForm from '@/components/auth/sign-in/SignInForm.vue';
+import SignUpForm from '@/components/auth/sign-up/SignUpForm.vue';
+import AuthCardTitle from '@/components/auth/AuthCardTitle.vue';
+import SignInCardActions from '@/components/auth/sign-in/SignInCardActions.vue';
+import SignUpCardActions from '@/components/auth/sign-up/SignUpCardActions.vue';
 
 export default {
   name: 'AuthCard',
