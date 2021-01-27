@@ -2,21 +2,21 @@
   <v-card-text>
     <v-simple-table>
       <tbody>
-      <tr v-for="(item,index) in posts"
+        <tr
+          v-for="(item,index) in posts"
           :key="index"
           class="text-center"
           @click="$router.push({name:'question thread',params:{id:item.id, currentThread:item}})"
-
-      >
-        <td>{{ item.header }}</td>
-      </tr>
+        >
+          <td>{{ item.header }}</td>
+        </tr>
       </tbody>
     </v-simple-table>
   </v-card-text>
 </template>
 
 <script>
-import {communityNewThreadRead} from '@/firebase/community'
+import {readNewQuestionPost} from '@/firebase/community'
 
 export default {
   name: "CommunityCardText",
@@ -29,14 +29,13 @@ export default {
       },
     }
   },
-  created() {
-    if(this.communityType.indexOf('questions')!=-1) readNewQuestionPost(this.posts)
-    },
-  },
   data() {
     return {
       posts: [],
     }
+  },
+  created() {
+    if(this.communityType.indexOf('questions')!==-1) readNewQuestionPost(this.posts)
   }
 
 };

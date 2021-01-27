@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div v-once class="text-h4 text-center font-weight-black pb-6 pt-2">
+    <div
+      v-once
+      class="text-h4 text-center font-weight-black pb-6 pt-2"
+    >
       {{ currentTypeString }}
     </div>
   </div>

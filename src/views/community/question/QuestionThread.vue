@@ -1,6 +1,6 @@
 <template>
   <v-card outlined>
-    <v-card-title v-text="$route.params.id"></v-card-title>
+    <v-card-title v-text="$route.params.id" />
   </v-card>
 </template>
 

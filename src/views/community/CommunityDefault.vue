@@ -2,10 +2,11 @@
   <v-container fill-height>
     <v-row>
       <v-col>
-        <CommunityCard v-for="(cardType,index) in cardList"
-                       :key="index"
-                       :community-type="cardType"
-        ></CommunityCard>
+        <CommunityCard
+          v-for="(cardType,index) in cardList"
+          :key="index"
+          :community-type="cardType"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -19,7 +20,6 @@ export default {
   components: {
     CommunityCard,
   },
-  name: "BaseCommunityDefault",
   data() {
     return {
       cardList: ['popular information', 'popular questions', 'information', 'questions',]
