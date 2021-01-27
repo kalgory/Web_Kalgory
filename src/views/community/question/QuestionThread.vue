@@ -1,6 +1,6 @@
 <template>
   <v-card outlined>
-    <v-card-title v-text="currentThread.header"></v-card-title>
+    <v-card-title v-text="currentThread.header" />
   </v-card>
 </template>
 

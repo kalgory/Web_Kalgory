@@ -1,5 +1,8 @@
 <template>
-  <v-container fill-height fluid>
+  <v-container
+    fill-height
+    fluid
+  >
     <v-row justify="center">
       <v-col>
         <p class="text-center text-h1">

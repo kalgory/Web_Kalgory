@@ -6,7 +6,10 @@
       </v-btn>
     </div>
     
-    <div v-once class="text-center font-weight-black py-6 pt-2">
+    <div
+      v-once
+      class="text-center font-weight-black py-6 pt-2"
+    >
       {{ title }}
     </div>
   </div>
@@ -15,12 +18,6 @@
 <script>
 export default {
   name: 'AuthCardTitle',
-  
-  data: () => ({
-    title: '',
-    signInTitle: 'Sign in to kalgory',
-    signUpTitle: 'Sign Up to kalgory',
-  }),
   
   props: {
     authType: {
@@ -31,6 +28,12 @@ export default {
       },
     },
   },
+  
+  data: () => ({
+    title: '',
+    signInTitle: 'Sign in to kalgory',
+    signUpTitle: 'Sign Up to kalgory',
+  }),
   
   created () {
     if (this.authType === 'sign in') {

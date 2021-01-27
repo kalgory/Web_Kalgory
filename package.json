@@ -51,13 +51,12 @@
     "last 2 versions",
     "not dead"
   ],
-  "description": "",
   "main": "babel.config.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kalgory/Web_Kalgory.git"
   },
-  "author": "",
+  "author": "Hyunmin Jung",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kalgory/Web_Kalgory/issues"

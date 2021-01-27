@@ -1,7 +1,5 @@
 <template>
-  <v-data-iterator>
-
-  </v-data-iterator>
+  <v-data-iterator />
 </template>
 
 <script>

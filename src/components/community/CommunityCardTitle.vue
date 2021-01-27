@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div v-once class="text-h4 text-center font-weight-black pb-6 pt-2">
-      {{communityType}}
+    <div
+      v-once
+      class="text-h4 text-center font-weight-black pb-6 pt-2"
+    >
+      {{ communityType }}
     </div>
   </div>
 </template>

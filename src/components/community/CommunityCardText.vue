@@ -2,14 +2,14 @@
   <v-card-text>
     <v-simple-table>
       <tbody>
-      <tr v-for="(item,index) in threadList"
+        <tr
+          v-for="(item,index) in threadList"
           :key="index"
           class="text-center"
           @click="$router.push({name:'question thread',params:{id:item.id, currentThread:item}})"
-
-      >
-        <td>{{ item.header }}</td>
-      </tr>
+        >
+          <td>{{ item.header }}</td>
+        </tr>
       </tbody>
     </v-simple-table>
   </v-card-text>
@@ -29,13 +29,13 @@ export default {
       },
     }
   },
-  created() {
-    communityNewThreadRead(this.communityType, this.threadList)
-  },
   data() {
     return {
       threadList: [],
     }
+  },
+  created() {
+    communityNewThreadRead(this.communityType, this.threadList)
   }
 
 }

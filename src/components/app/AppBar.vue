@@ -1,28 +1,49 @@
 <template>
-  <v-app-bar v-if="isAppBarShow" app>
-    <initial-logo/>
-    <v-btn text to="/problem">
+  <v-app-bar
+    v-if="isAppBarShow"
+    app
+  >
+    <initial-logo />
+    <v-btn
+      text
+      to="/problem"
+    >
       problem
     </v-btn>
-    <v-btn text to="/concept">
+    <v-btn
+      text
+      to="/concept"
+    >
       concept
     </v-btn>
-    <v-btn text to="/community">
+    <v-btn
+      text
+      to="/community"
+    >
       community
     </v-btn>
-    <v-spacer/>
+    <v-spacer />
     
-    <v-btn v-if="isSignOutShow" @click="signOut">
+    <v-btn
+      v-if="isSignOutShow"
+      @click="signOut"
+    >
       sign out
     </v-btn>
     
-    <v-btn v-if="isAuthShow" text to="/auth/signin">
+    <v-btn
+      v-if="isAuthShow"
+      text
+      to="/auth/signin"
+    >
       Sign in
     </v-btn>
-    <v-btn v-if="isAuthShow" to="/auth/signup">
+    <v-btn
+      v-if="isAuthShow"
+      to="/auth/signup"
+    >
       Sign up
     </v-btn>
-  
   </v-app-bar>
 </template>
 

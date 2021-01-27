@@ -3,17 +3,17 @@
     width="400"
     class="mx-auto"
   >
-    <auth-card-title :auth-type="authType"/>
+    <auth-card-title :auth-type="authType" />
     
-    <auth-social-container/>
+    <auth-social-container />
     
-    <v-divider class="ma-8"/>
+    <v-divider class="ma-8" />
     
-    <sign-in-form v-if="authType==='sign in'"/>
-    <sign-up-form v-if="authType==='sign up'"/>
+    <sign-in-form v-if="authType==='sign in'" />
+    <sign-up-form v-if="authType==='sign up'" />
     
-    <sign-in-card-actions v-if="authType==='sign in'"/>
-    <sign-up-card-actions v-if="authType==='sign up'"/>
+    <sign-in-card-actions v-if="authType==='sign in'" />
+    <sign-up-card-actions v-if="authType==='sign up'" />
   </v-card>
 </template>
 

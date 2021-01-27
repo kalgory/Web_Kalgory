@@ -1,5 +1,5 @@
 <template>
-  <auth-card auth-type="sign in"/>
+  <auth-card auth-type="sign in" />
 </template>
 
 <script>

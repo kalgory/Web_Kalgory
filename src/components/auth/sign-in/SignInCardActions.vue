@@ -9,7 +9,7 @@
           Forgot password?
         </v-btn>
       </v-col>
-      <v-spacer/>
+      <v-spacer />
       <v-col>
         <v-btn
           text

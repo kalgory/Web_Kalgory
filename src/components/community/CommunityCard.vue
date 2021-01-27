@@ -1,12 +1,12 @@
 <template>
   <v-card
-      class="mx-auto"
-      max-width="800"
-      min-width="400"
+    class="mx-auto"
+    max-width="800"
+    min-width="400"
   >
-    <CommunityCardTitle :community-type="communityType"></CommunityCardTitle>
-    <CommunityCardText :community-type="communityType"></CommunityCardText>
-    <CommunityCardAction :community-type="communityType"></CommunityCardAction>
+    <CommunityCardTitle :community-type="communityType" />
+    <CommunityCardText :community-type="communityType" />
+    <CommunityCardAction :community-type="communityType" />
   </v-card>
 </template>
 
@@ -16,6 +16,12 @@ import CommunityCardAction from "@/components/community/CommunityCardAction";
 import CommunityCardText from "@/components/community/CommunityCardText";
 
 export default {
+  name: "CommunityCard",
+  components: {
+    CommunityCardTitle,
+    CommunityCardAction,
+    CommunityCardText,
+  },
   props: {
     communityType: {
       type: String,
@@ -24,13 +30,7 @@ export default {
         return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1
       },
     }
-  },
-  components: {
-    CommunityCardTitle,
-    CommunityCardAction,
-    CommunityCardText,
-  },
-  name: "CommunityCard"
+  }
 }
 </script>
 
