@@ -3,7 +3,7 @@
     <v-simple-table>
       <tbody>
         <tr
-          v-for="(item,index) in threadList"
+          v-for="(item,index) in posts"
           :key="index"
           class="text-center"
           @click="$router.push({name:'question thread',params:{id:item.id, currentThread:item}})"
@@ -16,27 +16,27 @@
 </template>
 
 <script>
-import { communityNewThreadRead } from '@/plugins/firebase/firestore/community';
+import {readNewQuestionPost} from '@/firebase/community'
 
 export default {
-  name: 'CommunityCardText',
+  name: "CommunityCardText",
   props: {
     communityType: {
       type: String,
       required: true,
-      validator(value) {
-        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1;
+      validator: function (value) {
+        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1
       },
-    },
+    }
   },
   data() {
     return {
-      threadList: [],
-    };
+      posts: [],
+    }
   },
   created() {
-    communityNewThreadRead(this.communityType, this.threadList);
-  },
+    if(this.communityType.indexOf('questions')!==-1) readNewQuestionPost(this.posts)
+  }
 
 };
 </script>
