@@ -2,18 +2,10 @@
   <v-container fill-height>
     <v-row>
       <v-col>
-        <CommunityCard community-type="popular questions" />
-      </v-col>
-      <v-col>
-        <CommunityCard community-type="questions" />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <CommunityCard community-type="popular information" />
-      </v-col>
-      <v-col>
-        <CommunityCard community-type="information" />
+        <CommunityCard v-for="(cardType,index) in cardList"
+                       :key="index"
+                       :community-type="cardType"
+        ></CommunityCard>
       </v-col>
     </v-row>
   </v-container>
@@ -27,7 +19,22 @@ export default {
   components: {
     CommunityCard,
   },
-};
+  name: "BaseCommunityDefault",
+  data() {
+    return {
+      cardList: ['popular information', 'popular questions', 'information', 'questions',]
+    }
+  },
+  created() {
+    for (let i = 0; i < this.cardList.length; i++) {
+      let j = Math.floor(Math.random() * (i + 1))
+      const x = this.cardList[i]
+      this.cardList[i] = this.cardList[j]
+      this.cardList[j] = x
+    }
+  }
+
+}
 </script>
 
 <style scoped>
