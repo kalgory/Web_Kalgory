@@ -3,16 +3,16 @@
     <v-row justify="center">
       <v-col cols="4">
         <v-btn
-          @click="signInWithGoogle"
           block
+          @click="signInWithGoogle"
         >
           Google
         </v-btn>
       </v-col>
       <v-col cols="4">
         <v-btn
-          @click="signInWithFaceBook"
           block
+          @click="signInWithFaceBook"
         >
           Facebook
         </v-btn>
@@ -31,10 +31,8 @@ export default {
     signInWithGoogle () {
       signInWithGoogle()
         .then(() => {
-        
         })
         .catch(() => {
-        
         })
     },
     signInWithFaceBook () {
