@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { signInWithEmailAndPassword } from '@/firebase/auth'
+import { signInWithEmailAndPassword } from '@/plugins/firebase/auth'
 
 export default {
   name: 'SignInForm',

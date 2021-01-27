@@ -13,7 +13,7 @@
 <script>
 import AppBar from '@/components/app/AppBar'
 import AppFooter from '@/components/app/AppFooter'
-import { onAuthStateChanged } from '@/firebase/auth'
+import { onAuthStateChanged } from '@/plugins/firebase/auth'
 
 export default {
   name: 'App',

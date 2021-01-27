@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { signInWithGoogle, signInWithFaceBook } from '@/firebase/auth'
+import { signInWithGoogle, signInWithFaceBook } from '@/plugins/firebase/auth'
 
 export default {
   name: 'AuthSocialContainer',

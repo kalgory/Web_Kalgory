@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { createUserWithEmailAndPassword } from '@/firebase/auth'
+import { createUserWithEmailAndPassword } from '@/plugins/firebase/auth'
 
 export default {
   name: 'SignUpForm',

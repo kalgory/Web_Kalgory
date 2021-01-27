@@ -49,7 +49,7 @@
 
 <script>
 import InitialLogo from '@/assets/InitialLogo'
-import { signOut } from '@/firebase/auth'
+import { signOut } from '@/plugins/firebase/auth'
 
 export default {
   name: 'AppBar',

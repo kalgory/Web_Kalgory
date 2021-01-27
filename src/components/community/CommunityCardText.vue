@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {communityNewThreadRead} from '@/firebase/community'
+import {communityNewThreadRead} from '@/plugins/firebase/firestore/community'
 
 export default {
   name: "CommunityCardText",

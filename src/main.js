@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import './firebase'
+import './plugins/firebase'
 import Store from './store'
-import Vuetify from './vuetify'
+import Vuetify from './plugins/vuetify'
 import Router from './router'
 
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
