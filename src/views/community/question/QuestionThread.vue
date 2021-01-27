@@ -9,10 +9,10 @@ export default {
   name: 'QuestionThread',
   data() {
     return {
-    }
+    };
   },
   created() {
-  }
+  },
 
 };
 </script>

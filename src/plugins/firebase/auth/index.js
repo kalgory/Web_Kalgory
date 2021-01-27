@@ -1,5 +1,6 @@
 import Firebase from 'firebase/app';
 
+// eslint-disable-next-line no-shadow
 export function onAuthStateChanged(onAuthStateChanged) {
   Firebase.auth().onAuthStateChanged((user) => {
     console.log('auth state changed');

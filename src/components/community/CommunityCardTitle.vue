@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "CommunityCardTitle",
+  name: 'CommunityCardTitle',
   props: {
     communityType: {
       type: String,
@@ -23,15 +23,15 @@ export default {
   },
   data() {
     return {
-      currentTypeString: ''
-    }
+      currentTypeString: '',
+    };
   },
   created() {
-    if(this.communityType==='popular questions') this.currentTypeString='실시간 인기 질문글'
-    else if(this.communityType==='questions') this.currentTypeString='최신 질문글'
-    else if(this.communityType==='popular information') this.currentTypeString='실시간 인기 정보글'
-    else this.currentTypeString='최신 정보글'
-  }
+    if (this.communityType === 'popular questions') this.currentTypeString = '실시간 인기 질문글';
+    else if (this.communityType === 'questions') this.currentTypeString = '최신 질문글';
+    else if (this.communityType === 'popular information') this.currentTypeString = '실시간 인기 정보글';
+    else this.currentTypeString = '최신 정보글';
+  },
 
 };
 </script>
