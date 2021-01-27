@@ -16,27 +16,27 @@
 </template>
 
 <script>
-import {readNewQuestionPost} from '@/firebase/community'
+import readNewPost from '@/plugins/firebase/firestore/community';
 
 export default {
-  name: "CommunityCardText",
+  name: 'CommunityCardText',
   props: {
     communityType: {
       type: String,
       required: true,
-      validator: function (value) {
-        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1
+      validator(value) {
+        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1;
       },
-    }
+    },
   },
   data() {
     return {
       posts: [],
-    }
+    };
   },
   created() {
-    if(this.communityType.indexOf('questions')!==-1) readNewQuestionPost(this.posts)
-  }
+    if (this.communityType.indexOf('questions') !== -1) readNewPost(this.communityType, this.posts);
+  },
 
 };
 </script>
