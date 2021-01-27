@@ -45,7 +45,12 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": { "no-console": "off" }
+    "rules": {
+      "no-console": "off"
+    },
+    "ignorePatterns": [
+      "src/assets/*.vue"
+    ]
   },
   "browserslist": [
     "> 1%",
