@@ -9,7 +9,7 @@
           Forgot password?
         </v-btn>
       </v-col>
-      <v-spacer/>
+      <v-spacer />
       <v-col>
         <v-btn
           text
@@ -26,7 +26,7 @@
 <script>
 export default {
   name: 'SignInCardActions',
-}
+};
 </script>
 
 <style scoped>

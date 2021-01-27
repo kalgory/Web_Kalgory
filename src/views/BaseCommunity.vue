@@ -1,13 +1,13 @@
 <template>
-  <router-view></router-view>
+  <router-view />
 </template>
 
 <script>
 export default {
+  name: 'BaseCommunity',
   components: {
   },
-  name: 'BaseCommunity',
-}
+};
 </script>
 
 <style scoped>

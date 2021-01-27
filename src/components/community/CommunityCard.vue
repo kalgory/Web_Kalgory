@@ -1,37 +1,37 @@
 <template>
   <v-card
-      class="mx-auto"
-      max-width="800"
-      min-width="400"
+    class="mx-auto"
+    max-width="800"
+    min-width="400"
   >
-    <CommunityCardTitle :community-type="communityType"></CommunityCardTitle>
-    <CommunityCardText :community-type="communityType"></CommunityCardText>
-    <CommunityCardAction :community-type="communityType"></CommunityCardAction>
+    <CommunityCardTitle :community-type="communityType" />
+    <CommunityCardText :community-type="communityType" />
+    <CommunityCardAction :community-type="communityType" />
   </v-card>
 </template>
 
 <script>
-import CommunityCardTitle from "@/components/community/CommunityCardTitle";
-import CommunityCardAction from "@/components/community/CommunityCardAction";
-import CommunityCardText from "@/components/community/CommunityCardText";
+import CommunityCardTitle from '@/components/community/CommunityCardTitle.vue';
+import CommunityCardAction from '@/components/community/CommunityCardAction.vue';
+import CommunityCardText from '@/components/community/CommunityCardText.vue';
 
 export default {
-  props: {
-    communityType: {
-      type: String,
-      required: true,
-      validator: function (value) {
-        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1
-      },
-    }
-  },
+  name: 'CommunityCard',
   components: {
     CommunityCardTitle,
     CommunityCardAction,
     CommunityCardText,
   },
-  name: "CommunityCard"
-}
+  props: {
+    communityType: {
+      type: String,
+      required: true,
+      validator(value) {
+        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1;
+      },
+    },
+  },
+};
 </script>
 
 <style scoped>

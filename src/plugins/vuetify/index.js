@@ -9,11 +9,11 @@ export default new Vuetify({
       light: {
         primary: '#7C4DFE',
         success: '#4caf50',
-        error: '#f44336'
+        error: '#f44336',
       },
       dark: {
 
-      }
+      },
     },
   },
 });
