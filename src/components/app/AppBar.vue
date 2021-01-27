@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import InitialLogo from '@/assets/InitialLogo';
+import InitialLogo from '@/assets/InitialLogo.vue';
 import { signOut } from '@/plugins/firebase/auth';
 
 export default {
