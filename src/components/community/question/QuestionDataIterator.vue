@@ -4,8 +4,8 @@
 
 <script>
 export default {
-name: "QuestionDataIterator"
-}
+  name: 'QuestionDataIterator',
+};
 </script>
 
 <style scoped>

@@ -26,7 +26,7 @@
 <script>
 export default {
   name: 'SignUpCardActions',
-}
+};
 </script>
 
 <style scoped>

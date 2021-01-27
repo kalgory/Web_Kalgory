@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'InformationBoard',
-}
+};
 </script>
 
 <style scoped>

@@ -6,19 +6,19 @@
 
 <script>
 export default {
-  name: "QuestionThread",
+  name: 'QuestionThread',
   data() {
     return {
       currentThread: {},
-    }
+    };
   },
   created() {
-    this.currentThread = this.$route.params.currentThread
+    this.currentThread = this.$route.params.currentThread;
 
-    console.log(this.currentThread)
-  }
+    console.log(this.currentThread);
+  },
 
-}
+};
 </script>
 
 <style scoped>

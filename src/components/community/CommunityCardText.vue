@@ -16,29 +16,29 @@
 </template>
 
 <script>
-import {communityNewThreadRead} from '@/plugins/firebase/firestore/community'
+import { communityNewThreadRead } from '@/plugins/firebase/firestore/community';
 
 export default {
-  name: "CommunityCardText",
+  name: 'CommunityCardText',
   props: {
     communityType: {
       type: String,
       required: true,
-      validator: function (value) {
-        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1
+      validator(value) {
+        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1;
       },
-    }
+    },
   },
   data() {
     return {
       threadList: [],
-    }
+    };
   },
   created() {
-    communityNewThreadRead(this.communityType, this.threadList)
-  }
+    communityNewThreadRead(this.communityType, this.threadList);
+  },
 
-}
+};
 </script>
 
 <style scoped>

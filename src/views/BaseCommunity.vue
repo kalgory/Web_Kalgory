@@ -7,7 +7,7 @@ export default {
   name: 'BaseCommunity',
   components: {
   },
-}
+};
 </script>
 
 <style scoped>

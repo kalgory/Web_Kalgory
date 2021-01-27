@@ -1,39 +1,37 @@
-import Store from '@/store'
+import Store from '@/store';
 
 // Base
-const Base404 = () => import('@/views/Base404')
-const BaseAuth = () => import('@/views/BaseAuth')
-const BaseProblem = () => import('@/views/BaseProblem')
-const BaseCommunity = () => import('@/views/BaseCommunity')
-const BaseConcept = () => import('@/views/BaseConcept')
+const Base404 = () => import('@/views/Base404');
+const BaseAuth = () => import('@/views/BaseAuth');
+const BaseProblem = () => import('@/views/BaseProblem');
+const BaseCommunity = () => import('@/views/BaseCommunity');
+const BaseConcept = () => import('@/views/BaseConcept');
 
 // Auth
-const AuthSignIn = () => import('@/views/auth/AuthSignIn')
-const AuthSignUp = () => import('@/views/auth/AuthSignUp')
+const AuthSignIn = () => import('@/views/auth/AuthSignIn');
+const AuthSignUp = () => import('@/views/auth/AuthSignUp');
 
 // Community
-const CommunityDefault = () => import('@/views/community/CommunityDefault')
-const CommunityInformation = () => import('@/views/community/CommunityInformation')
-const CommunityQuestion = () => import('@/views/community/CommunityQuestion')
+const CommunityDefault = () => import('@/views/community/CommunityDefault');
+const CommunityInformation = () => import('@/views/community/CommunityInformation');
+const CommunityQuestion = () => import('@/views/community/CommunityQuestion');
 
-//Question
-const QuestionThread = () => import('@/views/community/question/QuestionThread')
+// Question
+const QuestionThread = () => import('@/views/community/question/QuestionThread');
 
 const requireUnauthorized = () => (to, from, next) => {
   if (Store.getters.getIsLoading) {
     if (localStorage.getItem('isAuth') === 'true') {
-      next('/')
+      next('/');
     } else {
-      next()
+      next();
     }
+  } else if (Store.getters.getIsAuth) {
+    next('/');
   } else {
-    if (Store.getters.getIsAuth) {
-      next('/')
-    } else {
-      next()
-    }
+    next();
   }
-}
+};
 
 export default [
   {
@@ -97,7 +95,7 @@ export default [
             props: { id: true, currentThread: true },
             component: QuestionThread,
           },
-        
+
         ],
       },
       {
@@ -107,4 +105,4 @@ export default [
       },
     ],
   },
-]
+];

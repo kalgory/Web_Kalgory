@@ -11,12 +11,12 @@
 </template>
 
 <script>
-import CommunityCardTitle from "@/components/community/CommunityCardTitle";
-import CommunityCardAction from "@/components/community/CommunityCardAction";
-import CommunityCardText from "@/components/community/CommunityCardText";
+import CommunityCardTitle from '@/components/community/CommunityCardTitle';
+import CommunityCardAction from '@/components/community/CommunityCardAction';
+import CommunityCardText from '@/components/community/CommunityCardText';
 
 export default {
-  name: "CommunityCard",
+  name: 'CommunityCard',
   components: {
     CommunityCardTitle,
     CommunityCardAction,
@@ -26,12 +26,12 @@ export default {
     communityType: {
       type: String,
       required: true,
-      validator: function (value) {
-        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1
+      validator(value) {
+        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1;
       },
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

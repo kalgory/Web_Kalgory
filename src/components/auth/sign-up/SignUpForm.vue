@@ -42,32 +42,32 @@
 </template>
 
 <script>
-import { createUserWithEmailAndPassword } from '@/plugins/firebase/auth'
+import { createUserWithEmailAndPassword } from '@/plugins/firebase/auth';
 
 export default {
   name: 'SignUpForm',
-  
+
   data: () => ({
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
   }),
-  
+
   methods: {
-    signUp () {
-      this.$store.commit('setIsLoading', true)
+    signUp() {
+      this.$store.commit('setIsLoading', true);
       createUserWithEmailAndPassword(this.email, this.password)
         // eslint-disable-next-line no-unused-vars
         .then(() => {
-          this.$router.back()
-          this.$store.commit('setIsLoading', false)
+          this.$router.back();
+          this.$store.commit('setIsLoading', false);
         })
         // eslint-disable-next-line no-unused-vars
         .catch((error) => {
-          this.$store.commit('setIsLoading', false)
-        })
+          this.$store.commit('setIsLoading', false);
+        });
     },
   },
-}
+};
 </script>

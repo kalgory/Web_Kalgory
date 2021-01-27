@@ -3,14 +3,14 @@
 </template>
 
 <script>
-import AuthCard from '@/components/auth/AuthCard'
+import AuthCard from '@/components/auth/AuthCard';
 
 export default {
   name: 'SignUp',
   components: {
-    AuthCard
+    AuthCard,
   },
-}
+};
 </script>
 
 <style scoped>

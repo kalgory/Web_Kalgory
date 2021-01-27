@@ -11,18 +11,18 @@
 
 <script>
 export default {
-name: "CommunityCardTitle",
+  name: 'CommunityCardTitle',
   props: {
     communityType: {
       type: String,
       required: true,
-      validator: function (value) {
-        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1
+      validator(value) {
+        return ['popular questions', 'questions', 'popular information', 'information'].indexOf(value) !== -1;
       },
-    }
+    },
   },
 
-}
+};
 </script>
 
 <style scoped>

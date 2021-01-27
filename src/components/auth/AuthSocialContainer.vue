@@ -22,24 +22,24 @@
 </template>
 
 <script>
-import { signInWithGoogle, signInWithFaceBook } from '@/plugins/firebase/auth'
+import { signInWithGoogle, signInWithFaceBook } from '@/plugins/firebase/auth';
 
 export default {
   name: 'AuthSocialContainer',
-  
+
   methods: {
-    signInWithGoogle () {
+    signInWithGoogle() {
       signInWithGoogle()
         .then(() => {
         })
         .catch(() => {
-        })
+        });
     },
-    signInWithFaceBook () {
-      signInWithFaceBook()
+    signInWithFaceBook() {
+      signInWithFaceBook();
     },
   },
-}
+};
 </script>
 
 <style scoped>

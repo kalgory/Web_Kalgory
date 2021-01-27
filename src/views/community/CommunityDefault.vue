@@ -20,14 +20,14 @@
 </template>
 
 <script>
-import CommunityCard from "@/components/community/CommunityCard";
+import CommunityCard from '@/components/community/CommunityCard';
 
 export default {
-  name: "BaseCommunityDefault",
+  name: 'BaseCommunityDefault',
   components: {
     CommunityCard,
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

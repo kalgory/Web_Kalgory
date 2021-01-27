@@ -28,29 +28,29 @@
 </template>
 
 <script>
-import { signInWithEmailAndPassword } from '@/plugins/firebase/auth'
+import { signInWithEmailAndPassword } from '@/plugins/firebase/auth';
 
 export default {
   name: 'SignInForm',
-  
+
   data: () => ({
     email: '',
     password: '',
   }),
-  
+
   methods: {
-    signIn () {
-      this.$store.commit('setIsLoading', true)
+    signIn() {
+      this.$store.commit('setIsLoading', true);
       signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          this.$router.back()
-          this.$store.commit('setIsLoading', false)
+          this.$router.back();
+          this.$store.commit('setIsLoading', false);
         })
         // eslint-disable-next-line no-unused-vars
         .catch((error) => {
-          this.$store.commit('setIsLoading', false)
-        })
+          this.$store.commit('setIsLoading', false);
+        });
     },
   },
-}
+};
 </script>
