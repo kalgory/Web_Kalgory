@@ -31,8 +31,10 @@ export default {
     signInWithGoogle() {
       signInWithGoogle()
         .then(() => {
+          this.$router.back();
         })
-        .catch(() => {
+        // eslint-disable-next-line no-unused-vars
+        .catch((error) => {
         });
     },
     signInWithFaceBook() {

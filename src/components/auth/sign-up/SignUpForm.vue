@@ -58,7 +58,6 @@ export default {
     signUp() {
       this.$store.commit('setIsLoading', true);
       createUserWithEmailAndPassword(this.email, this.password)
-        // eslint-disable-next-line no-unused-vars
         .then(() => {
           this.$router.back();
           this.$store.commit('setIsLoading', false);
