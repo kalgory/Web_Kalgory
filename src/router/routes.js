@@ -35,23 +35,35 @@ const requireUnauthorized = () => (to, from, next) => {
 
 export default [
   {
-    name: 'home',
+    name: 'root',
     path: '/',
     redirect: '/concept',
+    meta: {
+      title: '',
+    },
   },
   {
     path: '*',
     component: Base404,
+    meta: {
+      title: '',
+    },
   },
   {
     name: 'problem',
     path: '/problem',
     component: BaseProblem,
+    meta: {
+      title: 'Problem',
+    },
   },
   {
     name: 'concept',
     path: '/concept',
     component: BaseConcept,
+    meta: {
+      title: 'Concept',
+    },
   },
   {
     name: 'auth',
@@ -59,16 +71,25 @@ export default [
     component: BaseAuth,
     redirect: '/auth/signin',
     beforeEnter: requireUnauthorized(),
+    meta: {
+      title: 'Auth',
+    },
     children: [
       {
         name: 'sign in',
         path: 'signin',
         component: AuthSignIn,
+        meta: {
+          title: 'Sign in',
+        },
       },
       {
         name: 'sign up',
         path: 'signup',
         component: AuthSignUp,
+        meta: {
+          title: 'Sign up',
+        },
       },
     ],
   },
@@ -77,11 +98,17 @@ export default [
     path: '/community',
     redirect: '/community',
     component: BaseCommunity,
+    meta: {
+      title: 'Community',
+    },
     children: [
       {
-        name: 'base board',
+        name: 'default',
         path: '',
         component: CommunityDefault,
+        meta: {
+          title: 'Default',
+        },
       },
       {
         name: 'question',
