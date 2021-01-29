@@ -114,7 +114,7 @@ export default [
       {
         name: 'question',
         path: 'question',
-        redirect: 'question',
+        redirect: '/question',
         component: CommunityQuestion,
         children: [
           {
