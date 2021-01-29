@@ -19,6 +19,7 @@ const CommunityQuestion = () => import('@/views/community/CommunityQuestion');
 // Question
 const QuestionPosts = () => import('@/views/community/question/QuestionPosts');
 const QuestionPost = () => import('@/views/community/question/QuestionPost');
+const QuestionPostCreate = () => import('@/views/community/question/QuestionPostCreate');
 
 const requireUnauthorized = () => (to, from, next) => {
   if (Store.getters.getIsLoading) {
@@ -121,6 +122,11 @@ export default [
             name: 'question posts',
             path: '',
             component: QuestionPosts,
+          },
+          {
+            name: 'question post create',
+            path: 'create',
+            component: QuestionPostCreate,
           },
           {
             name: 'question post',

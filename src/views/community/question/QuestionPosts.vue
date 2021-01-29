@@ -1,5 +1,8 @@
 <template>
-  <QuestionPostsTable />
+  <div>
+    <QuestionPostsTable />
+    <v-btn @click="$router.push({path:`/community/question/create`})" />
+  </div>
 </template>
 
 <script>
