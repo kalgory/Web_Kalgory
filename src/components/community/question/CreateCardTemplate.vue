@@ -5,7 +5,10 @@
         cols="3"
         offset="1"
       >
-        <v-text-field label="header" />
+        <v-text-field
+          v-model="newPost.header"
+          label="header"
+        />
       </v-col>
       <v-col
         cols="2"
@@ -20,6 +23,7 @@
         sm="10"
       >
         <v-textarea
+          v-model="newPost.body"
           outlined
           rows="10"
           no-resize
@@ -27,12 +31,32 @@
         />
       </v-col>
     </v-row>
+    <v-row>
+      <v-col offset="10">
+        <v-btn @click="clickEvent" />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
+import { getQuestionCommunityReference } from '@/plugins/firebase/firestore/community/reference';
+import { createPost } from '@/plugins/firebase/firestore/community';
+
 export default {
   name: 'CreateCardTemplate',
+  data: () => ({
+    newPost: {
+      header: '',
+      body: '',
+    },
+  }),
+  methods: {
+    clickEvent() {
+      createPost(getQuestionCommunityReference(), this.newPost);
+      this.$router.back();
+    },
+  },
 
 };
 </script>

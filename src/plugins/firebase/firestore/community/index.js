@@ -4,8 +4,13 @@ export function createPost(reference, newPost) {
   reference.add({
     header: newPost.header,
     body: newPost.body,
-    create_at: Firebase.firestore.Timestamp.now(),
-  });
+    created_at: Firebase.firestore.Timestamp.now(),
+  })
+    .then((docRef) => {
+      console.log(docRef);
+    }).catch((error) => {
+      console.error(error);
+    });
 }
 
 export function readPosts(reference, count = null) {
