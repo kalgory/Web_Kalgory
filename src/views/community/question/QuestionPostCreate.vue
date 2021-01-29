@@ -1,10 +1,9 @@
 <template>
-  <v-container />
+  <v-card class="mb-md-auto" />
 </template>
-
 <script>
 export default {
-  name: 'QuestionContainer',
+  name: 'QuestionPostCreate',
 };
 </script>
 

@@ -2,7 +2,7 @@
   <v-card outlined>
     <v-card-title v-text="post.header" />
     <v-card-text v-text="post.body" />
-    <v-card-text v-text="post.created_time" />
+    <v-card-text v-text="post.createdAt" />
   </v-card>
 </template>
 

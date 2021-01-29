@@ -16,9 +16,9 @@ export function readPosts(reference, count = null) {
         snapshot.forEach((document) => {
           const newPost = {};
           newPost.id = document.id;
-          newPost.header = document.header;
-          newPost.body = document.body;
-          newPost.createAt = document.data().create_at;
+          newPost.header = document.data().header;
+          newPost.body = document.data().body;
+          newPost.createdAt = document.data().created_at;
           posts.push(newPost);
         });
         resolve(posts);
@@ -33,7 +33,12 @@ export function readPost(reference, documentID) {
   return new Promise((resolve, reject) => {
     reference.doc(documentID).get()
       .then((snapshot) => {
-        resolve(snapshot.data());
+        const currentPost = {};
+        currentPost.id = snapshot.id;
+        currentPost.header = snapshot.data().header;
+        currentPost.body = snapshot.data().body;
+        currentPost.createdAt = snapshot.data().created_at;
+        resolve(currentPost);
       })
       .catch((error) => {
         reject(error);
