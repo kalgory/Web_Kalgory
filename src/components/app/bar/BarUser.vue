@@ -79,23 +79,25 @@ export default {
   },
 
   computed: {
+    localUser() {
+      return JSON.parse(localStorage.getItem('user'));
+    },
     name() {
       if (this.$store.getters.getIsLoading) {
-        return '';
+        return this.localUser.displayName;
       }
       return this.$store.getters.getUser.displayName;
     },
     email() {
       if (this.$store.getters.getIsLoading) {
-        return '';
+        return this.localUser.email;
       }
       return this.$store.getters.getUser.email;
     },
     photo() {
       if (this.$store.getters.getIsLoading) {
-        return '';
+        return this.localUser.photoURL;
       }
-      console.log(this.$store.getters.getUser.photoURL);
       return this.$store.getters.getUser.photoURL;
     },
   },

@@ -5,13 +5,16 @@
   >
     <v-img
       v-if="isPhotoExist"
-      lazy-src="photo"
-      src="photo"
+      :lazy-src="photo"
+      :src="photo"
     />
     <span
       v-if="!isPhotoExist"
-      class="white--text headline"
-    >{{ name }}</span>
+      class="white--text"
+      :style="{'font-size': size * 0.6 + 'px'}"
+    >
+      {{ name.charAt(0) }}
+    </span>
   </v-avatar>
 </template>
 
@@ -39,6 +42,5 @@ export default {
       return !!this.photo;
     },
   },
-
 };
 </script>
