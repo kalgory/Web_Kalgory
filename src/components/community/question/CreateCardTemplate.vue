@@ -53,8 +53,14 @@ export default {
   }),
   methods: {
     clickEvent() {
-      createPost(getQuestionCommunityReference(), this.newPost);
-      this.$router.back();
+      createPost(getQuestionCommunityReference(), this.newPost)
+        .then((doc) => {
+          console.log(doc);
+          this.$router.back();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 

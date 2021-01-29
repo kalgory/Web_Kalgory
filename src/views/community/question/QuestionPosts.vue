@@ -1,7 +1,7 @@
 <template>
   <div>
     <QuestionPostsTable />
-    <v-btn @click="$router.push({path:`/community/question/create`})" />
+    <v-btn to="/community/question/create" />
   </div>
 </template>
 
