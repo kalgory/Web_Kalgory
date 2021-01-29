@@ -1,13 +1,24 @@
-// import Firebase from 'firebase/app';
+import Firebase from 'firebase/app';
+
+export function createPost(reference, newPost) {
+  reference.add({
+    header: newPost.header,
+    body: newPost.body,
+    create_at: Firebase.firestore.Timestamp.now(),
+  });
+}
 
 export function readPosts(reference, count = null) {
   return new Promise((resolve, reject) => {
-    reference.orderBy('created_time', 'desc').limit(count).get()
+    reference.orderBy('created_at', 'desc').limit(count).get()
       .then((snapshot) => {
         const posts = [];
         snapshot.forEach((document) => {
-          const newPost = document.data();
+          const newPost = {};
           newPost.id = document.id;
+          newPost.header = document.header;
+          newPost.body = document.body;
+          newPost.createAt = document.data().create_at;
           posts.push(newPost);
         });
         resolve(posts);
