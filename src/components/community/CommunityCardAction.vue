@@ -7,7 +7,7 @@
       >
         <v-btn
           icon
-          @click="$router.push({name:'question'})"
+          @click="$router.push('/community/question')"
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>
@@ -18,7 +18,7 @@
       >
         <v-btn
           icon
-          @click="$router.push({name:'information'})"
+          @click="$router.push('/community/information')"
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>

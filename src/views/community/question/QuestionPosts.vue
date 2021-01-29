@@ -4,7 +4,7 @@
       <tr
         v-for="(post,index) in questionPosts"
         :key="index"
-        @click="$router.push({name:'question post',params:{id:post.id}})"
+        @click="$router.push({path:`/question/${post.id}`})"
       >
         <td>{{ post.header }}</td>
         <td>{{ post.body }}</td>
