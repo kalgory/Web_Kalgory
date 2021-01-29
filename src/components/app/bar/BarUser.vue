@@ -11,8 +11,8 @@
         v-on="on"
       >
         <user-avatar
-          :name="name"
-          :photo="photo"
+          :name="!!name ? name : ''"
+          :photo="!!photo? photo : ''"
         />
       </v-btn>
     </template>
@@ -21,8 +21,8 @@
       <v-container>
         <v-row justify="center">
           <user-avatar
-            :name="name"
-            :photo="photo"
+            :name="!!name ? name : ''"
+            :photo="!!photo? photo : ''"
             :size="72"
             class="mt-4 mb-2"
           />
