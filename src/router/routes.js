@@ -17,7 +17,7 @@ const CommunityInformation = () => import('@/views/community/CommunityInformatio
 const CommunityQuestion = () => import('@/views/community/CommunityQuestion');
 
 // Question
-const QuestionThread = () => import('@/views/community/question/QuestionThread');
+const QuestionPost = () => import('@/views/community/question/QuestionPost');
 
 const requireUnauthorized = () => (to, from, next) => {
   if (Store.getters.getIsLoading) {
@@ -117,10 +117,10 @@ export default [
         component: CommunityQuestion,
         children: [
           {
-            name: 'question thread',
+            name: 'question post',
             path: ':id',
             props: { id: true, currentThread: true },
-            component: QuestionThread,
+            component: QuestionPost,
           },
 
         ],
