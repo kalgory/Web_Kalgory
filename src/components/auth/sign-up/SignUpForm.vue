@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { createUserWithEmailAndPassword } from '@/plugins/firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from '@/plugins/firebase/auth';
 
 export default {
   name: 'SignUpForm',
@@ -58,9 +58,17 @@ export default {
     signUp() {
       this.$store.commit('setIsLoading', true);
       createUserWithEmailAndPassword(this.email, this.password)
+        // eslint-disable-next-line no-unused-vars
         .then((userCredential) => {
-          this.$router.back();
-          this.$store.commit('setIsLoading', false);
+          updateProfile({ displayName: this.name })
+            .then(() => {
+              this.$router.back();
+              this.$store.commit('setIsLoading', false);
+            })
+            // eslint-disable-next-line no-unused-vars
+            .catch((error) => {
+              this.$store.commit('setIsLoading', false);
+            });
         })
         // eslint-disable-next-line no-unused-vars
         .catch((error) => {

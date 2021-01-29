@@ -8,7 +8,7 @@ export function onAuthStateChanged(onAuthStateChanged) {
   });
 }
 
-export function createUserWithEmailAndPassword(name, email, password) {
+export function createUserWithEmailAndPassword(email, password) {
   return new Promise((resolve, reject) => {
     Firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
@@ -40,7 +40,7 @@ export function signOut() {
   return new Promise((resolve, reject) => {
     Firebase.auth().signOut()
       .then(() => {
-        console.log('sign out with email and password');
+        console.log('sign out');
         resolve();
       })
       .catch((error) => {
@@ -56,7 +56,7 @@ export function signInWithGoogle() {
   return new Promise((resolve, reject) => {
     Firebase.auth().signInWithPopup(GoogleAuthProvider)
       .then((userCredential) => {
-        console.log(userCredential);
+        console.log('sign in with google');
         resolve(userCredential);
       })
       .catch((error) => {
