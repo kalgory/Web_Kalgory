@@ -27,7 +27,7 @@
     <v-avatar
       color="primary"
     >
-      JHM
+      정현
     </v-avatar>
 
     <v-btn
