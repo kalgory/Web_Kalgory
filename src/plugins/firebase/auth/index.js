@@ -8,7 +8,7 @@ export function onAuthStateChanged(onAuthStateChanged) {
   });
 }
 
-export function createUserWithEmailAndPassword(email, password) {
+export function createUserWithEmailAndPassword(name, email, password) {
   return new Promise((resolve, reject) => {
     Firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
@@ -55,17 +55,30 @@ export function signInWithGoogle() {
   // GoogleAuthProvider.addScope('')
   return new Promise((resolve, reject) => {
     Firebase.auth().signInWithPopup(GoogleAuthProvider)
-      .then((user) => {
-        console.log(user);
-        resolve(user);
+      .then((userCredential) => {
+        console.log(userCredential);
+        resolve(userCredential);
       })
       .catch((error) => {
         console.error(error);
-        reject();
+        reject(error);
       });
   });
 }
 
 export function signInWithFaceBook() {
 
+}
+
+export function updateProfile(profile) {
+  return new Promise((resolve, reject) => {
+    Firebase.auth().currentUser.updateProfile(profile)
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        console.error(error);
+        reject(error);
+      });
+  });
 }

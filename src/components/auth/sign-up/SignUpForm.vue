@@ -3,7 +3,7 @@
     class="mx-12"
   >
     <v-text-field
-      v-model="username"
+      v-model="name"
       type="text"
       label="Username"
       prepend-inner-icon="mdi-account-outline"
@@ -48,7 +48,7 @@ export default {
   name: 'SignUpForm',
 
   data: () => ({
-    username: '',
+    name: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -58,7 +58,7 @@ export default {
     signUp() {
       this.$store.commit('setIsLoading', true);
       createUserWithEmailAndPassword(this.email, this.password)
-        .then(() => {
+        .then((userCredential) => {
           this.$router.back();
           this.$store.commit('setIsLoading', false);
         })
