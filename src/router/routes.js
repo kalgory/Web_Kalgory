@@ -114,7 +114,7 @@ export default [
       {
         name: 'question',
         path: 'question',
-        redirect: { name: 'question posts' },
+        redirect: '/question',
         component: CommunityQuestion,
         children: [
           {
@@ -125,7 +125,7 @@ export default [
           {
             name: 'question post',
             path: ':id',
-            props: { id: true, currentThread: true },
+            props: { id: true },
             component: QuestionPost,
           },
 

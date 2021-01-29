@@ -10,7 +10,7 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           {{ post.body }}
-          <v-btn @click="$router.push({name:'question post', params:{id:post.id}})" />
+          <v-btn @click="$router.push({path:`/community/question/${post.id}`})" />
         </v-expansion-panel-content>
         <v-expand-transition />
       </v-expansion-panel>
