@@ -21,11 +21,9 @@ export default {
       },
     },
   },
-  data() {
-    return {
-      currentTypeString: '',
-    };
-  },
+  data: () => ({
+    currentTypeString: '',
+  }),
   created() {
     if (this.communityType === 'popular questions') this.currentTypeString = '실시간 인기 질문글';
     else if (this.communityType === 'questions') this.currentTypeString = '최신 질문글';

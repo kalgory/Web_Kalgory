@@ -35,11 +35,9 @@ export default {
     },
   },
 
-  data() {
-    return {
-      posts: [],
-    };
-  },
+  data: () => ({
+    posts: [],
+  }),
 
   created() {
     if (this.communityType === 'questions') {

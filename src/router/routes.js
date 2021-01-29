@@ -17,6 +17,7 @@ const CommunityInformation = () => import('@/views/community/CommunityInformatio
 const CommunityQuestion = () => import('@/views/community/CommunityQuestion');
 
 // Question
+const QuestionPosts = () => import('@/views/community/question/QuestionPosts');
 const QuestionPost = () => import('@/views/community/question/QuestionPost');
 
 const requireUnauthorized = () => (to, from, next) => {
@@ -113,9 +114,14 @@ export default [
       {
         name: 'question',
         path: 'question',
-        redirect: { name: 'question thread' },
+        redirect: { name: 'question posts' },
         component: CommunityQuestion,
         children: [
+          {
+            name: 'question posts',
+            path: '',
+            component: QuestionPosts,
+          },
           {
             name: 'question post',
             path: ':id',
