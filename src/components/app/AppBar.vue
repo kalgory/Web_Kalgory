@@ -24,6 +24,12 @@
     </v-btn>
     <v-spacer />
 
+    <v-avatar
+      color="primary"
+    >
+      JHM
+    </v-avatar>
+
     <v-btn
       v-if="isSignOutShow"
       @click="signOut"
