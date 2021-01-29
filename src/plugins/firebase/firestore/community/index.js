@@ -1,4 +1,12 @@
-// import Firebase from 'firebase/app';
+import Firebase from 'firebase/app';
+
+export function createPost(reference, newPost) {
+  reference.add({
+    header: newPost.header,
+    body: newPost.body,
+    created_time: Firebase.firestore.Timestamp.now(),
+  }).then();
+}
 
 export function readPosts(reference, count = null) {
   return new Promise((resolve, reject) => {
