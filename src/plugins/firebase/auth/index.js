@@ -40,7 +40,7 @@ export function signOut() {
   return new Promise((resolve, reject) => {
     Firebase.auth().signOut()
       .then(() => {
-        console.log('sign out with email and password');
+        console.log('sign out');
         resolve();
       })
       .catch((error) => {
@@ -55,17 +55,30 @@ export function signInWithGoogle() {
   // GoogleAuthProvider.addScope('')
   return new Promise((resolve, reject) => {
     Firebase.auth().signInWithPopup(GoogleAuthProvider)
-      .then((user) => {
-        console.log(user);
-        resolve(user);
+      .then((userCredential) => {
+        console.log('sign in with google');
+        resolve(userCredential);
       })
       .catch((error) => {
         console.error(error);
-        reject();
+        reject(error);
       });
   });
 }
 
 export function signInWithFaceBook() {
 
+}
+
+export function updateProfile(profile) {
+  return new Promise((resolve, reject) => {
+    Firebase.auth().currentUser.updateProfile(profile)
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        console.error(error);
+        reject(error);
+      });
+  });
 }

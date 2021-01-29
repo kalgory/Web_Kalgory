@@ -3,7 +3,7 @@
     class="mx-12"
   >
     <v-text-field
-      v-model="username"
+      v-model="name"
       type="text"
       label="Username"
       prepend-inner-icon="mdi-account-outline"
@@ -42,13 +42,13 @@
 </template>
 
 <script>
-import { createUserWithEmailAndPassword } from '@/plugins/firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from '@/plugins/firebase/auth';
 
 export default {
   name: 'SignUpForm',
 
   data: () => ({
-    username: '',
+    name: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -58,9 +58,17 @@ export default {
     signUp() {
       this.$store.commit('setIsLoading', true);
       createUserWithEmailAndPassword(this.email, this.password)
-        .then(() => {
-          this.$router.back();
-          this.$store.commit('setIsLoading', false);
+        // eslint-disable-next-line no-unused-vars
+        .then((userCredential) => {
+          updateProfile({ displayName: this.name })
+            .then(() => {
+              this.$router.back();
+              this.$store.commit('setIsLoading', false);
+            })
+            // eslint-disable-next-line no-unused-vars
+            .catch((error) => {
+              this.$store.commit('setIsLoading', false);
+            });
         })
         // eslint-disable-next-line no-unused-vars
         .catch((error) => {
