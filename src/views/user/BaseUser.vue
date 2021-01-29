@@ -1,13 +1,10 @@
 <template>
-  <p>
-    question
-  </p>
+  <div />
 </template>
-
 <script>
 export default {
-  name: 'QuestionBoard',
-}
+  name: 'BaseUser',
+};
 </script>
 
 <style scoped>

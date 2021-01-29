@@ -1,12 +1,9 @@
 <template>
-  <router-view />
+  <div />
 </template>
-
 <script>
 export default {
-  name: 'BaseCommunity',
-  components: {
-  },
+  name: 'BaseProblem',
 };
 </script>
 

@@ -1,56 +1,104 @@
 <template>
-  <v-app-bar app>
-    <initial-logo></initial-logo>
-    <v-btn text to="/problem">
+  <v-app-bar
+    v-if="isAppBarShow"
+    app
+  >
+    <initial-logo />
+    <v-btn
+      text
+      to="/problem"
+    >
       problem
     </v-btn>
-    <v-btn text to="/concept">
+    <v-btn
+      text
+      to="/concept"
+    >
       concept
     </v-btn>
-    <v-btn text to="/community">
+    <v-btn
+      text
+      to="/community"
+    >
       community
     </v-btn>
-    <v-spacer/>
+    <v-spacer />
+
+    <v-avatar
+      color="primary"
+    >
+      JHM
+    </v-avatar>
+
     <v-btn
+      v-if="isSignOutShow"
       @click="signOut"
     >
       sign out
     </v-btn>
-    
-    <div>
-      <v-btn text to="/auth/signin">
-        Sign in
-      </v-btn>
-      <v-btn to="/auth/signup">
-        Sign up
-      </v-btn>
-    </div>
+
+    <v-btn
+      v-if="isAuthShow"
+      text
+      to="/auth/signin"
+    >
+      Sign in
+    </v-btn>
+    <v-btn
+      v-if="isAuthShow"
+      to="/auth/signup"
+    >
+      Sign up
+    </v-btn>
   </v-app-bar>
 </template>
 
 <script>
-import Firebase from 'firebase/app'
-import InitialLogo from '@/assets/InitialLogo'
+import InitialLogo from '@/assets/InitialLogo.vue';
+import { signOut } from '@/plugins/firebase/auth';
 
 export default {
   name: 'AppBar',
-  
+
   components: {
     InitialLogo,
   },
-  
-  methods: {
-    signOut () {
-      Firebase.auth().signOut().then(() => {
-        console.log('Sign out success')
-      }).catch((error) => {
-        console.log(error)
-      })
+
+  computed: {
+    isAppBarShow() {
+      switch (this.$route.name) {
+        case 'sign in':
+          return false;
+        case 'sign up':
+          return false;
+        default:
+          return true;
+      }
+    },
+    isSignOutShow() {
+      if (this.$store.getters.getIsLoading) {
+        return localStorage.getItem('isAuth') === 'true';
+      }
+      return this.$store.getters.getIsAuth;
+    },
+    isAuthShow() {
+      if (this.$store.getters.getIsLoading) {
+        return localStorage.getItem('isAuth') === 'false';
+      }
+      return !this.$store.getters.getIsAuth;
     },
   },
-}
+
+  methods: {
+    signOut() {
+      signOut()
+        .then(() => {
+
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+    },
+  },
+};
 </script>
-
-<style scoped>
-
-</style>

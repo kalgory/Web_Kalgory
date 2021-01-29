@@ -1,13 +1,11 @@
 <template>
-  <p>
-    information
-  </p>
+  <v-container />
 </template>
 
 <script>
 export default {
-  name: 'InformationBoard',
-}
+  name: 'QuestionContainer',
+};
 </script>
 
 <style scoped>

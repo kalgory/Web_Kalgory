@@ -1,72 +1,141 @@
-import Base404 from '@/views/Base404'
+import Store from '@/store';
 
-import BaseAuth from '@/views/BaseAuth'
-import BaseProblem from '@/views/BaseProblem'
-import BaseCommunity from '@/views/BaseCommunity'
-import BaseConcept from '@/views/BaseConcept'
+// Base
+const Base404 = () => import('@/views/Base404');
+const BaseAuth = () => import('@/views/BaseAuth');
+const BaseProblem = () => import('@/views/BaseProblem');
+const BaseCommunity = () => import('@/views/BaseCommunity');
+const BaseConcept = () => import('@/views/BaseConcept');
 
 // Auth
-import BaseSignIn from '@/views/auth/BaseSignIn'
-import BaseSignUp from '@/views/auth/BaseSignUp'
+const AuthSignIn = () => import('@/views/auth/AuthSignIn');
+const AuthSignUp = () => import('@/views/auth/AuthSignUp');
 
 // Community
-import BaseInformation from '@/views/community/BaseInformation'
-import BaseQuestion from '@/views/community/BaseQuestion'
+const CommunityDefault = () => import('@/views/community/CommunityDefault');
+const CommunityInformation = () => import('@/views/community/CommunityInformation');
+const CommunityQuestion = () => import('@/views/community/CommunityQuestion');
+
+// Question
+const QuestionPosts = () => import('@/views/community/question/QuestionPosts');
+const QuestionPost = () => import('@/views/community/question/QuestionPost');
+
+const requireUnauthorized = () => (to, from, next) => {
+  if (Store.getters.getIsLoading) {
+    if (localStorage.getItem('isAuth') === 'true') {
+      next('/');
+    } else {
+      next();
+    }
+  } else if (Store.getters.getIsAuth) {
+    next('/');
+  } else {
+    next();
+  }
+};
 
 export default [
   {
-    name: 'home',
+    name: 'root',
     path: '/',
     redirect: '/concept',
+    meta: {
+      title: '',
+    },
   },
   {
     path: '*',
     component: Base404,
+    meta: {
+      title: '',
+    },
   },
   {
     name: 'problem',
     path: '/problem',
     component: BaseProblem,
+    meta: {
+      title: 'Problem',
+    },
   },
   {
     name: 'concept',
     path: '/concept',
     component: BaseConcept,
+    meta: {
+      title: 'Concept',
+    },
   },
   {
     name: 'auth',
     path: '/auth',
     component: BaseAuth,
     redirect: '/auth/signin',
+    beforeEnter: requireUnauthorized(),
+    meta: {
+      title: 'Auth',
+    },
     children: [
       {
         name: 'sign in',
         path: 'signin',
-        component: BaseSignIn,
+        component: AuthSignIn,
+        meta: {
+          title: 'Sign in',
+        },
       },
       {
         name: 'sign up',
         path: 'signup',
-        component: BaseSignUp,
+        component: AuthSignUp,
+        meta: {
+          title: 'Sign up',
+        },
       },
     ],
   },
   {
     name: 'community',
     path: '/community',
+    redirect: '/community',
     component: BaseCommunity,
-    redirect: '/community/question',
+    meta: {
+      title: 'Community',
+    },
     children: [
+      {
+        name: 'default',
+        path: '',
+        component: CommunityDefault,
+        meta: {
+          title: 'Default',
+        },
+      },
       {
         name: 'question',
         path: 'question',
-        component: BaseQuestion,
+        redirect: { name: 'question posts' },
+        component: CommunityQuestion,
+        children: [
+          {
+            name: 'question posts',
+            path: '',
+            component: QuestionPosts,
+          },
+          {
+            name: 'question post',
+            path: ':id',
+            props: { id: true, currentThread: true },
+            component: QuestionPost,
+          },
+
+        ],
       },
       {
         name: 'information',
         path: 'information',
-        component: BaseInformation,
+        component: CommunityInformation,
       },
     ],
   },
-]
+];

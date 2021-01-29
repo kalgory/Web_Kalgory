@@ -1,50 +1,43 @@
 <template>
   <v-app>
-    <app-bar v-if="isAppBarShow"/>
-    
+    <app-bar />
+
     <v-main>
-      <router-view/>
-      {{ isAuth }}
+      <router-view />
     </v-main>
-    
-    <app-footer/>
+
+    <app-footer />
   </v-app>
 </template>
 
 <script>
-import AppBar from '@/components/app/AppBar'
-import AppFooter from '@/components/app/AppFooter'
-import Firebase from 'firebase/app'
+import AppBar from '@/components/app/AppBar.vue';
+import AppFooter from '@/components/app/AppFooter.vue';
+import { onAuthStateChanged } from '@/plugins/firebase/auth';
 
 export default {
   name: 'App',
-  
+
   components: {
     AppBar,
     AppFooter,
   },
-  data: () => ({
-    isAuth: '',
-  }),
-  computed: {
-    isAppBarShow () {
-      switch (this.$route.name) {
-        case'sign in':
-          return false
-        case'sign up':
-          return false
-        default:
-          return true
+
+  created() {
+    this.$store.commit('setIsLoading', true);
+    onAuthStateChanged((user) => {
+      if (user) {
+        localStorage.setItem('isAuth', 'true');
+        this.$store.commit('setIsAuth', true);
+        this.$store.commit('setUser', user);
+        this.$store.commit('setIsLoading', false);
+      } else {
+        localStorage.setItem('isAuth', 'false');
+        this.$store.commit('setIsAuth', false);
+        this.$store.commit('setUser', null);
+        this.$store.commit('setIsLoading', false);
       }
-    },
+    });
   },
-  created () {
-    this.getIsAuth()
-  },
-  methods: {
-    getIsAuth () {
-      Firebase.auth().onAuthStateChanged(user => this.isAuth = !!user)
-    },
-  },
-}
+};
 </script>

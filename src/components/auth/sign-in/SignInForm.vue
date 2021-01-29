@@ -3,20 +3,19 @@
     class="mx-12"
   >
     <v-text-field
+      v-model="email"
       type="email"
       label="Email"
       prepend-inner-icon="mdi-account-outline"
       placeholder="Type your email"
-      v-model="email"
     />
     <v-text-field
+      v-model="password"
       type="password"
       label="Password"
       prepend-inner-icon="mdi-lock-outline"
       placeholder="Type your password"
-      v-model="password"
-    >
-    </v-text-field>
+    />
     <v-btn
       block
       class="my-3"
@@ -29,32 +28,29 @@
 </template>
 
 <script>
-import Firebase from 'firebase/app'
+import { signInWithEmailAndPassword } from '@/plugins/firebase/auth';
 
 export default {
   name: 'SignInForm',
-  
+
   data: () => ({
     email: '',
     password: '',
   }),
-  
+
   methods: {
-    signIn () {
-      const email = this.email
-      const password = this.password
-      Firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
-        console.log('Sign in success')
-        console.log(user)
-        this.$router.go(-1)
-      }).catch((error) => {
-        console.error(error)
-      })
+    signIn() {
+      this.$store.commit('setIsLoading', true);
+      signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          this.$router.back();
+          this.$store.commit('setIsLoading', false);
+        })
+        // eslint-disable-next-line no-unused-vars
+        .catch((error) => {
+          this.$store.commit('setIsLoading', false);
+        });
     },
   },
-}
+};
 </script>
-
-<style scoped>
-
-</style>

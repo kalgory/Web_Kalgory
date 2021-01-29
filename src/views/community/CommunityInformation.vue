@@ -1,12 +1,12 @@
 <template>
-  <router-view />
+  <p>
+    information
+  </p>
 </template>
 
 <script>
 export default {
-  name: 'BaseCommunity',
-  components: {
-  },
+  name: 'InformationBoard',
 };
 </script>
 

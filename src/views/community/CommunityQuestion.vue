@@ -1,12 +1,12 @@
 <template>
-  <router-view />
+  <v-container>
+    <router-view />
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: 'BaseCommunity',
-  components: {
-  },
+  name: 'QuestionBoard',
 };
 </script>
 
