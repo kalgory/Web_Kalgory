@@ -24,18 +24,9 @@
     </v-btn>
     <v-spacer />
 
-    <v-avatar
-      color="primary"
-    >
-      정현
-    </v-avatar>
-
-    <v-btn
-      v-if="isSignOutShow"
-      @click="signOut"
-    >
-      sign out
-    </v-btn>
+    <bar-user
+      v-if="isAvatarShow"
+    />
 
     <v-btn
       v-if="isAuthShow"
@@ -55,13 +46,14 @@
 
 <script>
 import InitialLogo from '@/assets/InitialLogo.vue';
-import { signOut } from '@/plugins/firebase/auth';
+import BarUser from '@/components/app/bar/BarUser.vue';
 
 export default {
   name: 'AppBar',
 
   components: {
     InitialLogo,
+    BarUser,
   },
 
   computed: {
@@ -75,7 +67,7 @@ export default {
           return true;
       }
     },
-    isSignOutShow() {
+    isAvatarShow() {
       if (this.$store.getters.getIsLoading) {
         return localStorage.getItem('isAuth') === 'true';
       }
@@ -86,18 +78,6 @@ export default {
         return localStorage.getItem('isAuth') === 'false';
       }
       return !this.$store.getters.getIsAuth;
-    },
-  },
-
-  methods: {
-    signOut() {
-      signOut()
-        .then(() => {
-
-        })
-        .catch((error) => {
-          console.warn(error);
-        });
     },
   },
 };
