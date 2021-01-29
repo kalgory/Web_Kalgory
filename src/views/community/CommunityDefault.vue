@@ -20,11 +20,9 @@ export default {
   components: {
     CommunityCard,
   },
-  data() {
-    return {
-      cardList: ['popular information', 'popular questions', 'information', 'questions'],
-    };
-  },
+  data: () => ({
+    cardList: ['popular information', 'popular questions', 'information', 'questions'],
+  }),
   created() {
     for (let i = 0; i < this.cardList.length; i += 1) {
       const j = Math.floor(Math.random() * (i + 1));
