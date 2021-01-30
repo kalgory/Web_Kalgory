@@ -1,17 +1,17 @@
 <template>
   <v-card>
     <v-card-text>질문 생성</v-card-text>
-    <create-card-template />
+    <create-form />
   </v-card>
 </template>
 
 <script>
-import CreateCardTemplate from './CreateCardTemplate.vue';
+import CreateForm from './CreateForm.vue';
 
 export default {
-  name: 'QuestionPostCreateCard',
+  name: 'CreateCard',
   components: {
-    CreateCardTemplate,
+    CreateForm,
   },
 };
 </script>

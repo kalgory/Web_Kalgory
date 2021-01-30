@@ -2,7 +2,7 @@
   <v-container fill-height>
     <v-row>
       <v-col>
-        <CommunityCard
+        <community-card
           v-for="(cardType,index) in cardList"
           :key="index"
           :community-type="cardType"
