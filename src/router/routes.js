@@ -35,6 +35,20 @@ const requireUnauthorized = () => (to, from, next) => {
   }
 };
 
+const requireAuth = () => (to, from, next) => {
+  if (Store.getters.getIsLoading) {
+    if (localStorage.getItem('isAuth') === to.meta.requiresAuth.toString()) {
+      next();
+    } else {
+      next(from.path);
+    }
+  } else if (Store.getters.getIsAuth === to.meta.requiresAuth) {
+    next();
+  } else {
+    next(from.path);
+  }
+};
+
 export default [
   {
     name: 'root',
@@ -127,6 +141,12 @@ export default [
             name: 'question post create',
             path: 'create',
             component: QuestionPostCreate,
+            beforeEnter: requireAuth(),
+            meta: {
+              title: 'Create post',
+              requiresAuth: true,
+              nonAuthPath: '',
+            },
           },
           {
             name: 'question post',
