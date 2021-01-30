@@ -5,7 +5,7 @@
   >
     <auth-card-title :auth-type="authType" />
 
-    <auth-social-container />
+    <social-container />
 
     <v-divider class="ma-8" />
 
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import AuthSocialContainer from '@/components/auth/AuthSocialContainer.vue';
+import SocialContainer from '@/components/auth/social/SocialContainer.vue';
 import SignInForm from '@/components/auth/sign-in/SignInForm.vue';
 import SignUpForm from '@/components/auth/sign-up/SignUpForm.vue';
 import AuthCardTitle from '@/components/auth/AuthCardTitle.vue';
@@ -30,7 +30,7 @@ export default {
 
   components: {
     AuthCardTitle,
-    AuthSocialContainer,
+    SocialContainer,
     SignInForm,
     SignUpForm,
     SignInCardActions,
