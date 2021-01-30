@@ -145,7 +145,6 @@ export default [
             meta: {
               title: 'Create post',
               requiresAuth: true,
-              nonAuthPath: '',
             },
           },
           {
