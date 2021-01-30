@@ -20,6 +20,9 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     if (Store.getters.getIsAuth && !Store.getters.getIsLoading) {
       next();
+    } else {
+      // TODO error handler
+      next('/');
     }
   } else {
     next();
