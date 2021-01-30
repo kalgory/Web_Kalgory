@@ -6,7 +6,3 @@ export default {
   name: 'ProfileContainer',
 };
 </script>
-
-<style scoped>
-
-</style>
