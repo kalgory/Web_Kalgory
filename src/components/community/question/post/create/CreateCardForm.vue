@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-form>
     <v-row>
       <v-col
         cols="3"
@@ -36,7 +36,7 @@
         <v-btn @click="createPost" />
       </v-col>
     </v-row>
-  </div>
+  </v-form>
 </template>
 
 <script>
@@ -53,7 +53,7 @@ export default {
   }),
   methods: {
     createPost() {
-      createPost(getQuestionCommunityReference(), this.newPost)
+      createPost(getQuestionCommunityReference(), this.post)
         .then((doc) => {
           console.log(doc);
           this.$router.back();

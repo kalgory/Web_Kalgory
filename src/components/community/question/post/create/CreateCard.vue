@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import CreateCardTemplate from './CreateCardTemplate.vue';
+import CreateCardTemplate from './CreateCardForm.vue';
 
 export default {
   name: 'QuestionPostCreateCard',

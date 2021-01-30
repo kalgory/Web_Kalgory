@@ -2,7 +2,7 @@
   <QuestionPostCreateCard />
 </template>
 <script>
-import QuestionPostCreateCard from '@/components/community/question/QuestionPostCreateCard.vue';
+import QuestionPostCreateCard from '@/components/community/question/post/create/CreateCard.vue';
 
 export default {
   name: 'QuestionPostCreate',

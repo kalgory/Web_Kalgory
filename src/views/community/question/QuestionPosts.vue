@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import QuestionPostsTable from '@/components/community/question/QuestionPostsTable.vue';
+import QuestionPostsTable from '@/components/community/question/posts/PostsTable.vue';
 
 export default {
   name: 'QuestionPosts',
