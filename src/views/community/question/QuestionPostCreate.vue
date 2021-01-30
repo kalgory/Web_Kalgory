@@ -1,13 +1,13 @@
 <template>
-  <QuestionPostCreateCard />
+  <create-card />
 </template>
 <script>
-import QuestionPostCreateCard from '@/components/community/question/post/create/CreateCard.vue';
+import CreateCard from '@/components/community/question/post/create/CreateCard.vue';
 
 export default {
   name: 'QuestionPostCreate',
   components: {
-    QuestionPostCreateCard,
+    CreateCard,
   },
 };
 </script>

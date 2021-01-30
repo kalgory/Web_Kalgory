@@ -44,7 +44,7 @@ import { getQuestionCommunityReference } from '@/plugins/firebase/firestore/comm
 import { createPost } from '@/plugins/firebase/firestore/community';
 
 export default {
-  name: 'CreateCardTemplate',
+  name: 'CreateForm',
   data: () => ({
     post: {
       header: '',

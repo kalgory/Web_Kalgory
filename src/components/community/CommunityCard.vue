@@ -4,9 +4,9 @@
     max-width="800"
     min-width="400"
   >
-    <CommunityCardTitle :community-type="communityType" />
-    <CommunityCardText :community-type="communityType" />
-    <CommunityCardAction :community-type="communityType" />
+    <community-card-title :community-type="communityType" />
+    <community-card-text :community-type="communityType" />
+    <community-card-action :community-type="communityType" />
   </v-card>
 </template>
 

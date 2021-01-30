@@ -1,17 +1,17 @@
 <template>
   <div>
-    <QuestionPostsTable />
+    <posts-table />
     <v-btn to="/community/question/create" />
   </div>
 </template>
 
 <script>
-import QuestionPostsTable from '@/components/community/question/posts/PostsTable.vue';
+import PostsTable from '@/components/community/question/posts/PostsTable.vue';
 
 export default {
   name: 'QuestionPosts',
   components: {
-    QuestionPostsTable,
+    PostsTable,
   },
 };
 </script>
