@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import routes from '@/router/routes';
+import Store from '@/store';
 
 Vue.use(Router);
 
@@ -16,7 +17,16 @@ router.afterEach((to, from) => {
 });
 
 router.beforeEach((to, from, next) => {
-  next();
+  if (to.meta.requireAuth) {
+    if (Store.getters.getIsAuth && !Store.getters.getIsLoading) {
+      next();
+    } else {
+      // TODO error handler
+      next('/');
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

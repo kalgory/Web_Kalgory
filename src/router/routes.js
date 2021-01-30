@@ -42,6 +42,7 @@ export default [
     redirect: '/concept',
     meta: {
       title: '',
+      requireAuth: false,
     },
   },
   {
@@ -49,6 +50,7 @@ export default [
     component: Base404,
     meta: {
       title: '',
+      requireAuth: false,
     },
   },
   {
@@ -57,6 +59,7 @@ export default [
     component: BaseProblem,
     meta: {
       title: 'Problem',
+      requireAuth: false,
     },
   },
   {
@@ -65,6 +68,7 @@ export default [
     component: BaseConcept,
     meta: {
       title: 'Concept',
+      requireAuth: false,
     },
   },
   {
@@ -75,6 +79,7 @@ export default [
     beforeEnter: requireUnauthorized(),
     meta: {
       title: 'Auth',
+      requireAuth: false,
     },
     children: [
       {
@@ -83,6 +88,7 @@ export default [
         component: AuthSignIn,
         meta: {
           title: 'Sign in',
+          requireAuth: false,
         },
       },
       {
@@ -91,6 +97,7 @@ export default [
         component: AuthSignUp,
         meta: {
           title: 'Sign up',
+          requireAuth: false,
         },
       },
     ],
@@ -102,6 +109,7 @@ export default [
     component: BaseCommunity,
     meta: {
       title: 'Community',
+      requireAuth: false,
     },
     children: [
       {
@@ -110,6 +118,7 @@ export default [
         component: CommunityDefault,
         meta: {
           title: 'Default',
+          requireAuth: false,
         },
       },
       {
@@ -117,22 +126,38 @@ export default [
         path: 'question',
         redirect: '/question',
         component: CommunityQuestion,
+        meta: {
+          title: 'question',
+          requireAuth: false,
+        },
         children: [
           {
             name: 'question posts',
             path: '',
             component: QuestionPosts,
+            meta: {
+              title: 'question posts',
+              requireAuth: false,
+            },
           },
           {
             name: 'question post create',
             path: 'create',
             component: QuestionPostCreate,
+            meta: {
+              title: 'Create post',
+              requireAuth: true,
+            },
           },
           {
             name: 'question post',
             path: ':id',
             props: { id: true },
             component: QuestionPost,
+            meta: {
+              title: 'question post',
+              requireAuth: false,
+            },
           },
 
         ],
@@ -141,6 +166,10 @@ export default [
         name: 'information',
         path: 'information',
         component: CommunityInformation,
+        meta: {
+          title: 'question post',
+          requireAuth: false,
+        },
       },
     ],
   },
