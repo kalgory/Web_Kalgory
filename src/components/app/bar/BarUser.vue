@@ -50,7 +50,7 @@
         block
         text
         class="py-8"
-        to="/user"
+        @click="$router.push({path:`/user/${$store.getters.getUser.uid}`});"
       >
         Profile
       </v-btn>

@@ -175,7 +175,6 @@ export default [
           requireAuth: false,
         },
       },
-
     ],
   },
   {
