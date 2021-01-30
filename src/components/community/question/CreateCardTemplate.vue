@@ -6,7 +6,7 @@
         offset="1"
       >
         <v-text-field
-          v-model="newPost.header"
+          v-model="post.header"
           label="header"
         />
       </v-col>
@@ -23,7 +23,7 @@
         sm="10"
       >
         <v-textarea
-          v-model="newPost.body"
+          v-model="post.body"
           outlined
           rows="10"
           no-resize
@@ -33,7 +33,7 @@
     </v-row>
     <v-row>
       <v-col offset="10">
-        <v-btn @click="clickEvent" />
+        <v-btn @click="createPost" />
       </v-col>
     </v-row>
   </div>
@@ -46,13 +46,13 @@ import { createPost } from '@/plugins/firebase/firestore/community';
 export default {
   name: 'CreateCardTemplate',
   data: () => ({
-    newPost: {
+    post: {
       header: '',
       body: '',
     },
   }),
   methods: {
-    clickEvent() {
+    createPost() {
       createPost(getQuestionCommunityReference(), this.newPost)
         .then((doc) => {
           console.log(doc);

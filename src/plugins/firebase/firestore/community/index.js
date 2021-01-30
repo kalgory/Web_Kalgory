@@ -1,15 +1,16 @@
 import Firebase from 'firebase/app';
 
-export function createPost(reference, newPost) {
+export function createPost(reference, post) {
   return new Promise((resolve, reject) => {
     reference.add({
-      header: newPost.header,
-      body: newPost.body,
+      header: post.header,
+      body: post.body,
       created_at: Firebase.firestore.Timestamp.now(),
     })
-      .then((docRef) => {
-        resolve(docRef);
-      }).catch((error) => {
+      .then((document) => {
+        resolve(document);
+      })
+      .catch((error) => {
         reject(error);
       });
   });
@@ -21,12 +22,12 @@ export function readPosts(reference, count = null) {
       .then((snapshot) => {
         const posts = [];
         snapshot.forEach((document) => {
-          const newPost = {};
-          newPost.id = document.id;
-          newPost.header = document.data().header;
-          newPost.body = document.data().body;
-          newPost.createdAt = document.data().created_at;
-          posts.push(newPost);
+          const post = {};
+          post.id = document.id;
+          post.header = document.data().header;
+          post.body = document.data().body;
+          post.createdAt = document.data().created_at;
+          posts.push(post);
         });
         resolve(posts);
       })
@@ -40,12 +41,12 @@ export function readPost(reference, documentID) {
   return new Promise((resolve, reject) => {
     reference.doc(documentID).get()
       .then((snapshot) => {
-        const Post = {};
-        Post.id = snapshot.id;
-        Post.header = snapshot.data().header;
-        Post.body = snapshot.data().body;
-        Post.createdAt = snapshot.data().created_at;
-        resolve(Post);
+        const post = {};
+        post.id = snapshot.id;
+        post.header = snapshot.data().header;
+        post.body = snapshot.data().body;
+        post.createdAt = snapshot.data().created_at;
+        resolve(post);
       })
       .catch((error) => {
         reject(error);
