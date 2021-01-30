@@ -1,9 +1,9 @@
 <template>
-  <div />
+  <div>{{ $route.params.id }}</div>
 </template>
 <script>
 export default {
-  name: 'BaseUser',
+  name: 'ProfileContainer',
 };
 </script>
 
