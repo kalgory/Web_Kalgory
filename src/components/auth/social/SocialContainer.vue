@@ -25,7 +25,7 @@
 import { signInWithGoogle, signInWithFaceBook } from '@/plugins/firebase/auth';
 
 export default {
-  name: 'AuthSocialContainer',
+  name: 'SocialContainer',
 
   methods: {
     signInWithGoogle() {

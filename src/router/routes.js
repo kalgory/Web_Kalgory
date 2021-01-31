@@ -6,6 +6,7 @@ const BaseAuth = () => import('@/views/BaseAuth');
 const BaseProblem = () => import('@/views/BaseProblem');
 const BaseCommunity = () => import('@/views/BaseCommunity');
 const BaseConcept = () => import('@/views/BaseConcept');
+const BaseUser = () => import('@/views/BaseUser');
 
 // Auth
 const AuthSignIn = () => import('@/views/auth/AuthSignIn');
@@ -20,6 +21,9 @@ const CommunityQuestion = () => import('@/views/community/CommunityQuestion');
 const QuestionPosts = () => import('@/views/community/question/QuestionPosts');
 const QuestionPost = () => import('@/views/community/question/QuestionPost');
 const QuestionPostCreate = () => import('@/views/community/question/QuestionPostCreate');
+
+// User
+const UserProfile = () => import('@/views/user/UserProfile');
 
 const requireUnauthorized = () => (to, from, next) => {
   if (Store.getters.getIsLoading) {
@@ -159,7 +163,6 @@ export default [
               requireAuth: false,
             },
           },
-
         ],
       },
       {
@@ -168,6 +171,27 @@ export default [
         component: CommunityInformation,
         meta: {
           title: 'question post',
+          requireAuth: false,
+        },
+      },
+    ],
+  },
+  {
+    name: 'user',
+    path: '/user',
+    component: BaseUser,
+    redirect: '/user/me',
+    meta: {
+      title: 'user',
+      requireAuth: true,
+    },
+    children: [
+      {
+        name: 'profile',
+        path: ':uid',
+        component: UserProfile,
+        meta: {
+          title: 'profile',
           requireAuth: false,
         },
       },
