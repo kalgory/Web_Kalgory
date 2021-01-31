@@ -103,9 +103,6 @@ export default {
   },
 
   methods: {
-    pushUser() {
-
-    },
     signOut() {
       signOut()
         .then(() => {

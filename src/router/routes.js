@@ -180,7 +180,7 @@ export default [
     name: 'user',
     path: '/user',
     component: BaseUser,
-    redirect: { name: 'profile', params: { uid: 'me' } },
+    redirect: '/user/me',
     meta: {
       title: 'user',
       requireAuth: true,
