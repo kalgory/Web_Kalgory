@@ -104,7 +104,11 @@ export default {
 
   methods: {
     pushUserProfile() {
-      this.$router.push({ path: `/user/${this.$store.getters.getUser.uid}` });
+      const userProfilePath = `/user/${this.$store.getters.getUser.uid}`;
+      console.log(userProfilePath);
+      if (this.$route.path !== userProfilePath) {
+        this.$router.push(userProfilePath);
+      }
     },
     signOut() {
       signOut()
