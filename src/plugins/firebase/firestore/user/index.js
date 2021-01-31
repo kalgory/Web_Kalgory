@@ -1,11 +1,14 @@
 import Firebase from 'firebase/app';
 
-export function getUserDocumentReference(UserID) {
+export function readUser(UserUID) {
   return new Promise((resolve, reject) => {
-    Firebase.firestore().get.collection('USER').where('id', '==', UserID)
-      .get((snapshot) => {
-        snapshot.forEach((document) => {
-          resolve(document.data());
+    Firebase.firestore().collection('USER').where('uid', '==', UserUID).get()
+      .then((querySnapshot) => {
+        if (querySnapshot.size === 0) {
+          reject(new Error('user not exists'));
+        }
+        querySnapshot.forEach((queryDocumentSnapshot) => {
+          resolve(queryDocumentSnapshot.data());
         });
       })
       .catch((error) => {
@@ -14,14 +17,6 @@ export function getUserDocumentReference(UserID) {
   });
 }
 
-export function getUserSnapshot(userReference) {
-  return new Promise((resolve, reject) => {
-    userReference.get()
-      .then((snapshot) => {
-        resolve(snapshot);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
+export function updateUserProfile() {
+  // TODO
 }

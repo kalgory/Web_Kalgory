@@ -50,7 +50,7 @@
         block
         text
         class="py-8"
-        @click="$router.push({path:`/user/${$store.getters.getUser.uid}`});"
+        @click="pushUserProfile"
       >
         Profile
       </v-btn>
@@ -103,6 +103,9 @@ export default {
   },
 
   methods: {
+    pushUserProfile() {
+      this.$router.push({ path: `/user/${this.$store.getters.getUser.uid}` });
+    },
     signOut() {
       signOut()
         .then(() => {
