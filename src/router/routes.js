@@ -163,7 +163,6 @@ export default [
               requireAuth: false,
             },
           },
-
         ],
       },
       {
@@ -181,11 +180,20 @@ export default [
     name: 'user',
     path: '/user',
     component: BaseUser,
+    redirect: { name: 'profile', params: { uid: 'me' } },
+    meta: {
+      title: 'user',
+      requireAuth: true,
+    },
     children: [
       {
         name: 'profile',
-        path: ':id',
+        path: ':uid',
         component: UserProfile,
+        meta: {
+          title: 'profile',
+          requireAuth: false,
+        },
       },
     ],
   },

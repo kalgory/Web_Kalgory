@@ -50,7 +50,7 @@
         block
         text
         class="py-8"
-        @click="pushUserProfile"
+        to="/user"
       >
         Profile
       </v-btn>
@@ -103,12 +103,8 @@ export default {
   },
 
   methods: {
-    pushUserProfile() {
-      const userProfilePath = `/user/${this.$store.getters.getUser.uid}`;
-      console.log(userProfilePath);
-      if (this.$route.path !== userProfilePath) {
-        this.$router.push(userProfilePath);
-      }
+    pushUser() {
+
     },
     signOut() {
       signOut()

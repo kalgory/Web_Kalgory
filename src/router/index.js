@@ -18,9 +18,11 @@ router.afterEach((to, from) => {
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
-    if (Store.getters.getIsAuth && !Store.getters.getIsLoading) {
+    if (Store.getters.getIsLoading) { // url 직접 접근
+      next('/');
+    } else if (Store.getters.getIsAuth) { // 인증된 사용자
       next();
-    } else {
+    } else { // 인증되지 않은 사용자
       // TODO error handler
       next('/');
     }
