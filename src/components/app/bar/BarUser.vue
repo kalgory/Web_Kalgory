@@ -106,7 +106,7 @@ export default {
     signOut() {
       signOut()
         .then(() => {
-
+          this.$router.push('/');
         })
         .catch((error) => {
           console.warn(error);

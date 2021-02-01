@@ -13,28 +13,22 @@ export default {
 
   computed: {
     userUID() {
-      if (this.$route.params.uid !== 'me') {
-        return this.$route.params.uid;
+      if (this.$route.name === 'myProfile') {
+        return this.$store.getters.getUser.uid;
       }
-      if (this.$store.getters.getIsLoading) {
-        this.$router.back();
-        return '';
-      } if (!this.$store.getters.getIsAuth) {
-        this.$router.back();
-        return '';
-        // TODO need auth
-      }
-      return this.$store.getters.getUser.uid;
+      return this.$route.params.uid;
     },
   },
 
   watch: {
     userUID(value) {
+      console.log('userUID is changed');
       this.readUser(value);
     },
   },
 
   created() {
+    console.log(this.$route.name);
     this.readUser(this.userUID);
   },
 
@@ -45,10 +39,8 @@ export default {
       }
       readUser(userUID)
         .then((user) => {
-          // console.log(user);
           this.user = user;
         })
-        // eslint-disable-next-line no-unused-vars
         .catch((error) => {
           // TODO error handler
           console.error(error);

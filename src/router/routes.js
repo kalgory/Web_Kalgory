@@ -187,6 +187,15 @@ export default [
     },
     children: [
       {
+        name: 'myProfile',
+        path: 'me',
+        component: UserProfile,
+        meta: {
+          title: 'my profile',
+          requireAuth: true,
+        },
+      },
+      {
         name: 'profile',
         path: ':uid',
         component: UserProfile,
