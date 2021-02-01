@@ -27,6 +27,8 @@ export function readPosts(reference, count = null) {
           post.header = document.data().header;
           post.body = document.data().body;
           post.createdAt = document.data().created_at;
+          post.onPanel = false;
+          post.panelIcon = 'mdi-chevron-down';
           posts.push(post);
         });
         resolve(posts);
