@@ -29,11 +29,13 @@ export default {
     },
     name: {
       type: String,
-      required: true,
+      default: '',
+      required: false,
     },
     photo: {
       type: String,
-      required: true,
+      default: '',
+      required: false,
     },
   },
 

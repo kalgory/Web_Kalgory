@@ -11,8 +11,8 @@
         v-on="on"
       >
         <user-avatar
-          :name="!!name ? name : ''"
-          :photo="!!photo? photo : ''"
+          :name="name"
+          :photo="photo"
         />
       </v-btn>
     </template>
@@ -21,8 +21,8 @@
       <v-container>
         <v-row justify="center">
           <user-avatar
-            :name="!!name ? name : ''"
-            :photo="!!photo? photo : ''"
+            :name="name"
+            :photo="photo"
             :size="72"
             class="mt-4 mb-2"
           />
@@ -77,7 +77,9 @@ export default {
   components: {
     UserAvatar,
   },
-
+  data: () => ({
+    user: {},
+  }),
   computed: {
     localUser() {
       return JSON.parse(localStorage.getItem('user'));
@@ -101,7 +103,6 @@ export default {
       return this.$store.getters.getUser.photoURL;
     },
   },
-
   methods: {
     signOut() {
       signOut()

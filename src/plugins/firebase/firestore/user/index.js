@@ -1,7 +1,6 @@
 import Firebase from 'firebase/app';
 
 export function readUser(userUID) {
-  console.log(userUID, 'firebase read User');
   return new Promise((resolve, reject) => {
     Firebase.firestore().collection('USER').where('uid', '==', userUID).get()
       .then((querySnapshot) => {
