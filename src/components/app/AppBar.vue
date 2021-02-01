@@ -68,13 +68,13 @@ export default {
       }
     },
     isAvatarShow() {
-      if (this.$store.getters.getIsLoading) {
+      if (this.$store.getters.getIsAuthLoading) {
         return localStorage.getItem('isAuth') === 'true';
       }
       return this.$store.getters.getIsAuth;
     },
     isAuthShow() {
-      if (this.$store.getters.getIsLoading) {
+      if (this.$store.getters.getIsAuthLoading) {
         return localStorage.getItem('isAuth') === 'false';
       }
       return !this.$store.getters.getIsAuth;

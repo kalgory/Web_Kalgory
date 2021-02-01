@@ -26,7 +26,7 @@ const QuestionPostCreate = () => import('@/views/community/question/QuestionPost
 const UserProfile = () => import('@/views/user/UserProfile');
 
 const requireUnauthorized = () => (to, from, next) => {
-  if (Store.getters.getIsLoading) {
+  if (Store.getters.getIsAuthLoading) {
     if (localStorage.getItem('isAuth') === 'true') {
       next('/');
     } else {
