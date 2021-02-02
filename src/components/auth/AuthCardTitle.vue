@@ -10,7 +10,7 @@
       v-once
       class="text-center font-weight-black py-6 pt-2"
     >
-      {{ title }}
+      <slot />
     </div>
   </div>
 </template>
@@ -18,33 +18,5 @@
 <script>
 export default {
   name: 'AuthCardTitle',
-
-  props: {
-    authType: {
-      type: String,
-      required: true,
-      validator(value) {
-        return value === 'sign in' || value === 'sign up';
-      },
-    },
-  },
-
-  data: () => ({
-    title: '',
-    signInTitle: 'Sign in to kalgory',
-    signUpTitle: 'Sign Up to kalgory',
-  }),
-
-  created() {
-    if (this.authType === 'sign in') {
-      this.title = this.signInTitle;
-    } else if (this.authType === 'sign up') {
-      this.title = this.signUpTitle;
-    }
-  },
 };
 </script>
-
-<style scoped>
-
-</style>

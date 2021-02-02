@@ -3,7 +3,9 @@
     width="400"
     class="mx-auto"
   >
-    <auth-card-title :auth-type="authType" />
+    <auth-card-title>
+      {{ title }}
+    </auth-card-title>
 
     <social-container />
 
@@ -45,6 +47,22 @@ export default {
         return value === 'sign in' || value === 'sign up';
       },
     },
+  },
+
+  data: () => ({
+    title: '',
+    signInTitle: 'Sign in to kalgory',
+    signUpTitle: 'Sign Up to kalgory',
+  }),
+
+  created() {
+    if (this.authType === 'sign in') {
+      this.title = this.signInTitle;
+    } else if (this.authType === 'sign up') {
+      this.title = this.signUpTitle;
+    } else {
+      this.title = '';
+    }
   },
 };
 </script>
