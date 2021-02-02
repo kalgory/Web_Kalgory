@@ -1,7 +1,8 @@
 <template>
   <v-data-iterator
-    :items="questionPosts"
-    :search="searchPost"
+    id="scroll-target"
+    :items="posts"
+    :search="searchText"
     hide-default-footer
   >
     <template #header>
@@ -10,7 +11,7 @@
           cols="8"
         >
           <v-text-field
-            v-model="searchPost"
+            v-model="searchText"
             prepend-inner-icon="mdi-table-search"
           />
         </v-col>
@@ -31,16 +32,21 @@
             </v-card-title>
             <v-card-text
               class="font-weight-bold"
-              v-text="bodyLength(post.body,post.onPanel)"
+              v-text="getProcessedBody(post.body,post.isExpand)"
             />
             <v-card-actions>
               <v-row>
                 <v-col offset="11">
                   <v-btn
                     icon
-                    @click="cardPanelAction(index)"
+                    @click="post.isExpand=!post.isExpand"
                   >
-                    <v-icon>{{ post.panelIcon }}</v-icon>
+                    <v-icon v-if="post.isExpand">
+                      mdi-chevron-up
+                    </v-icon>
+                    <v-icon v-if="!post.isExpand">
+                      mdi-chevron-down
+                    </v-icon>
                   </v-btn>
                 </v-col>
               </v-row>
@@ -48,45 +54,69 @@
           </v-card>
         </v-col>
       </v-row>
+
+      {{ offsetTop }}
+      <v-progress-circular
+        v-intersect="onIntersect"
+        indeterminate
+        class="center"
+      />
     </template>
   </v-data-iterator>
 </template>
 
 <script>
-import { readPosts } from '@/plugins/firebase/firestore/community';
-import { getQuestionCommunityReference } from '@/plugins/firebase/firestore/community/reference';
+import { readPosts, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
 
 export default {
   name: 'QuestionDataIterator',
 
   data: () => ({
-    questionPosts: [],
-    searchPost: '',
+    isLoading: true,
+    posts: [],
+    searchText: '',
+    lastSnapshot: {},
+    offsetTop: 0,
   }),
 
   created() {
-    readPosts(getQuestionCommunityReference(), 10)
-      .then((posts) => {
-        this.questionPosts = posts;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    this.readPosts();
   },
 
   methods: {
-    bodyLength(body, onPanel) {
-      if (body.length >= 170 && onPanel === false) {
+    onScroll(e) {
+      console.log('?');
+      this.offsetTop = e.Target.scrollTop;
+    },
+    getProcessedBody(body, isExpand) {
+      if (body.length >= 170 && isExpand === false) {
         return `${body.substr(0, 170)}...`;
       }
-      console.log(body.length);
       return body;
     },
-    cardPanelAction(index) {
-      this.questionPosts[index].onPanel = !this.questionPosts[index].onPanel;
-      if (this.questionPosts[index].onPanel === false) this.questionPosts[index].panelIcon = 'mdi-chevron-down';
-      else this.questionPosts[index].panelIcon = 'mdi-chevron-up';
+
+    readPosts() {
+      this.isLoading = true;
+      readPosts(getQuestionCommunityReference(), 3, this.lastSnapshot)
+        .then((querySnapshot) => {
+          querySnapshot.forEach((snapshot) => {
+            this.posts.push({
+              id: snapshot.id,
+              header: snapshot.data().header,
+              body: snapshot.data().body,
+              createdAt: snapshot.data().created_at,
+              isExpand: false,
+            });
+          });
+          this.lastSnapshot = querySnapshot.docs[querySnapshot.size - 1];
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          console.error(error);
+        });
     },
+
   },
 };
 </script>

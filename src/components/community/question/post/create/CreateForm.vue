@@ -40,8 +40,7 @@
 </template>
 
 <script>
-import { getQuestionCommunityReference } from '@/plugins/firebase/firestore/community/reference';
-import { createPost } from '@/plugins/firebase/firestore/community';
+import { createPost, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
 
 export default {
   name: 'CreateForm',

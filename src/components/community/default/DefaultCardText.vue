@@ -19,8 +19,7 @@
 </template>
 
 <script>
-import { readPosts } from '@/plugins/firebase/firestore/community';
-import { getQuestionCommunityReference } from '@/plugins/firebase/firestore/community/reference';
+import { readPosts, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
 
 export default {
   name: 'CommunityCardText',
@@ -41,9 +40,8 @@ export default {
 
   created() {
     if (this.communityType === 'questions') {
-      readPosts(getQuestionCommunityReference(), 5)
+      readPosts(getQuestionCommunityReference(), 5, {})
         .then((posts) => {
-          console.log(posts);
           this.posts = posts;
         })
         .catch((error) => {
