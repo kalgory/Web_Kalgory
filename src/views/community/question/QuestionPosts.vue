@@ -5,19 +5,17 @@
         Post 생성
       </v-btn>
     </v-row>
-    <Test />
+    <posts-data-iterator />
   </v-container>
 </template>
 
 <script>
-// import PostsDataIterator from '@/components/community/question/posts/PostsDataIterator.vue';
-import Test from '@/components/community/question/posts/test.vue';
+import PostsDataIterator from '@/components/community/question/posts/PostsDataIterator.vue';
 
 export default {
   name: 'QuestionPosts',
   components: {
-    // PostsDataIterator,
-    Test,
+    PostsDataIterator,
   },
 };
 </script>

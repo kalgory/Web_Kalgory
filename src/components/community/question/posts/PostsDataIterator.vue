@@ -54,13 +54,16 @@
           </v-card>
         </v-col>
       </v-row>
-
-      {{ offsetTop }}
-      <v-progress-circular
+      <v-row
         v-intersect="onIntersect"
-        indeterminate
-        class="center"
-      />
+        justify="center"
+      >
+        <v-progress-circular
+          v-if="isLoading"
+          indeterminate
+          class="center"
+        />
+      </v-row>
     </template>
   </v-data-iterator>
 </template>
@@ -72,22 +75,27 @@ export default {
   name: 'QuestionDataIterator',
 
   data: () => ({
-    isLoading: true,
+    isLoading: false,
     posts: [],
     searchText: '',
     lastSnapshot: {},
-    offsetTop: 0,
+    completeRead: false,
   }),
+  watch: {
+    isLoading(isLoading) {
+      if (isLoading) this.readPosts();
+    },
+  },
 
   created() {
     this.readPosts();
   },
-
   methods: {
-    onScroll(e) {
-      console.log('?');
-      this.offsetTop = e.Target.scrollTop;
+    onIntersect(entries) {
+      if (entries[0].isIntersecting && !this.completeRead) this.isLoading = true;
+      else this.isLoading = false;
     },
+
     getProcessedBody(body, isExpand) {
       if (body.length >= 170 && isExpand === false) {
         return `${body.substr(0, 170)}...`;
@@ -96,7 +104,6 @@ export default {
     },
 
     readPosts() {
-      this.isLoading = true;
       readPosts(getQuestionCommunityReference(), 3, this.lastSnapshot)
         .then((querySnapshot) => {
           querySnapshot.forEach((snapshot) => {
@@ -110,6 +117,7 @@ export default {
           });
           this.lastSnapshot = querySnapshot.docs[querySnapshot.size - 1];
           this.isLoading = false;
+          if (querySnapshot.size !== 3) this.completeRead = true;
         })
         .catch((error) => {
           this.isLoading = false;
