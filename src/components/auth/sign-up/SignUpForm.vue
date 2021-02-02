@@ -56,23 +56,23 @@ export default {
 
   methods: {
     signUp() {
-      this.$store.commit('setIsLoading', true);
+      this.$store.commit('setIsAuthLoading', true);
       createUserWithEmailAndPassword(this.email, this.password)
         // eslint-disable-next-line no-unused-vars
         .then((userCredential) => {
           updateProfile({ displayName: this.name })
             .then(() => {
               this.$router.back();
-              this.$store.commit('setIsLoading', false);
+              this.$store.commit('setIsAuthLoading', false);
             })
             // eslint-disable-next-line no-unused-vars
             .catch((error) => {
-              this.$store.commit('setIsLoading', false);
+              this.$store.commit('setIsAuthLoading', false);
             });
         })
         // eslint-disable-next-line no-unused-vars
         .catch((error) => {
-          this.$store.commit('setIsLoading', false);
+          this.$store.commit('setIsAuthLoading', false);
         });
     },
   },

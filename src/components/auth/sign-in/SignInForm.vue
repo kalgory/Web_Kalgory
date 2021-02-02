@@ -40,15 +40,15 @@ export default {
 
   methods: {
     signIn() {
-      this.$store.commit('setIsLoading', true);
+      this.$store.commit('setIsAuthLoading', true);
       signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
           this.$router.back();
-          this.$store.commit('setIsLoading', false);
+          this.$store.commit('setIsAuthLoading', false);
         })
         // eslint-disable-next-line no-unused-vars
         .catch((error) => {
-          this.$store.commit('setIsLoading', false);
+          this.$store.commit('setIsAuthLoading', false);
         });
     },
   },

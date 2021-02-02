@@ -26,7 +26,7 @@ const QuestionPostCreate = () => import('@/views/community/question/QuestionPost
 const UserProfile = () => import('@/views/user/UserProfile');
 
 const requireUnauthorized = () => (to, from, next) => {
-  if (Store.getters.getIsLoading) {
+  if (Store.getters.getIsAuthLoading) {
     if (localStorage.getItem('isAuth') === 'true') {
       next('/');
     } else {
@@ -186,6 +186,15 @@ export default [
       requireAuth: true,
     },
     children: [
+      {
+        name: 'myProfile',
+        path: 'me',
+        component: UserProfile,
+        meta: {
+          title: 'my profile',
+          requireAuth: true,
+        },
+      },
       {
         name: 'profile',
         path: ':uid',

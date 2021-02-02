@@ -24,20 +24,20 @@ export default {
   },
 
   created() {
-    this.$store.commit('setIsLoading', true);
+    this.$store.commit('setIsAuthLoading', true);
     onAuthStateChanged((user) => {
       if (user) {
         localStorage.setItem('isAuth', 'true');
         localStorage.setItem('user', JSON.stringify(user));
         this.$store.commit('setIsAuth', true);
+        this.$store.commit('setIsAuthLoading', false);
         this.$store.commit('setUser', user);
-        this.$store.commit('setIsLoading', false);
       } else {
         localStorage.setItem('isAuth', 'false');
         localStorage.setItem('user', JSON.stringify({}));
         this.$store.commit('setIsAuth', false);
-        this.$store.commit('setUser', null);
-        this.$store.commit('setIsLoading', false);
+        this.$store.commit('setIsAuthLoading', false);
+        this.$store.commit('setUser', {});
       }
     });
   },

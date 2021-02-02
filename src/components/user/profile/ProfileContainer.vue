@@ -1,11 +1,37 @@
 <template>
-  <div>{{ userUID }} {{ user }}</div>
+  <v-container fluid>
+    <v-row>
+      <v-col cols="auto">
+        <user-avatar
+          :size="96"
+          :name="user.name"
+          :photo="user.photo"
+        />
+      </v-col>
+      <v-col
+        cols="auto"
+        align-self="center"
+      >
+        <p class="my-auto">
+          {{ user.name }}
+        </p>
+        <p class="my-auto">
+          {{ user.email }}
+        </p>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script>
+import UserAvatar from '@/components/app/bar/user/UserAvatar.vue';
 import { readUser } from '@/plugins/firebase/firestore/user';
 
 export default {
   name: 'ProfileContainer',
+
+  components: {
+    UserAvatar,
+  },
 
   data: () => ({
     user: {},
@@ -13,18 +39,10 @@ export default {
 
   computed: {
     userUID() {
-      if (this.$route.params.uid !== 'me') {
-        return this.$route.params.uid;
+      if (this.$route.name === 'myProfile') {
+        return this.$store.getters.getUser.uid;
       }
-      if (this.$store.getters.getIsLoading) {
-        this.$router.back();
-        return '';
-      } if (!this.$store.getters.getIsAuth) {
-        this.$router.back();
-        return '';
-        // TODO need auth
-      }
-      return this.$store.getters.getUser.uid;
+      return this.$route.params.uid;
     },
   },
 
@@ -40,15 +58,10 @@ export default {
 
   methods: {
     readUser(userUID) {
-      if (userUID === '') {
-        return;
-      }
       readUser(userUID)
         .then((user) => {
-          // console.log(user);
           this.user = user;
         })
-        // eslint-disable-next-line no-unused-vars
         .catch((error) => {
           // TODO error handler
           console.error(error);
