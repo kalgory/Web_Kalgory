@@ -22,7 +22,7 @@
 import { readPosts, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
 
 export default {
-  name: 'CommunityCardText',
+  name: 'DefaultCardText',
 
   props: {
     communityType: {

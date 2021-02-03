@@ -16,7 +16,7 @@ import CommunityCardAction from '@/components/community/default/DefaultCardActio
 import CommunityCardText from '@/components/community/default/DefaultCardText.vue';
 
 export default {
-  name: 'CommunityCard',
+  name: 'DefaultCard',
   components: {
     CommunityCardTitle,
     CommunityCardAction,

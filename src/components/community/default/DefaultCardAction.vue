@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'CommunityCardAction',
+  name: 'DefaultCardAction',
   props: {
     communityType: {
       type: String,
