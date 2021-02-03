@@ -26,32 +26,7 @@
         <v-col
           cols="8"
         >
-          <v-card>
-            <v-card-title class="font-weight-bold">
-              {{ post.header }}
-            </v-card-title>
-            <v-card-text
-              class="font-weight-bold"
-              v-text="getProcessedBody(post.body,post.isExpand)"
-            />
-            <v-card-actions>
-              <v-row>
-                <v-col offset="11">
-                  <v-btn
-                    icon
-                    @click="post.isExpand=!post.isExpand"
-                  >
-                    <v-icon v-if="post.isExpand">
-                      mdi-chevron-up
-                    </v-icon>
-                    <v-icon v-if="!post.isExpand">
-                      mdi-chevron-down
-                    </v-icon>
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-card-actions>
-          </v-card>
+          <data-card :post="post" />
         </v-col>
       </v-row>
       <v-row
@@ -70,9 +45,14 @@
 
 <script>
 import { readPosts, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
+import DataCard from './data/DataCard.vue';
 
 export default {
   name: 'QuestionDataIterator',
+
+  components: {
+    DataCard,
+  },
 
   data: () => ({
     isLoading: false,
@@ -96,13 +76,6 @@ export default {
       else this.isLoading = false;
     },
 
-    getProcessedBody(body, isExpand) {
-      if (body.length >= 170 && isExpand === false) {
-        return `${body.substr(0, 170)}...`;
-      }
-      return body;
-    },
-
     readPosts() {
       readPosts(getQuestionCommunityReference(), 3, this.lastSnapshot)
         .then((querySnapshot) => {
@@ -112,7 +85,6 @@ export default {
               header: snapshot.data().header,
               body: snapshot.data().body,
               createdAt: snapshot.data().created_at,
-              isExpand: false,
             });
           });
           this.lastSnapshot = querySnapshot.docs[querySnapshot.size - 1];
