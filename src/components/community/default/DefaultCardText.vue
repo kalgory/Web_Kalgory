@@ -41,8 +41,15 @@ export default {
   created() {
     if (this.communityType === 'questions') {
       readPosts(getQuestionCommunityReference(), 5, {})
-        .then((posts) => {
-          this.posts = posts;
+        .then((querySnapshot) => {
+          querySnapshot.forEach((snapshot) => {
+            this.posts.push({
+              id: snapshot.id,
+              header: snapshot.data().header,
+              body: snapshot.data().body,
+              createdAt: snapshot.data().created_at,
+            });
+          });
         })
         .catch((error) => {
           console.error(error);
