@@ -58,16 +58,3 @@ export function readPost(reference, documentID) {
       });
   });
 }
-
-export function readLastVisiblePost(reference, documentID) {
-  return new Promise((resolve, reject) => {
-    reference.doc(documentID).get()
-      .then((snapshot) => {
-        const post = snapshot;
-        // console.log(post);
-        resolve(post);
-      }).catch((error) => {
-        reject(error);
-      });
-  });
-}
