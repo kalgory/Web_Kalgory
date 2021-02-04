@@ -110,7 +110,10 @@ export default {
           this.$router.push('/');
         })
         .catch((error) => {
-          console.warn(error);
+          this.$toasted.show(error.message, {
+            type: 'error',
+            icon: 'mdi-account-outline',
+          });
         });
     },
   },

@@ -30,15 +30,14 @@ export default {
         localStorage.setItem('isAuth', 'true');
         localStorage.setItem('user', JSON.stringify(user));
         this.$store.commit('setIsAuth', true);
-        this.$store.commit('setIsAuthLoading', false);
         this.$store.commit('setUser', user);
       } else {
         localStorage.setItem('isAuth', 'false');
         localStorage.setItem('user', JSON.stringify({}));
         this.$store.commit('setIsAuth', false);
-        this.$store.commit('setIsAuthLoading', false);
         this.$store.commit('setUser', {});
       }
+      this.$store.commit('setIsAuthLoading', false);
     });
   },
 };
