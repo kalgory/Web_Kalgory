@@ -58,7 +58,7 @@ export default {
     isLoading: false,
     posts: [],
     searchText: '',
-    lastSnapshot: {},
+    lastSnapshot: undefined,
     completeRead: false,
   }),
   watch: {
@@ -91,6 +91,7 @@ export default {
             });
           });
           this.lastSnapshot = querySnapshot.docs[querySnapshot.size - 1];
+          console.log(typeof (querySnapshot.docs[querySnapshot.size - 1]));
           this.isLoading = false;
           if (querySnapshot.size !== 3) {
             this.completeRead = true;
