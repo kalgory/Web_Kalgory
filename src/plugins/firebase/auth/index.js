@@ -12,11 +12,9 @@ export function createUserWithEmailAndPassword(email, password) {
   return new Promise((resolve, reject) => {
     Firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        console.log('create user with email and password');
         resolve(userCredential);
       })
       .catch((error) => {
-        console.error(error);
         reject(error);
       });
   });
@@ -26,11 +24,9 @@ export function signInWithEmailAndPassword(email, password) {
   return new Promise((resolve, reject) => {
     Firebase.auth().signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        console.log('sign in with email and password');
         resolve(userCredential);
       })
       .catch((error) => {
-        console.error(error);
         reject(error);
       });
   });
@@ -40,12 +36,10 @@ export function signOut() {
   return new Promise((resolve, reject) => {
     Firebase.auth().signOut()
       .then(() => {
-        console.log('sign out');
         resolve();
       })
       .catch((error) => {
-        console.error(error);
-        reject();
+        reject(error);
       });
   });
 }
@@ -56,11 +50,9 @@ export function signInWithGoogle() {
   return new Promise((resolve, reject) => {
     Firebase.auth().signInWithPopup(GoogleAuthProvider)
       .then((userCredential) => {
-        console.log('sign in with google');
         resolve(userCredential);
       })
       .catch((error) => {
-        console.error(error);
         reject(error);
       });
   });
