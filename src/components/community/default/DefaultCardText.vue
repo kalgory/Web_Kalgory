@@ -40,7 +40,7 @@ export default {
 
   created() {
     if (this.communityType === 'questions') {
-      readPosts(getQuestionCommunityReference(), 5, {})
+      readPosts(getQuestionCommunityReference(), 5)
         .then((querySnapshot) => {
           querySnapshot.forEach((snapshot) => {
             this.posts.push({

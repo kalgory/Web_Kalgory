@@ -50,6 +50,11 @@ export default {
       body: '',
     },
   }),
+  created() {
+    if (!this.$store.getters.getIsLoading) {
+      console.log(this.$store.getters.getUser.name);
+    }
+  },
   methods: {
     createPost() {
       createPost(getQuestionCommunityReference(), this.post)

@@ -30,7 +30,7 @@ export function createPost(reference, post) {
   });
 }
 
-export function readPosts(reference, count, snapshot) {
+export function readPosts(reference, count, snapshot = {}) {
   return new Promise((resolve, reject) => {
     reference.orderBy('created_at', 'desc').startAfter(snapshot).limit(count).get()
       .then((querySnapshot) => {

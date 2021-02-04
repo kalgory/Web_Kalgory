@@ -72,8 +72,11 @@ export default {
   },
   methods: {
     onIntersect(entries) {
-      if (entries[0].isIntersecting && !this.completeRead) this.isLoading = true;
-      else this.isLoading = false;
+      if (entries[0].isIntersecting && !this.completeRead) {
+        this.isLoading = true;
+      } else {
+        this.isLoading = false;
+      }
     },
 
     readPosts() {
@@ -89,7 +92,9 @@ export default {
           });
           this.lastSnapshot = querySnapshot.docs[querySnapshot.size - 1];
           this.isLoading = false;
-          if (querySnapshot.size !== 3) this.completeRead = true;
+          if (querySnapshot.size !== 3) {
+            this.completeRead = true;
+          }
         })
         .catch((error) => {
           this.isLoading = false;
