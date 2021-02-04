@@ -44,10 +44,15 @@ export default {
       signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
           this.$router.back();
-          this.$store.commit('setIsAuthLoading', false);
         })
         // eslint-disable-next-line no-unused-vars
         .catch((error) => {
+          this.$toasted.show(error.message, {
+            type: 'error',
+            icon: 'mdi-account-outline',
+          });
+        })
+        .finally(() => {
           this.$store.commit('setIsAuthLoading', false);
         });
     },
