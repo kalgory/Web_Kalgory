@@ -91,7 +91,6 @@ export default {
             });
           });
           this.lastSnapshot = querySnapshot.docs[querySnapshot.size - 1];
-          console.log(typeof (querySnapshot.docs[querySnapshot.size - 1]));
           this.isLoading = false;
           if (querySnapshot.size !== 3) {
             this.completeRead = true;

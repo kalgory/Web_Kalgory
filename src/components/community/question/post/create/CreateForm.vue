@@ -19,8 +19,7 @@
     </v-row>
     <v-row justify="center">
       <v-col
-        cols="12"
-        sm="10"
+        cols="5"
       >
         <v-textarea
           v-model="post.body"
@@ -29,6 +28,9 @@
           no-resize
           label="body"
         />
+      </v-col>
+      <v-col cols="5">
+        <html>{{ post.body }}</html>
       </v-col>
     </v-row>
     <v-row>
@@ -40,7 +42,10 @@
 </template>
 
 <script>
-import { createPost, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
+// eslint-disable-next-line max-len
+// import { createPost, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
+import Marked from 'marked';
+import SantizeHtml from 'sanitize-html';
 
 export default {
   name: 'CreateForm',
@@ -49,23 +54,33 @@ export default {
       header: '',
       body: '',
     },
+    markdownString: '',
   }),
-  created() {
-    if (!this.$store.getters.getIsLoading) {
-      console.log(this.$store.getters.getUser.name);
-    }
+
+  computed: {
+    postBody() {
+      console.log(SantizeHtml(Marked(this.post.body)));
+      return (Marked(this.post.body));
+    },
   },
+
+  created() {
+  },
+
   methods: {
     createPost() {
-      createPost(getQuestionCommunityReference(), this.post)
-        .then((doc) => {
-          console.log(doc);
-          this.$router.back();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      // createPost(getQuestionCommunityReference(), this.post)
+      //   .then((doc) => {
+      //     console.log(doc);
+      //     this.$router.back();
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
+
+      console.log(SantizeHtml(Marked(this.post.body)));
     },
+
   },
 
 };
