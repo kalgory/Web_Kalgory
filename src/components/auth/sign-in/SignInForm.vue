@@ -2,20 +2,14 @@
   <v-form
     class="mx-12"
   >
-    <v-text-field
+    <text-field-email
       v-model="email"
-      type="email"
-      label="Email"
-      prepend-inner-icon="mdi-account-outline"
-      placeholder="Type your email"
     />
-    <v-text-field
+
+    <text-field-password
       v-model="password"
-      type="password"
-      label="Password"
-      prepend-inner-icon="mdi-lock-outline"
-      placeholder="Type your password"
     />
+
     <v-btn
       block
       class="my-3"
@@ -28,10 +22,17 @@
 </template>
 
 <script>
+import TextFieldEmail from '@/components/auth/text-field/TextFieldEmail.vue';
+import TextFieldPassword from '@/components/auth/text-field/TextFieldPassword.vue';
 import { signInWithEmailAndPassword } from '@/plugins/firebase/auth';
 
 export default {
   name: 'SignInForm',
+
+  components: {
+    TextFieldEmail,
+    TextFieldPassword,
+  },
 
   data: () => ({
     email: '',
