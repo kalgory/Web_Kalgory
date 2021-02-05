@@ -46,7 +46,7 @@ export default [
     redirect: '/concept',
     meta: {
       title: '',
-      requireAuth: false,
+      isRequireAuth: false,
     },
   },
   {
@@ -54,7 +54,7 @@ export default [
     component: Base404,
     meta: {
       title: '',
-      requireAuth: false,
+      isRequireAuth: false,
     },
   },
   {
@@ -63,7 +63,7 @@ export default [
     component: BaseProblem,
     meta: {
       title: 'Problem',
-      requireAuth: false,
+      isRequireAuth: false,
     },
   },
   {
@@ -72,7 +72,7 @@ export default [
     component: BaseConcept,
     meta: {
       title: 'Concept',
-      requireAuth: false,
+      isRequireAuth: false,
     },
   },
   {
@@ -83,7 +83,7 @@ export default [
     beforeEnter: requireUnauthorized(),
     meta: {
       title: 'Auth',
-      requireAuth: false,
+      isRequireAuth: false,
     },
     children: [
       {
@@ -92,7 +92,7 @@ export default [
         component: AuthSignIn,
         meta: {
           title: 'Sign in',
-          requireAuth: false,
+          isRequireAuth: false,
         },
       },
       {
@@ -101,7 +101,7 @@ export default [
         component: AuthSignUp,
         meta: {
           title: 'Sign up',
-          requireAuth: false,
+          isRequireAuth: false,
         },
       },
     ],
@@ -113,7 +113,7 @@ export default [
     component: BaseCommunity,
     meta: {
       title: 'Community',
-      requireAuth: false,
+      isRequireAuth: false,
     },
     children: [
       {
@@ -122,7 +122,7 @@ export default [
         component: CommunityDefault,
         meta: {
           title: 'Default',
-          requireAuth: false,
+          isRequireAuth: false,
         },
       },
       {
@@ -132,7 +132,7 @@ export default [
         component: CommunityQuestion,
         meta: {
           title: 'question',
-          requireAuth: false,
+          isRequireAuth: false,
         },
         children: [
           {
@@ -141,7 +141,7 @@ export default [
             component: QuestionPosts,
             meta: {
               title: 'question posts',
-              requireAuth: false,
+              isRequireAuth: false,
             },
           },
           {
@@ -150,7 +150,7 @@ export default [
             component: QuestionPostCreate,
             meta: {
               title: 'Create post',
-              requireAuth: true,
+              isRequireAuth: true,
             },
           },
           {
@@ -160,7 +160,7 @@ export default [
             component: QuestionPost,
             meta: {
               title: 'question post',
-              requireAuth: false,
+              isRequireAuth: false,
             },
           },
         ],
@@ -171,7 +171,7 @@ export default [
         component: CommunityInformation,
         meta: {
           title: 'question post',
-          requireAuth: false,
+          isRequireAuth: false,
         },
       },
     ],
@@ -183,7 +183,7 @@ export default [
     redirect: '/user/me',
     meta: {
       title: 'user',
-      requireAuth: true,
+      isRequireAuth: true,
     },
     children: [
       {
@@ -192,7 +192,7 @@ export default [
         component: UserProfile,
         meta: {
           title: 'my profile',
-          requireAuth: true,
+          isRequireAuth: true,
         },
       },
       {
@@ -201,7 +201,7 @@ export default [
         component: UserProfile,
         meta: {
           title: 'profile',
-          requireAuth: false,
+          isRequireAuth: false,
         },
       },
     ],
