@@ -40,8 +40,7 @@
 </template>
 
 <script>
-import { getQuestionCommunityReference } from '@/plugins/firebase/firestore/community/reference';
-import { createPost } from '@/plugins/firebase/firestore/community';
+import { createPost, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
 
 export default {
   name: 'CreateForm',
@@ -51,6 +50,11 @@ export default {
       body: '',
     },
   }),
+  created() {
+    if (!this.$store.getters.getIsLoading) {
+      console.log(this.$store.getters.getUser.name);
+    }
+  },
   methods: {
     createPost() {
       createPost(getQuestionCommunityReference(), this.post)

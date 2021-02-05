@@ -7,8 +7,7 @@
 </template>
 
 <script>
-import { readPost } from '@/plugins/firebase/firestore/community';
-import { getQuestionCommunityReference } from '@/plugins/firebase/firestore/community/reference';
+import { readPost, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
 
 export default {
   name: 'ReadCard',
