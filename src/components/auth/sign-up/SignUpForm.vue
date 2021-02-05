@@ -61,6 +61,10 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then((userCredential) => updateProfile({ displayName: this.name }))
         .then(() => {
+          this.$toasted.show('회원가입 완료', {
+            type: 'success',
+            icon: 'mdi-account-outline',
+          });
           this.$router.back();
         })
         .catch((error) => {
