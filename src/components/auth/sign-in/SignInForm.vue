@@ -43,11 +43,20 @@ export default {
       this.$store.commit('setIsAuthLoading', true);
       signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
+          this.$toasted.show('로그인 완료', {
+            type: 'success',
+            icon: 'mdi-account-outline',
+          });
           this.$router.back();
-          this.$store.commit('setIsAuthLoading', false);
         })
         // eslint-disable-next-line no-unused-vars
         .catch((error) => {
+          this.$toasted.show(error.message, {
+            type: 'error',
+            icon: 'mdi-account-outline',
+          });
+        })
+        .finally(() => {
           this.$store.commit('setIsAuthLoading', false);
         });
     },

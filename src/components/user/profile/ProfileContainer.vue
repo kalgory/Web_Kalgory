@@ -63,8 +63,10 @@ export default {
           this.user = user;
         })
         .catch((error) => {
-          // TODO error handler
-          console.error(error);
+          this.$toasted.show(error.message, {
+            type: 'error',
+            icon: 'mdi-account-outline',
+          });
         });
     },
   },

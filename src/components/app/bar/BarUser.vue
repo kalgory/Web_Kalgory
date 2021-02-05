@@ -77,40 +77,46 @@ export default {
   components: {
     UserAvatar,
   },
-  data: () => ({
-    user: {},
-  }),
+
   computed: {
-    localUser() {
-      return JSON.parse(localStorage.getItem('user'));
-    },
     name() {
       if (this.$store.getters.getIsAuthLoading) {
-        return this.localUser.displayName;
+        return '';
       }
       return this.$store.getters.getUser.displayName;
     },
     email() {
       if (this.$store.getters.getIsAuthLoading) {
-        return this.localUser.email;
+        return '';
       }
       return this.$store.getters.getUser.email;
     },
     photo() {
       if (this.$store.getters.getIsAuthLoading) {
-        return this.localUser.photoURL;
+        return '';
       }
       return this.$store.getters.getUser.photoURL;
     },
   },
+
   methods: {
     signOut() {
+      this.$store.commit('setIsAuthLoading', true);
       signOut()
         .then(() => {
-          this.$router.push('/');
+          this.$toasted.show('로그아웃 완료', {
+            type: 'success',
+            icon: 'mdi-account-outline',
+          });
         })
         .catch((error) => {
-          console.warn(error);
+          this.$toasted.show(error.message, {
+            type: 'error',
+            icon: 'mdi-account-outline',
+          });
+        })
+        .finally(() => {
+          this.$store.commit('setIsAuthLoading', false);
         });
     },
   },

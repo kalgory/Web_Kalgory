@@ -59,19 +59,21 @@ export default {
       this.$store.commit('setIsAuthLoading', true);
       createUserWithEmailAndPassword(this.email, this.password)
         // eslint-disable-next-line no-unused-vars
-        .then((userCredential) => {
-          updateProfile({ displayName: this.name })
-            .then(() => {
-              this.$router.back();
-              this.$store.commit('setIsAuthLoading', false);
-            })
-            // eslint-disable-next-line no-unused-vars
-            .catch((error) => {
-              this.$store.commit('setIsAuthLoading', false);
-            });
+        .then((userCredential) => updateProfile({ displayName: this.name }))
+        .then(() => {
+          this.$toasted.show('회원가입 완료', {
+            type: 'success',
+            icon: 'mdi-account-outline',
+          });
+          this.$router.back();
         })
-        // eslint-disable-next-line no-unused-vars
         .catch((error) => {
+          this.$toasted.show(error.message, {
+            type: 'error',
+            icon: 'mdi-account-outline',
+          });
+        })
+        .finally(() => {
           this.$store.commit('setIsAuthLoading', false);
         });
     },
