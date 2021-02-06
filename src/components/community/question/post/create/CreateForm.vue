@@ -34,11 +34,6 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12">
-        <div v-text="post.body" />
-      </v-col>
-    </v-row>
-    <v-row>
       <v-col offset="10">
         <v-btn @click="createPost" />
       </v-col>
