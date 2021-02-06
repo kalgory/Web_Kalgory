@@ -1,10 +1,14 @@
 <template>
   <v-text-field
+    validate-on-blur
+    :autofocus="isAutoFocus"
     :value="value"
-    type="email"
+    :rules="rules"
+    type="text"
     label="Username"
     prepend-inner-icon="mdi-account-outline"
     placeholder="Type your username"
+    required
     @input="onInput"
   />
 </template>
@@ -18,7 +22,18 @@ export default {
       type: String,
       required: true,
     },
+    isAutoFocus: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
+
+  data: () => ({
+    rules: [
+      (v) => !!v || 'Usrename is required',
+    ],
+  }),
 
   methods: {
     onInput(value) {
