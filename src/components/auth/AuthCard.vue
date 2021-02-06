@@ -20,10 +20,10 @@
 </template>
 
 <script>
+import AuthCardTitle from '@/components/auth/AuthCardTitle.vue';
 import SocialContainer from '@/components/auth/social/SocialContainer.vue';
 import SignInForm from '@/components/auth/sign-in/SignInForm.vue';
 import SignUpForm from '@/components/auth/sign-up/SignUpForm.vue';
-import AuthCardTitle from '@/components/auth/AuthCardTitle.vue';
 import SignInCardActions from '@/components/auth/sign-in/SignInCardActions.vue';
 import SignUpCardActions from '@/components/auth/sign-up/SignUpCardActions.vue';
 
@@ -66,7 +66,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>

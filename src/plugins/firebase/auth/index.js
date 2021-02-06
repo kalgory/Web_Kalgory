@@ -69,7 +69,6 @@ export function updateProfile(profile) {
         resolve();
       })
       .catch((error) => {
-        console.error(error);
         reject(error);
       });
   });
