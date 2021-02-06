@@ -30,7 +30,12 @@
         />
       </v-col>
       <v-col cols="5">
-        <html>{{ post.body }}</html>
+        <div v-html="postBody" />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <div v-text="post.body" />
       </v-col>
     </v-row>
     <v-row>
@@ -42,10 +47,9 @@
 </template>
 
 <script>
-// eslint-disable-next-line max-len
-// import { createPost, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
+import { createPost, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
 import Marked from 'marked';
-import SantizeHtml from 'sanitize-html';
+import SanitizeHtml from 'sanitize-html';
 
 export default {
   name: 'CreateForm',
@@ -59,8 +63,7 @@ export default {
 
   computed: {
     postBody() {
-      console.log(SantizeHtml(Marked(this.post.body)));
-      return (Marked(this.post.body));
+      return SanitizeHtml(Marked(this.post.body));
     },
   },
 
@@ -69,16 +72,14 @@ export default {
 
   methods: {
     createPost() {
-      // createPost(getQuestionCommunityReference(), this.post)
-      //   .then((doc) => {
-      //     console.log(doc);
-      //     this.$router.back();
-      //   })
-      //   .catch((error) => {
-      //     console.error(error);
-      //   });
-
-      console.log(SantizeHtml(Marked(this.post.body)));
+      createPost(getQuestionCommunityReference(), this.post)
+        .then((doc) => {
+          console.log(doc);
+          this.$router.back();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
 
   },

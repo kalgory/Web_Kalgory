@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
 
+import 'sanitize-html';
+import 'marked';
 import './plugins/firebase';
 import './plugins/toasted';
 import Store from './store';
