@@ -1,6 +1,6 @@
-## Feature
+## Description
 
-feature name: What does feature do?
+What does feature do?
 
 ## Changes
 
