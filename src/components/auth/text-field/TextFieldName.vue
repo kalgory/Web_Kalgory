@@ -31,7 +31,7 @@ export default {
 
   data: () => ({
     rules: [
-      (v) => !!v || 'Usrename is required',
+      (v) => !!v || 'Username is required',
     ],
   }),
 
