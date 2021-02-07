@@ -1,40 +1,29 @@
 <template>
   <v-form
+    ref="form"
     class="mx-12"
+    @submit.prevent="signUp"
   >
-    <v-text-field
+    <text-field-name
       v-model="name"
-      type="text"
-      label="Username"
-      prepend-inner-icon="mdi-account-outline"
-      placeholder="Type your username"
+      :is-auto-focus="true"
     />
-    <v-text-field
+    <text-field-email
       v-model="email"
-      type="email"
-      label="Email"
-      prepend-inner-icon="mdi-account-outline"
-      placeholder="Type your email"
     />
-    <v-text-field
+    <text-field-password
       v-model="password"
-      type="password"
-      label="Password"
-      prepend-inner-icon="mdi-lock-outline"
-      placeholder="Type your password"
     />
-    <v-text-field
+    <text-field-password
       v-model="confirmPassword"
-      type="password"
-      label="Password Confirm"
-      prepend-inner-icon="mdi-lock-outline"
-      placeholder="Type your password"
     />
+
     <v-btn
+      type="submit"
+      :loading="isLoading"
       block
-      class="my-3"
+      class="mt-4"
       color="primary"
-      @click="signUp"
     >
       Sign Up
     </v-btn>
@@ -42,40 +31,63 @@
 </template>
 
 <script>
+import TextFieldName from '@/components/auth/text-field/TextFieldName.vue';
+import TextFieldEmail from '@/components/auth/text-field/TextFieldEmail.vue';
+import TextFieldPassword from '@/components/auth/text-field/TextFieldPassword.vue';
 import { createUserWithEmailAndPassword, updateProfile } from '@/plugins/firebase/auth';
 
 export default {
   name: 'SignUpForm',
 
+  components: {
+    TextFieldName,
+    TextFieldEmail,
+    TextFieldPassword,
+  },
+
   data: () => ({
+    isLoading: false,
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
   }),
 
+  computed: {
+    isValid() {
+      return this.$refs.form.validate();
+    },
+  },
+
   methods: {
     signUp() {
-      this.$store.commit('setIsAuthLoading', true);
-      createUserWithEmailAndPassword(this.email, this.password)
-        // eslint-disable-next-line no-unused-vars
-        .then((userCredential) => updateProfile({ displayName: this.name }))
-        .then(() => {
-          this.$toasted.show('회원가입 완료', {
-            type: 'success',
-            icon: 'mdi-account-outline',
+      if (this.isValid) {
+        this.isLoading = true;
+        createUserWithEmailAndPassword(this.email, this.password)
+          // eslint-disable-next-line no-unused-vars
+          .then((userCredential) => updateProfile({ displayName: this.name }))
+          .then(() => {
+            this.$toasted.show('회원가입 완료', {
+              type: 'success',
+              icon: 'mdi-account-outline',
+            });
+            this.$router.back();
+          })
+          .catch((error) => {
+            this.$toasted.show(error.message, {
+              type: 'error',
+              icon: 'mdi-account-outline',
+            });
+          })
+          .finally(() => {
+            this.isLoading = false;
           });
-          this.$router.back();
-        })
-        .catch((error) => {
-          this.$toasted.show(error.message, {
-            type: 'error',
-            icon: 'mdi-account-outline',
-          });
-        })
-        .finally(() => {
-          this.$store.commit('setIsAuthLoading', false);
+      } else {
+        this.$toasted.show('유', {
+          type: 'info',
+          icon: 'mdi-account-outline',
         });
+      }
     },
   },
 };

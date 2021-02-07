@@ -1,12 +1,13 @@
 <template>
   <v-text-field
     validate-on-blur
+    :hint="hint"
     :autofocus="isAutoFocus"
     :value="value"
     :rules="rules"
     type="email"
     label="Email"
-    prepend-inner-icon="mdi-account-outline"
+    prepend-inner-icon="mdi-at"
     placeholder="Type your email"
     required
     @input="onInput"
@@ -27,12 +28,17 @@ export default {
       required: false,
       default: false,
     },
+    hint: {
+      type: String,
+      required: false,
+      default: '',
+    },
   },
 
   data: () => ({
     rules: [
       (v) => !!v || 'Email is required',
-      (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      (v) => /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(v) || 'E-mail must be valid',
     ],
   }),
 

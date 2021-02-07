@@ -1,6 +1,8 @@
 <template>
   <v-text-field
     validate-on-blur
+    :hint="hint"
+    maxlength="20"
     :autofocus="isAutoFocus"
     :value="value"
     :rules="rules"
@@ -27,11 +29,17 @@ export default {
       required: false,
       default: false,
     },
+    hint: {
+      type: String,
+      required: false,
+      default: '',
+    },
   },
 
   data: () => ({
     rules: [
       (v) => !!v || 'Username is required',
+      (v) => v.length > 2 || 'too short',
     ],
   }),
 

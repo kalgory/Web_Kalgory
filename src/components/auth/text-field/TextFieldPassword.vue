@@ -1,14 +1,18 @@
 <template>
   <v-text-field
     validate-on-blur
+    :hint="hint"
+    message="teST"
     :autofocus="isAutoFocus"
     :value="value"
     :rules="rules"
-    type="password"
+    :type="isVisible?'text':'password'"
     label="Password"
     prepend-inner-icon="mdi-lock-outline"
     placeholder="Type your password"
     required
+    :append-icon="isVisible?'mdi-eye-off-outline':'mdi-eye-outline'"
+    @click:append="isVisible=!isVisible"
     @input="onInput"
   />
 </template>
@@ -27,11 +31,18 @@ export default {
       required: false,
       default: false,
     },
+    hint: {
+      type: String,
+      required: false,
+      default: '',
+    },
   },
 
   data: () => ({
+    isVisible: false,
     rules: [
       (v) => !!v || 'Password is required',
+      (v) => v.length > 6 || 'too short',
     ],
   }),
 

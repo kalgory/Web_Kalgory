@@ -1,20 +1,23 @@
 <template>
   <v-form
+    ref="form"
     class="mx-12"
+    @submit.prevent="signIn"
   >
     <text-field-email
       v-model="email"
+      :is-auto-focus="true"
     />
-
     <text-field-password
       v-model="password"
     />
 
     <v-btn
+      type="submit"
+      :loading="isLoading"
       block
-      class="my-3"
+      class="mt-4"
       color="primary"
-      @click="signIn"
     >
       Sign in
     </v-btn>
@@ -35,31 +38,49 @@ export default {
   },
 
   data: () => ({
+    isLoading: false,
     email: '',
     password: '',
   }),
 
+  computed: {
+    isValid() {
+      return this.$refs.form.validate();
+    },
+  },
+
   methods: {
+    clearForm() {
+      console.log('test');
+      this.$refs.form.clear();
+    },
     signIn() {
-      this.$store.commit('setIsAuthLoading', true);
-      signInWithEmailAndPassword(this.email, this.password)
-        .then(() => {
-          this.$toasted.show('로그인 완료', {
-            type: 'success',
-            icon: 'mdi-account-outline',
+      if (this.isValid) {
+        this.isLoading = true;
+        signInWithEmailAndPassword(this.email, this.password)
+          // eslint-disable-next-line no-unused-vars
+          .then((userCredential) => {
+            this.$router.back();
+            this.$toasted.show('로그인 완료', {
+              type: 'success',
+              icon: 'mdi-account-outline',
+            });
+          })
+          .catch((error) => {
+            this.$toasted.show(error.message, {
+              type: 'error',
+              icon: 'mdi-account-outline',
+            });
+          })
+          .finally(() => {
+            this.isLoading = false;
           });
-          this.$router.back();
-        })
-        // eslint-disable-next-line no-unused-vars
-        .catch((error) => {
-          this.$toasted.show(error.message, {
-            type: 'error',
-            icon: 'mdi-account-outline',
-          });
-        })
-        .finally(() => {
-          this.$store.commit('setIsAuthLoading', false);
+      } else {
+        this.$toasted.show('유효한 값 입력아', {
+          type: 'info',
+          icon: 'mdi-account-outline',
         });
+      }
     },
   },
 };
