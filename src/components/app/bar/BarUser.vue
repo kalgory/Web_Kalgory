@@ -101,6 +101,7 @@ export default {
 
   methods: {
     signOut() {
+      this.$store.commit('setIsAuthLoading', true);
       signOut()
         .then(() => {
           this.$toasted.show('로그아웃 완료', {
@@ -113,6 +114,9 @@ export default {
             type: 'error',
             icon: 'mdi-account-outline',
           });
+        })
+        .finally(() => {
+          this.$store.commit('setIsAuthLoading', false);
         });
     },
   },
