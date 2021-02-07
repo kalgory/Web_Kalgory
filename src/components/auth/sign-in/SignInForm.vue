@@ -6,15 +6,17 @@
   >
     <text-field-email
       v-model="email"
+      :tab-index="1"
 
       :is-auto-focus="true"
     />
     <text-field-password
       v-model="password"
-      tabindex="2"
+      :tab-index="2"
     />
 
     <v-btn
+      tabindex="3"
       type="submit"
       :loading="isLoading"
       block

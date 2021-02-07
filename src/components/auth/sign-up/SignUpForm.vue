@@ -7,18 +7,24 @@
     <text-field-name
       v-model="name"
       :is-auto-focus="true"
+      hint="2글자 이상을 입력해줘"
+      :tab-index="1"
     />
     <text-field-email
       v-model="email"
+      :tab-index="2"
     />
     <text-field-password
       v-model="password"
+      :tab-index="3"
     />
     <text-field-password
       v-model="confirmPassword"
+      :tab-index="4"
     />
 
     <v-btn
+      tabindex="5"
       type="submit"
       :loading="isLoading"
       block

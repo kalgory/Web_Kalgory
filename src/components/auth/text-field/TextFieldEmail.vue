@@ -1,5 +1,6 @@
 <template>
   <v-text-field
+    :tabindex="tabIndex"
     validate-on-blur
     clearable
     :hint="hint"
@@ -34,6 +35,10 @@ export default {
       type: String,
       required: false,
       default: '',
+    },
+    tabIndex: {
+      type: Number,
+      required: true,
     },
   },
 
