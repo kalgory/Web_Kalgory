@@ -30,7 +30,7 @@
         />
       </v-col>
       <v-col cols="5">
-        <div v-html="postBody" />
+        <div v-html="markedBody" />
       </v-col>
     </v-row>
     <v-row>
@@ -53,11 +53,10 @@ export default {
       header: '',
       body: '',
     },
-    markdownString: '',
   }),
 
   computed: {
-    postBody() {
+    markedBody() {
       return SanitizeHtml(Marked(this.post.body));
     },
   },
@@ -73,7 +72,10 @@ export default {
           this.$router.back();
         })
         .catch((error) => {
-          console.error(error);
+          this.$toasted.show(error.message, {
+            type: 'error',
+            icon: 'mdi-account-outline',
+          });
         });
     },
 

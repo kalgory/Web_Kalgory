@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import CommunityToolbar from '@/views/community/CommunityToolbar.vue';
+import CommunityToolbar from '@/components/community/CommunityToolbar.vue';
 
 export default {
   name: 'BaseCommunity',
