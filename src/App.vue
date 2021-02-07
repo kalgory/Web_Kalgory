@@ -58,7 +58,7 @@ export default {
       }
     },
     isRequireAuth(value) {
-      this.isLoading = !!(value && this.isAuthLoading);
+      this.isLoading = value && this.isAuthLoading;
     },
   },
 
