@@ -22,7 +22,8 @@ export default {
   props: {
     value: {
       type: String,
-      required: true,
+      required: false,
+      default: '',
     },
     isAutoFocus: {
       type: Boolean,
@@ -39,7 +40,7 @@ export default {
   data: () => ({
     rules: [
       (v) => !!v || 'Username is required',
-      (v) => v.length > 2 || 'too short',
+      (v) => (v || '').length > 2 || 'too short',
     ],
   }),
 

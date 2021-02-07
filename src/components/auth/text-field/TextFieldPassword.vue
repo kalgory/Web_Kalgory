@@ -24,7 +24,8 @@ export default {
   props: {
     value: {
       type: String,
-      required: true,
+      required: false,
+      default: '',
     },
     isAutoFocus: {
       type: Boolean,
@@ -42,7 +43,7 @@ export default {
     isVisible: false,
     rules: [
       (v) => !!v || 'Password is required',
-      (v) => v.length > 6 || 'too short',
+      (v) => (v || '').length > 6 || 'too short',
     ],
   }),
 

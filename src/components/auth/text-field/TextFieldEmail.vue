@@ -21,7 +21,8 @@ export default {
   props: {
     value: {
       type: String,
-      required: true,
+      required: false,
+      default: '',
     },
     isAutoFocus: {
       type: Boolean,
