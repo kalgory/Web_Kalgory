@@ -1,6 +1,7 @@
 <template>
   <v-text-field
     validate-on-blur
+    clearable
     :hint="hint"
     maxlength="20"
     :autofocus="isAutoFocus"

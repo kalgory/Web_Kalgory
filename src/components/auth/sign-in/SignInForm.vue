@@ -6,10 +6,12 @@
   >
     <text-field-email
       v-model="email"
+
       :is-auto-focus="true"
     />
     <text-field-password
       v-model="password"
+      tabindex="2"
     />
 
     <v-btn
@@ -50,10 +52,6 @@ export default {
   },
 
   methods: {
-    clearForm() {
-      console.log('test');
-      this.$refs.form.clear();
-    },
     signIn() {
       if (this.isValid) {
         this.isLoading = true;
