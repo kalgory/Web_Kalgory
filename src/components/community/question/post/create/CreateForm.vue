@@ -19,8 +19,7 @@
     </v-row>
     <v-row justify="center">
       <v-col
-        cols="12"
-        sm="10"
+        cols="5"
       >
         <v-textarea
           v-model="post.body"
@@ -29,6 +28,9 @@
           no-resize
           label="body"
         />
+      </v-col>
+      <v-col cols="5">
+        <div v-html="markedBody" />
       </v-col>
     </v-row>
     <v-row>
@@ -41,6 +43,9 @@
 
 <script>
 import { createPost, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
+import Marked from 'marked';
+import SanitizeHtml from 'sanitize-html';
+import Firebase from 'firebase/app';
 
 export default {
   name: 'CreateForm',
@@ -50,27 +55,28 @@ export default {
       body: '',
     },
   }),
-  created() {
-    if (!this.$store.getters.getIsLoading) {
-      console.log(this.$store.getters.getUser.name);
-    }
+
+  computed: {
+    markedBody() {
+      return SanitizeHtml(Marked(this.post.body));
+    },
   },
+
   methods: {
     createPost() {
+      this.post.created_at = Firebase.firestore.Timestamp.now();
       createPost(getQuestionCommunityReference(), this.post)
         .then((doc) => {
           console.log(doc);
           this.$router.back();
         })
         .catch((error) => {
-          console.error(error);
+          this.$toasted.show(error.message, {
+            type: 'error',
+            icon: 'mdi-account-outline',
+          });
         });
     },
   },
-
 };
 </script>
-
-<style scoped>
-
-</style>

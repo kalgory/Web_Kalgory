@@ -8,7 +8,7 @@
     </v-card-subtitle>
     <v-card-text
       class="font-weight-bold"
-      v-text="getProcessedBody()"
+      v-html="getProcessedBody()"
     />
     <v-card-actions>
       <v-row>
@@ -31,6 +31,9 @@
 </template>
 
 <script>
+import Marked from 'marked';
+import SanitizeHTML from 'sanitize-html';
+
 export default {
   name: 'DataCard',
 
@@ -47,15 +50,21 @@ export default {
 
   methods: {
     getProcessedBody() {
-      if (this.post.body.length >= 300 && this.isExpand === false) {
-        return `${this.post.body.substr(0, 300)}...`;
+      let markedBody = SanitizeHTML(Marked(this.post.body));
+      const codeTagStrings = markedBody.match(/(?<=<code>)(.|\n)*?(?=<\/code>)/g);
+      markedBody = markedBody.replace(/<code>(.|\n)*?<\/code>/g, '<c>').replace(/<(?!\/?c).*?>/g, '');
+      if (codeTagStrings !== null) {
+        codeTagStrings.forEach((codeTagString) => {
+          markedBody = markedBody.replace('<c>', codeTagString);
+        });
       }
-      return this.post.body;
+      if (this.isExpand === false) {
+        if (this.isExpand === false && markedBody.length >= 300) {
+          return `${markedBody.substr(0, 300)}...`;
+        }
+      }
+      return markedBody;
     },
   },
 };
 </script>
-
-<style scoped>
-
-</style>
