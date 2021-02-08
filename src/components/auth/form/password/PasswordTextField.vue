@@ -12,7 +12,7 @@
     :label="label"
     prepend-inner-icon="mdi-lock-outline"
     placeholder="Type your password"
-    :append-icon="isVisible?'mdi-eye-off-outline':'mdi-eye-outline'"
+    :append-icon="isVisible?'mdi-eye-outline':'mdi-eye-off-outline'"
     :success="isSuccess"
     @click:append="isVisible=!isVisible"
     @input="onInput"
