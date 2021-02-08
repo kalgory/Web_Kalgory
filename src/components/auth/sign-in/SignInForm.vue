@@ -4,13 +4,12 @@
     class="mx-12"
     @submit.prevent="signIn"
   >
-    <text-field-email
+    <email-text-field
       v-model="email"
       :tab-index="1"
-
       :is-auto-focus="true"
     />
-    <text-field-password
+    <password-text-field
       v-model="password"
       :tab-index="2"
     />
@@ -29,16 +28,16 @@
 </template>
 
 <script>
-import TextFieldEmail from '@/components/auth/text-field/TextFieldEmail.vue';
-import TextFieldPassword from '@/components/auth/text-field/TextFieldPassword.vue';
+import EmailTextField from '@/components/auth/form/email/EmailTextField.vue';
+import PasswordTextField from '@/components/auth/form/password/PasswordTextField.vue';
 import { signInWithEmailAndPassword } from '@/plugins/firebase/auth';
 
 export default {
   name: 'SignInForm',
 
   components: {
-    TextFieldEmail,
-    TextFieldPassword,
+    EmailTextField,
+    PasswordTextField,
   },
 
   data: () => ({
@@ -56,30 +55,22 @@ export default {
   methods: {
     signIn() {
       if (this.isValid) {
+        this.$emit('ondStartLoad');
         this.isLoading = true;
         signInWithEmailAndPassword(this.email, this.password)
           // eslint-disable-next-line no-unused-vars
           .then((userCredential) => {
             this.$router.back();
-            this.$toasted.show('로그인 완료', {
-              type: 'success',
-              icon: 'mdi-account-outline',
-            });
           })
           .catch((error) => {
-            this.$toasted.show(error.message, {
-              type: 'error',
-              icon: 'mdi-account-outline',
-            });
+            this.$toasted.global.error({ message: error.message });
           })
           .finally(() => {
+            this.$emit('onEndLoad');
             this.isLoading = false;
           });
       } else {
-        this.$toasted.show('유효한 값 입력아', {
-          type: 'info',
-          icon: 'mdi-account-outline',
-        });
+        this.$toasted.global.error({ message: '입력이 유효하지 않습니다.' });
       }
     },
   },
