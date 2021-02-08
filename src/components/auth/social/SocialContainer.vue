@@ -1,20 +1,16 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="4">
+      <v-col cols="3">
         <v-btn
           block
+          icon
+          plain
           @click="signInWithGoogle"
         >
-          Google
-        </v-btn>
-      </v-col>
-      <v-col cols="4">
-        <v-btn
-          block
-          @click="signInWithFaceBook"
-        >
-          Facebook
+          <v-img
+            :src="require('@/assets/btn-google-light-normal.svg')"
+          />
         </v-btn>
       </v-col>
     </v-row>
@@ -22,7 +18,7 @@
 </template>
 
 <script>
-import { signInWithGoogle, signInWithFaceBook } from '@/plugins/firebase/auth';
+import { signInWithGoogle } from '@/plugins/firebase/auth';
 
 export default {
   name: 'SocialContainer',
@@ -31,14 +27,18 @@ export default {
     signInWithGoogle() {
       signInWithGoogle()
         .then(() => {
+          this.$toasted.show('로그인 완료', {
+            type: 'success',
+            icon: 'mdi-account-outline',
+          });
           this.$router.back();
         })
-        // eslint-disable-next-line no-unused-vars
         .catch((error) => {
+          this.$toasted.show(error.message, {
+            type: 'error',
+            icon: 'mdi-account-outline',
+          });
         });
-    },
-    signInWithFaceBook() {
-      signInWithFaceBook();
     },
   },
 };

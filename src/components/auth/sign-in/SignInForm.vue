@@ -1,26 +1,26 @@
 <template>
   <v-form
+    ref="form"
     class="mx-12"
+    @submit.prevent="signIn"
   >
-    <v-text-field
+    <email-text-field
       v-model="email"
-      type="email"
-      label="Email"
-      prepend-inner-icon="mdi-account-outline"
-      placeholder="Type your email"
+      :tab-index="1"
+      :is-auto-focus="true"
     />
-    <v-text-field
+    <password-text-field
       v-model="password"
-      type="password"
-      label="Password"
-      prepend-inner-icon="mdi-lock-outline"
-      placeholder="Type your password"
+      :tab-index="2"
     />
+
     <v-btn
+      tabindex="3"
+      type="submit"
+      :loading="isLoading"
       block
-      class="my-3"
+      class="mt-4"
       color="primary"
-      @click="signIn"
     >
       Sign in
     </v-btn>
@@ -28,37 +28,50 @@
 </template>
 
 <script>
+import EmailTextField from '@/components/auth/form/email/EmailTextField.vue';
+import PasswordTextField from '@/components/auth/form/password/PasswordTextField.vue';
 import { signInWithEmailAndPassword } from '@/plugins/firebase/auth';
 
 export default {
   name: 'SignInForm',
 
+  components: {
+    EmailTextField,
+    PasswordTextField,
+  },
+
   data: () => ({
+    isLoading: false,
     email: '',
     password: '',
   }),
 
+  computed: {
+    isValid() {
+      return this.$refs.form.validate();
+    },
+  },
+
   methods: {
     signIn() {
-      this.$store.commit('setIsAuthLoading', true);
-      signInWithEmailAndPassword(this.email, this.password)
-        .then(() => {
-          this.$toasted.show('로그인 완료', {
-            type: 'success',
-            icon: 'mdi-account-outline',
+      if (this.isValid) {
+        this.$emit('ondStartLoad');
+        this.isLoading = true;
+        signInWithEmailAndPassword(this.email, this.password)
+          // eslint-disable-next-line no-unused-vars
+          .then((userCredential) => {
+            this.$router.back();
+          })
+          .catch((error) => {
+            this.$toasted.global.error({ message: error.message });
+          })
+          .finally(() => {
+            this.$emit('onEndLoad');
+            this.isLoading = false;
           });
-          this.$router.back();
-        })
-        // eslint-disable-next-line no-unused-vars
-        .catch((error) => {
-          this.$toasted.show(error.message, {
-            type: 'error',
-            icon: 'mdi-account-outline',
-          });
-        })
-        .finally(() => {
-          this.$store.commit('setIsAuthLoading', false);
-        });
+      } else {
+        this.$toasted.global.error({ message: '입력이 유효하지 않습니다.' });
+      }
     },
   },
 };
