@@ -32,7 +32,7 @@
 
 <script>
 import Marked from 'marked';
-import SanitizeHtml from 'sanitize-html';
+import SanitizeHTML from 'sanitize-html';
 
 export default {
   name: 'DataCard',
@@ -50,20 +50,20 @@ export default {
 
   methods: {
     getProcessedBody() {
-      let markedHtml = SanitizeHtml(Marked(this.post.body));
-      const codeTagString = markedHtml.match(/<code>(.|\n)*?<\/code>/g);
-      markedHtml = markedHtml.replace(/<code>(.|\n)*?<\/code>/g, '<>').replace(/(<([^>]+)>)|\n/g, '');
-      for (let i = 0; codeTagString !== null && i < codeTagString.length; i += 1) {
-        codeTagString[i] = codeTagString[i].replace(/<code>|<\/code>|\n/g, '');
-        markedHtml = markedHtml.replace('<>', codeTagString[i]);
+      let markedBody = SanitizeHTML(Marked(this.post.body));
+      const codeTagStrings = markedBody.match(/(?<=<code>)(.|\n)*?(?=<\/code>)/g);
+      markedBody = markedBody.replace(/<code>(.|\n)*?<\/code>/g, '<c>').replace(/<(?!\/?c).*?>/g, '');
+      if (codeTagStrings !== null) {
+        codeTagStrings.forEach((codeTagString) => {
+          markedBody = markedBody.replace('<c>', codeTagString);
+        });
       }
-      console.log(markedHtml);
       if (this.isExpand === false) {
-        if (markedHtml.length >= 300) {
-          return `${markedHtml.substr(0, 300)}...`;
+        if (this.isExpand === false && markedBody.length >= 300) {
+          return `${markedBody.substr(0, 300)}...`;
         }
       }
-      return markedHtml;
+      return markedBody;
     },
   },
 };
