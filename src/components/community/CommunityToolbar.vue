@@ -26,9 +26,9 @@
     <v-spacer />
   </v-toolbar>
 </template>
+
 <script>
 export default {
   name: 'CommunityToolbar',
-
 };
 </script>

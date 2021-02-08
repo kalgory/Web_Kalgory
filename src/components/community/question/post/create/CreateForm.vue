@@ -45,6 +45,7 @@
 import { createPost, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
 import Marked from 'marked';
 import SanitizeHtml from 'sanitize-html';
+import Firebase from 'firebase/app';
 
 export default {
   name: 'CreateForm',
@@ -61,11 +62,9 @@ export default {
     },
   },
 
-  created() {
-  },
-
   methods: {
     createPost() {
+      this.post.created_at = Firebase.firestore.Timestamp.now();
       createPost(getQuestionCommunityReference(), this.post)
         .then((doc) => {
           console.log(doc);
@@ -78,12 +77,6 @@ export default {
           });
         });
     },
-
   },
-
 };
 </script>
-
-<style scoped>
-
-</style>

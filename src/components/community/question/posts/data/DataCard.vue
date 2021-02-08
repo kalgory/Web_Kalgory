@@ -50,14 +50,17 @@ export default {
 
   methods: {
     getProcessedBody() {
-      const markedHtml = SanitizeHtml(Marked(this.post.body));
-      const matchHtml = markedHtml.match(/\<\/.*?\>|\<br \/\>/g);
+      let markedHtml = SanitizeHtml(Marked(this.post.body));
+      const codeTagString = markedHtml.match(/<code>(.|\n)*?<\/code>/g);
+      markedHtml = markedHtml.replace(/<code>(.|\n)*?<\/code>/g, '<>').replace(/(<([^>]+)>)|\n/g, '');
+      for (let i = 0; codeTagString !== null && i < codeTagString.length; i += 1) {
+        codeTagString[i] = codeTagString[i].replace(/<code>|<\/code>|\n/g, '');
+        markedHtml = markedHtml.replace('<>', codeTagString[i]);
+      }
+      console.log(markedHtml);
       if (this.isExpand === false) {
         if (markedHtml.length >= 300) {
           return `${markedHtml.substr(0, 300)}...`;
-        }
-        if (matchHtml.length >= 6) {
-          return `${markedHtml.substr(0, markedHtml.indexOf(matchHtml[5]) + matchHtml[5].length)}...`;
         }
       }
       return markedHtml;
@@ -65,7 +68,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>

@@ -16,11 +16,7 @@ export function getInformationCommunityReference() {
 
 export function createPost(reference, post) {
   return new Promise((resolve, reject) => {
-    reference.add({
-      header: post.header,
-      body: post.body,
-      created_at: Firebase.firestore.Timestamp.now(),
-    })
+    reference.add(post)
       .then((document) => {
         resolve(document);
       })
