@@ -4,21 +4,21 @@
     validate-on-blur
     clearable
     :hint="hint"
+    maxlength="20"
     :autofocus="isAutoFocus"
     :value="value"
     :rules="rules"
-    type="email"
-    label="Email"
-    prepend-inner-icon="mdi-at"
-    placeholder="Type your email"
-    required
+    type="text"
+    label="Username"
+    prepend-inner-icon="mdi-account-outline"
+    placeholder="Type your username"
     @input="onInput"
   />
 </template>
 
 <script>
 export default {
-  name: 'TextFieldEmail',
+  name: 'NameTextField',
 
   props: {
     value: {
@@ -44,8 +44,8 @@ export default {
 
   data: () => ({
     rules: [
-      (v) => !!v || 'Email is required',
-      (v) => /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(v) || 'E-mail must be valid',
+      (v) => !!v || 'Username is required',
+      (v) => (v || '').length >= 2 || '너무 짧은 이름입니다',
     ],
   }),
 

@@ -4,24 +4,25 @@
     validate-on-blur
     clearable
     :hint="hint"
-    message="teST"
     :autofocus="isAutoFocus"
+    :error-messages="errorMessage"
     :value="value"
     :rules="rules"
     :type="isVisible?'text':'password'"
-    label="Password"
+    :label="label"
     prepend-inner-icon="mdi-lock-outline"
     placeholder="Type your password"
-    required
     :append-icon="isVisible?'mdi-eye-off-outline':'mdi-eye-outline'"
+    :success="isSuccess"
     @click:append="isVisible=!isVisible"
     @input="onInput"
+    @blur="onBlur"
   />
 </template>
 
 <script>
 export default {
-  name: 'TextFieldPassword',
+  name: 'PasswordTextField',
 
   props: {
     value: {
@@ -43,19 +44,37 @@ export default {
       type: Number,
       required: true,
     },
+    label: {
+      type: String,
+      required: false,
+      default: 'Password',
+    },
+    errorMessage: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    isSuccess: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
 
   data: () => ({
     isVisible: false,
     rules: [
       (v) => !!v || 'Password is required',
-      (v) => (v || '').length > 6 || 'too short',
+      (v) => (v || '').length >= 6 || 'too short',
     ],
   }),
 
   methods: {
     onInput(value) {
       this.$emit('input', value);
+    },
+    onBlur() {
+      this.$emit('blur');
     },
   },
 };
