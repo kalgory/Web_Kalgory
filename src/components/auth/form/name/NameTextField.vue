@@ -44,7 +44,7 @@ export default {
 
   data: () => ({
     rules: [
-      (v) => !!v || 'Username is required',
+      (v) => !!v || '이름을 입력해주세요',
       (v) => (v || '').length >= 2 || '너무 짧은 이름입니다',
     ],
   }),

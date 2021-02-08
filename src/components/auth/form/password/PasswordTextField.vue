@@ -64,8 +64,9 @@ export default {
   data: () => ({
     isVisible: false,
     rules: [
-      (v) => !!v || 'Password is required',
-      (v) => (v || '').length >= 6 || 'too short',
+      (v) => !!v || '비밀번호를 입력해주세요',
+      (v) => (v || '').length >= 8 || '8자 이상 입력해주세요',
+      (v) => /^(?=.*?[a-z])(?=.*?[0-9]).{8,}$/.test(v) || '유효하지 않은 비밀번호요에요',
     ],
   }),
 

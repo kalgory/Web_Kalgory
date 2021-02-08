@@ -16,7 +16,7 @@
     />
     <password-text-field
       v-model="password"
-      :hint="isPasswordMatching?'':'6자 이상의 비밀번호를 입력해주세요'"
+      :hint="isPasswordMatching?'':'8자 이상 영문 소문자와 숫자 조합입니다'"
       :tab-index="3"
       :is-success="isPasswordMatching"
       @input="onPasswordInput"
