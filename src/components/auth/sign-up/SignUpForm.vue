@@ -32,7 +32,6 @@
       @input="onPasswordInput"
       @blur="onPasswordBlur"
     />
-
     <v-btn
       tabindex="5"
       type="submit"
@@ -72,6 +71,9 @@ export default {
 
   computed: {
     isPasswordMatching() {
+      if (!this.confirmPassword || !this.password) {
+        return false;
+      }
       if (this.confirmPassword.length < 6 || this.password.length < 6) {
         return false;
       }
@@ -87,7 +89,9 @@ export default {
       this.confirmPasswordErrorMessage = '';
     },
     onPasswordBlur() {
-      if (this.confirmPassword.length < 6 || this.password.length < 6) {
+      if (!this.confirmPassword || !this.password) {
+        this.confirmPasswordErrorMessage = '';
+      } else if (this.confirmPassword.length < 6 || this.password.length < 6) {
         this.confirmPasswordErrorMessage = '';
       } else if (this.isPasswordMatching) {
         this.confirmPasswordErrorMessage = '';
