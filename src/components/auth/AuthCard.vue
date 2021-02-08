@@ -1,5 +1,6 @@
 <template>
   <v-card
+    :loading="isLoading"
     width="400"
     class="mx-auto"
   >
@@ -11,8 +12,16 @@
 
     <v-divider class="ma-8" />
 
-    <sign-in-form v-if="authType==='sign in'" />
-    <sign-up-form v-if="authType==='sign up'" />
+    <sign-in-form
+      v-if="authType==='sign in'"
+      @ondStartLoad="isLoading=true"
+      @onEndLoad="isLoading=false"
+    />
+    <sign-up-form
+      v-if="authType==='sign up'"
+      @ondStartLoad="isLoading=true"
+      @onEndLoad="isLoading=false"
+    />
 
     <sign-in-card-actions v-if="authType==='sign in'" />
     <sign-up-card-actions v-if="authType==='sign up'" />
@@ -51,6 +60,7 @@ export default {
 
   data: () => ({
     title: '',
+    isLoading: false,
     signInTitle: 'Sign in to kalgory',
     signUpTitle: 'Sign Up to kalgory',
   }),
