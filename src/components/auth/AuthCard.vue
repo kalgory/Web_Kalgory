@@ -2,7 +2,6 @@
   <v-card
     :loading="isLoading"
     width="400"
-    class="mx-auto"
   >
     <auth-card-title>
       {{ title }}
