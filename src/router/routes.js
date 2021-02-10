@@ -1,5 +1,3 @@
-import Store from '@/store';
-
 // Base
 const Base404 = () => import('@/views/Base404');
 const BaseAuth = () => import('@/views/BaseAuth');
@@ -24,20 +22,6 @@ const QuestionPostCreate = () => import('@/views/community/question/QuestionPost
 
 // User
 const UserProfile = () => import('@/views/user/UserProfile');
-
-const requireUnauthorized = () => (to, from, next) => {
-  if (Store.getters.getIsAuthLoading) {
-    if (localStorage.getItem('isAuth') === 'true') {
-      next('/');
-    } else {
-      next();
-    }
-  } else if (Store.getters.getIsAuth) {
-    next('/');
-  } else {
-    next();
-  }
-};
 
 export default [
   {
@@ -80,7 +64,6 @@ export default [
     path: '/auth',
     component: BaseAuth,
     redirect: '/auth/signin',
-    beforeEnter: requireUnauthorized(),
     meta: {
       title: 'Auth',
       isRequireAuth: false,
