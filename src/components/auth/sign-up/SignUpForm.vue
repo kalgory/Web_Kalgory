@@ -5,16 +5,19 @@
     @submit.prevent="signUp"
   >
     <name-text-field
+      ref="nameTextField"
       v-model="name"
       :is-auto-focus="true"
       hint="2자 이상의 이름을 입력해주세요"
       :tab-index="1"
     />
     <email-text-field
+      ref="emailTextField"
       v-model="email"
       :tab-index="2"
     />
     <password-text-field
+      ref="passwordTextField"
       v-model="password"
       :hint="isPasswordMatching?'':'8자 이상 영문 소문자와 숫자 조합입니다'"
       :tab-index="3"
@@ -23,6 +26,7 @@
       @blur="onPasswordBlur"
     />
     <password-text-field
+      ref="confirmPasswordTextField"
       v-model="confirmPassword"
       label="Password Confirm"
       :hint="isPasswordMatching?'':'위와 동일한 비밀번호를 입력해주세요'"

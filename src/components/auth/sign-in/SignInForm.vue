@@ -5,11 +5,13 @@
     @submit.prevent="signIn"
   >
     <email-text-field
+      ref="emailTextField"
       v-model="email"
       :tab-index="1"
       :is-auto-focus="true"
     />
     <password-text-field
+      ref="passwordTextField"
       v-model="password"
       :tab-index="2"
     />
@@ -58,7 +60,7 @@ export default {
         this.$emit('ondStartLoad');
         this.isLoading = true;
         signInWithEmailAndPassword(this.email, this.password)
-          // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line no-unused-vars
           .then((userCredential) => {
             this.$router.back();
           })

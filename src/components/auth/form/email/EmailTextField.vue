@@ -1,5 +1,6 @@
 <template>
   <v-text-field
+    ref="textField"
     :tabindex="tabIndex"
     validate-on-blur
     clearable
@@ -49,6 +50,9 @@ export default {
   }),
 
   methods: {
+    focusInput() {
+      this.$refs.textField.$refs.input.focus();
+    },
     onInput(value) {
       this.$emit('input', value);
     },
