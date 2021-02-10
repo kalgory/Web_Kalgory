@@ -7,9 +7,7 @@
         v-if="isLoading"
         indeterminate
       />
-      <router-view
-        v-if="!isLoading"
-      />
+      <router-view v-else />
     </v-main>
 
     <app-footer />
