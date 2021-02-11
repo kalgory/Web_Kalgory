@@ -5,7 +5,6 @@
     validate-on-blur
     clearable
     :hint="hint"
-    :autofocus="isAutoFocus"
     :error-messages="errorMessage"
     :value="value"
     :rules="rules"
@@ -17,6 +16,7 @@
     :success="isSuccess"
     @click:append="isVisible=!isVisible"
     @input="onInput"
+    @focus="onFocus"
     @blur="onBlur"
   />
 </template>
@@ -30,11 +30,6 @@ export default {
       type: String,
       required: false,
       default: '',
-    },
-    isAutoFocus: {
-      type: Boolean,
-      required: false,
-      default: false,
     },
     hint: {
       type: String,
@@ -60,6 +55,11 @@ export default {
       required: false,
       default: false,
     },
+    isFocus: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
 
   data: () => ({
@@ -71,15 +71,25 @@ export default {
     ],
   }),
 
+  watch: {
+    isFocus(value) {
+      if (value) {
+        this.$refs.textField.$refs.input.focus();
+      } else {
+        this.$refs.textField.$refs.input.blur();
+      }
+    },
+  },
+
   methods: {
-    focusInput() {
-      this.$refs.textField.$refs.input.focus();
+    onBlur() {
+      this.$emit('blur');
+    },
+    onFocus() {
+      this.$emit('focus');
     },
     onInput(value) {
       this.$emit('input', value);
-    },
-    onBlur() {
-      this.$emit('blur');
     },
   },
 };

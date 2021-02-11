@@ -5,15 +5,18 @@
     @submit.prevent="signIn"
   >
     <email-text-field
-      ref="emailTextField"
       v-model="email"
       :tab-index="1"
-      :is-auto-focus="true"
+      :is-focus="isEmailTextFieldFocus"
+      @blur="isEmailTextFieldFocus=false"
+      @focus="isEmailTextFieldFocus=true"
     />
     <password-text-field
-      ref="passwordTextField"
       v-model="password"
       :tab-index="2"
+      :is-focus="isPasswordTextFieldFocus"
+      @blur="isPasswordTextFieldFocus=false"
+      @focus="isPasswordTextFieldFocus=true"
     />
 
     <v-btn
@@ -41,9 +44,10 @@ export default {
     EmailTextField,
     PasswordTextField,
   },
-
   data: () => ({
     isLoading: false,
+    isEmailTextFieldFocus: false,
+    isPasswordTextFieldFocus: false,
     email: '',
     password: '',
   }),
@@ -52,6 +56,10 @@ export default {
     isValid() {
       return this.$refs.form.validate();
     },
+  },
+
+  mounted() {
+    this.isEmailTextFieldFocus = true;
   },
 
   methods: {

@@ -6,7 +6,6 @@
     clearable
     :hint="hint"
     maxlength="20"
-    :autofocus="isAutoFocus"
     :value="value"
     :rules="rules"
     type="text"
@@ -14,6 +13,8 @@
     prepend-inner-icon="mdi-account-outline"
     placeholder="Type your username"
     @input="onInput"
+    @focus="onFocus"
+    @blur="onBlur"
   />
 </template>
 
@@ -27,11 +28,6 @@ export default {
       required: false,
       default: '',
     },
-    isAutoFocus: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
     hint: {
       type: String,
       required: false,
@@ -40,6 +36,11 @@ export default {
     tabIndex: {
       type: Number,
       required: true,
+    },
+    isFocus: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 
@@ -50,9 +51,22 @@ export default {
     ],
   }),
 
+  watch: {
+    isFocus(value) {
+      if (value) {
+        this.$refs.textField.$refs.input.focus();
+      } else {
+        this.$refs.textField.$refs.input.blur();
+      }
+    },
+  },
+
   methods: {
-    focusInput() {
-      this.$refs.textField.$refs.input.focus();
+    onBlur() {
+      this.$emit('blur');
+    },
+    onFocus() {
+      this.$emit('focus');
     },
     onInput(value) {
       this.$emit('input', value);
