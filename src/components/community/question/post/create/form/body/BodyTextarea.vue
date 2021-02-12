@@ -1,5 +1,6 @@
 <template>
   <v-textarea
+    ref="textarea"
     outlined
     :tabindex="tabIndex"
     :rules="rules"
@@ -35,6 +36,11 @@ export default {
       type: String,
       required: true,
     },
+    isFocus: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
 
   data: () => ({
@@ -43,6 +49,16 @@ export default {
       (v) => (v || '').length >= 30 || `Body must be at least 30 characters; you entered ${v.length}`,
     ],
   }),
+
+  watch: {
+    isFocus(value) {
+      if (value) {
+        this.$refs.textarea.$refs.input.focus();
+      } else {
+        this.$refs.textarea.$refs.input.blur();
+      }
+    },
+  },
 
   methods: {
     onBlur() {

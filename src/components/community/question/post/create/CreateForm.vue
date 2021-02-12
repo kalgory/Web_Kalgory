@@ -8,6 +8,8 @@
         <header-text-field
           v-model="post.header"
           :tab-index="1"
+          @blur="onHeaderTextFieldBlur"
+          @focus="onHeaderTextFieldFocus"
         />
       </v-col>
       <v-col
@@ -29,6 +31,7 @@
           :error-message="bodyErrorMessage"
           :tab-index="2"
           :rows="10"
+          :is-focus="isBodyTextareaFocus"
           @blur="onBodyTextareaBlur"
           @focus="onBodyTextareaFocus"
         />
@@ -39,7 +42,10 @@
     </v-row>
     <v-row>
       <v-col offset="10">
-        <v-btn @click="createPost" />
+        <v-btn
+          tabindex="3"
+          @click="createPost"
+        />
       </v-col>
     </v-row>
   </v-form>
@@ -67,6 +73,7 @@ export default {
       body: '',
     },
     isValid: false,
+    isHeaderTextFieldFocus: true,
     isBodyTextareaFocus: false,
     bodyErrorMessage: '',
   }),
@@ -86,11 +93,17 @@ export default {
       this.bodyErrorMessage = '';
       this.isBodyTextareaFocus = true;
     },
+    onHeaderTextFieldBlur() {
+      this.isBodyTextareaFocus = false;
+    },
+    onHeaderTextFieldFocus() {
+      this.isBodyTextareaFocus = true;
+    },
     processBodyTextareaErrorMessage() {
       let markedBody = SanitizeHTML(Marked(this.post.body));
-      const codeTagCount = markedBody.match(/(?<=<code>)(.|\n)*?(?=<\/code>)/g).length;
+      const codeTagCount = markedBody.match(/(?<=<code>)(.|\n)*?(?=<\/code>)/g);
       markedBody = markedBody.replace(/<code>(.|\n)*?<\/code>|\n/g, '').replace(/<(?!\/?c).*?>/g, '');
-      if (codeTagCount > 0 && markedBody.length === 0) {
+      if (codeTagCount !== null && codeTagCount.length > 0 && markedBody.length === 0) {
         this.bodyErrorMessage = 'Please add some context to explain the code sections (or check that you have not incorrectly formatted all of your question as code).';
       } else if (codeTagCount * 4 > markedBody.length) {
         this.bodyErrorMessage = 'It looks like your post is mostly code; please add some more details.';
