@@ -42,11 +42,13 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col offset="10">
+      <v-col offset="9">
         <v-btn
           tabindex="3"
           @click="createPost"
-        />
+        >
+          Post Create
+        </v-btn>
       </v-col>
     </v-row>
   </v-form>
@@ -73,7 +75,8 @@ export default {
       header: '',
       body: '',
     },
-    isValid: false,
+    isHeaderValid: false,
+    isBodyValid: false,
     isHeaderTextFieldFocus: false,
     isBodyTextareaFocus: false,
     bodyErrorMessage: '',
@@ -109,7 +112,15 @@ export default {
       }
     },
     createPost() {
-      if (this.isValid) {
+      const bodyLength = this.post.body.length;
+      const headerLength = this.post.header.length;
+      if (headerLength >= 15 && headerLength <= 100) {
+        this.isHeaderValid = true;
+      }
+      if (bodyLength >= 30 && bodyLength <= 20000 && this.bodyErrorMessage === '') {
+        this.isBodyValid = true;
+      }
+      if (this.isBodyValid && this.isHeaderValid) {
         this.post.created_at = Firebase.firestore.Timestamp.now();
         createPost(getQuestionCommunityReference(), this.post)
           .then((doc) => {
@@ -122,6 +133,10 @@ export default {
               icon: 'mdi-account-outline',
             });
           });
+      } else if (!this.isHeaderValid) {
+        this.isHeaderTextFieldFocus = true;
+      } else {
+        this.isBodyTextareaFocus = true;
       }
     },
   },

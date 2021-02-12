@@ -5,7 +5,6 @@
     :rules="rules"
     :tabindex="tabIndex"
     placeholder="Please write the summary of the body"
-    label="Question Post's header"
     @input="onInput"
     @focus="onFocus"
     @blur="onBlur"
