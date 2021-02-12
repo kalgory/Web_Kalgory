@@ -8,8 +8,9 @@
         <header-text-field
           v-model="post.header"
           :tab-index="1"
-          @blur="onHeaderTextFieldBlur"
-          @focus="onHeaderTextFieldFocus"
+          :is-focus="isHeaderTextFieldFocus"
+          @blur="isHeaderTextFieldFocus=false"
+          @focus="isHeaderTextFieldFocus=true"
         />
       </v-col>
       <v-col
@@ -73,7 +74,7 @@ export default {
       body: '',
     },
     isValid: false,
-    isHeaderTextFieldFocus: true,
+    isHeaderTextFieldFocus: false,
     isBodyTextareaFocus: false,
     bodyErrorMessage: '',
   }),
@@ -84,6 +85,10 @@ export default {
     },
   },
 
+  mounted() {
+    this.isHeaderTextFieldFocus = true;
+  },
+
   methods: {
     onBodyTextareaBlur() {
       this.processBodyTextareaErrorMessage();
@@ -91,12 +96,6 @@ export default {
     },
     onBodyTextareaFocus() {
       this.bodyErrorMessage = '';
-      this.isBodyTextareaFocus = true;
-    },
-    onHeaderTextFieldBlur() {
-      this.isBodyTextareaFocus = false;
-    },
-    onHeaderTextFieldFocus() {
       this.isBodyTextareaFocus = true;
     },
     processBodyTextareaErrorMessage() {
