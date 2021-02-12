@@ -9,11 +9,15 @@
       hint="2자 이상의 이름을 입력해주세요"
       :tab-index="1"
       :is-focus="isNameTextFieldFocus"
+      @blur="isNameTextFieldFocus=false"
+      @focus="isNameTextFieldFocus=true"
     />
     <email-text-field
       v-model="email"
       :tab-index="2"
       :is-focus="isEmailTextFieldFocus"
+      @blur="isEmailTextFieldFocus=false"
+      @focus="isEmailTextFieldFocus=true"
     />
     <password-text-field
       v-model="password"
@@ -21,8 +25,8 @@
       :tab-index="3"
       :is-success="isPasswordMatching"
       :is-focus="isPasswordTextFieldFocus"
-      @focus="confirmPasswordErrorMessage = ''"
-      @blur="processConfirmPasswordErrorMessage"
+      @blur="onPasswordTextFieldBlur"
+      @focus="onPasswordTextFieldFocus"
     />
     <password-text-field
       v-model="confirmPassword"
@@ -32,8 +36,8 @@
       :is-success="isPasswordMatching"
       :error-message="confirmPasswordErrorMessage"
       :is-focus="isConfirmPasswordTextFieldFocus"
-      @focus="confirmPasswordErrorMessage = ''"
-      @blur="processConfirmPasswordErrorMessage"
+      @blur="onConfirmPasswordTextFieldBlur"
+      @focus="onConfirmPasswordTextFieldFocus"
     />
     <v-btn
       tabindex="5"
@@ -95,6 +99,22 @@ export default {
   },
 
   methods: {
+    onPasswordTextFieldBlur() {
+      this.processConfirmPasswordErrorMessage();
+      this.isPasswordTextFieldFocus = false;
+    },
+    onPasswordTextFieldFocus() {
+      this.confirmPasswordErrorMessage = '';
+      this.isPasswordTextFieldFocus = true;
+    },
+    onConfirmPasswordTextFieldBlur() {
+      this.processConfirmPasswordErrorMessage();
+      this.isConfirmPasswordTextFieldFocus = false;
+    },
+    onConfirmPasswordTextFieldFocus() {
+      this.confirmPasswordErrorMessage = '';
+      this.isConfirmPasswordTextFieldFocus = true;
+    },
     processConfirmPasswordErrorMessage() {
       if (!this.confirmPassword || !this.password) {
         this.confirmPasswordErrorMessage = '';

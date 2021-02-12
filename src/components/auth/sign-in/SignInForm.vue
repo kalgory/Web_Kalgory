@@ -2,7 +2,7 @@
   <v-form
     ref="form"
     class="mx-12"
-    @submit.prevent="signIn"
+    @submit.prevent="submit"
   >
     <email-text-field
       v-model="email"
@@ -63,7 +63,7 @@ export default {
   },
 
   methods: {
-    signIn() {
+    submit() {
       if (this.isValid) {
         this.$emit('ondStartLoad');
         this.isLoading = true;
