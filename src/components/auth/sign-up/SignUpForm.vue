@@ -2,25 +2,31 @@
   <v-form
     ref="form"
     class="mx-12"
-    @submit.prevent="signUp"
+    @submit.prevent="submit"
   >
     <name-text-field
       v-model="name"
-      :is-auto-focus="true"
       hint="2자 이상의 이름을 입력해주세요"
       :tab-index="1"
+      :is-focus="isNameTextFieldFocus"
+      @blur="isNameTextFieldFocus=false"
+      @focus="isNameTextFieldFocus=true"
     />
     <email-text-field
       v-model="email"
       :tab-index="2"
+      :is-focus="isEmailTextFieldFocus"
+      @blur="isEmailTextFieldFocus=false"
+      @focus="isEmailTextFieldFocus=true"
     />
     <password-text-field
       v-model="password"
       :hint="isPasswordMatching?'':'8자 이상 영문 소문자와 숫자 조합입니다'"
       :tab-index="3"
       :is-success="isPasswordMatching"
-      @input="onPasswordInput"
-      @blur="onPasswordBlur"
+      :is-focus="isPasswordTextFieldFocus"
+      @blur="onPasswordTextFieldBlur"
+      @focus="onPasswordTextFieldFocus"
     />
     <password-text-field
       v-model="confirmPassword"
@@ -29,8 +35,9 @@
       :tab-index="4"
       :is-success="isPasswordMatching"
       :error-message="confirmPasswordErrorMessage"
-      @input="onPasswordInput"
-      @blur="onPasswordBlur"
+      :is-focus="isConfirmPasswordTextFieldFocus"
+      @blur="onConfirmPasswordTextFieldBlur"
+      @focus="onConfirmPasswordTextFieldFocus"
     />
     <v-btn
       tabindex="5"
@@ -61,6 +68,10 @@ export default {
   },
 
   data: () => ({
+    isNameTextFieldFocus: false,
+    isEmailTextFieldFocus: false,
+    isPasswordTextFieldFocus: false,
+    isConfirmPasswordTextFieldFocus: false,
     confirmPasswordErrorMessage: '',
     isLoading: false,
     name: '',
@@ -68,7 +79,6 @@ export default {
     password: '',
     confirmPassword: '',
   }),
-
   computed: {
     isPasswordMatching() {
       if (!this.confirmPassword || !this.password) {
@@ -80,15 +90,32 @@ export default {
       return this.confirmPassword === this.password;
     },
     isValid() {
-      return this.$refs.form.validate();
+      return this.$refs.form.validate() && this.isPasswordMatching;
     },
   },
 
+  mounted() {
+    this.isNameTextFieldFocus = true;
+  },
+
   methods: {
-    onPasswordInput() {
-      this.confirmPasswordErrorMessage = '';
+    onPasswordTextFieldBlur() {
+      this.processConfirmPasswordErrorMessage();
+      this.isPasswordTextFieldFocus = false;
     },
-    onPasswordBlur() {
+    onPasswordTextFieldFocus() {
+      this.confirmPasswordErrorMessage = '';
+      this.isPasswordTextFieldFocus = true;
+    },
+    onConfirmPasswordTextFieldBlur() {
+      this.processConfirmPasswordErrorMessage();
+      this.isConfirmPasswordTextFieldFocus = false;
+    },
+    onConfirmPasswordTextFieldFocus() {
+      this.confirmPasswordErrorMessage = '';
+      this.isConfirmPasswordTextFieldFocus = true;
+    },
+    processConfirmPasswordErrorMessage() {
       if (!this.confirmPassword || !this.password) {
         this.confirmPasswordErrorMessage = '';
       } else if (this.confirmPassword.length < 6 || this.password.length < 6) {
@@ -99,9 +126,9 @@ export default {
         this.confirmPasswordErrorMessage = '일치하지 않습니다.';
       }
     },
-    signUp() {
-      this.onPasswordBlur();
-      if (this.isValid && this.isPasswordMatching) {
+    submit() {
+      this.processConfirmPasswordErrorMessage();
+      if (this.isValid) {
         this.$emit('ondStartLoad');
         this.isLoading = true;
         createUserWithEmailAndPassword(this.email, this.password)

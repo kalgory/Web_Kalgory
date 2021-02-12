@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height>
-    <v-row>
-      <v-col>
+    <v-row justify="center">
+      <v-col cols="auto">
         <router-view />
       </v-col>
     </v-row>

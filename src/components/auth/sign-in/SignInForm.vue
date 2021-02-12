@@ -2,16 +2,21 @@
   <v-form
     ref="form"
     class="mx-12"
-    @submit.prevent="signIn"
+    @submit.prevent="submit"
   >
     <email-text-field
       v-model="email"
       :tab-index="1"
-      :is-auto-focus="true"
+      :is-focus="isEmailTextFieldFocus"
+      @blur="isEmailTextFieldFocus=false"
+      @focus="isEmailTextFieldFocus=true"
     />
     <password-text-field
       v-model="password"
       :tab-index="2"
+      :is-focus="isPasswordTextFieldFocus"
+      @blur="isPasswordTextFieldFocus=false"
+      @focus="isPasswordTextFieldFocus=true"
     />
 
     <v-btn
@@ -39,9 +44,10 @@ export default {
     EmailTextField,
     PasswordTextField,
   },
-
   data: () => ({
     isLoading: false,
+    isEmailTextFieldFocus: false,
+    isPasswordTextFieldFocus: false,
     email: '',
     password: '',
   }),
@@ -52,13 +58,17 @@ export default {
     },
   },
 
+  mounted() {
+    this.isEmailTextFieldFocus = true;
+  },
+
   methods: {
-    signIn() {
+    submit() {
       if (this.isValid) {
         this.$emit('ondStartLoad');
         this.isLoading = true;
         signInWithEmailAndPassword(this.email, this.password)
-          // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line no-unused-vars
           .then((userCredential) => {
             this.$router.back();
           })

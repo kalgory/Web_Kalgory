@@ -1,10 +1,10 @@
 <template>
   <v-text-field
+    ref="textField"
     :tabindex="tabIndex"
     validate-on-blur
     clearable
     :hint="hint"
-    :autofocus="isAutoFocus"
     :value="value"
     :rules="rules"
     type="email"
@@ -12,6 +12,8 @@
     prepend-inner-icon="mdi-at"
     placeholder="Type your email"
     @input="onInput"
+    @focus="onFocus"
+    @blur="onBlur"
   />
 </template>
 
@@ -25,11 +27,6 @@ export default {
       required: false,
       default: '',
     },
-    isAutoFocus: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
     hint: {
       type: String,
       required: false,
@@ -38,6 +35,11 @@ export default {
     tabIndex: {
       type: Number,
       required: true,
+    },
+    isFocus: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 
@@ -48,7 +50,23 @@ export default {
     ],
   }),
 
+  watch: {
+    isFocus(value) {
+      if (value) {
+        this.$refs.textField.$refs.input.focus();
+      } else {
+        this.$refs.textField.$refs.input.blur();
+      }
+    },
+  },
+
   methods: {
+    onBlur() {
+      this.$emit('blur');
+    },
+    onFocus() {
+      this.$emit('focus');
+    },
     onInput(value) {
       this.$emit('input', value);
     },
