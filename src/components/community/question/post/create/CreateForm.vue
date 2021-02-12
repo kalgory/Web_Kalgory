@@ -5,28 +5,28 @@
         cols="3"
         offset="1"
       >
-        <v-text-field
+        <header-text-field
           v-model="post.header"
-          label="header"
+          :tab-index="1"
         />
       </v-col>
       <v-col
         cols="2"
         offset="5"
       >
-        <v-text-field label="username" />
+        <v-text-field
+          label="username"
+        />
       </v-col>
     </v-row>
     <v-row justify="center">
       <v-col
         cols="5"
       >
-        <v-textarea
+        <body-textarea
           v-model="post.body"
-          outlined
-          rows="10"
-          no-resize
-          label="body"
+          :tab-index="2"
+          :rows="15"
         />
       </v-col>
       <v-col cols="5">
@@ -46,9 +46,17 @@ import { createPost, getQuestionCommunityReference } from '@/plugins/firebase/fi
 import Marked from 'marked';
 import SanitizeHtml from 'sanitize-html';
 import Firebase from 'firebase/app';
+import BodyTextarea from './form/body/BodyTextarea.vue';
+import HeaderTextField from './form/header/HeaderTextField.vue';
 
 export default {
   name: 'CreateForm',
+
+  components: {
+    BodyTextarea,
+    HeaderTextField,
+  },
+
   data: () => ({
     post: {
       header: '',
