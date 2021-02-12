@@ -2,7 +2,7 @@
   <v-form>
     <v-row>
       <v-col
-        cols="3"
+        cols="6"
         offset="1"
       >
         <header-text-field
@@ -12,7 +12,7 @@
       </v-col>
       <v-col
         cols="2"
-        offset="5"
+        offset="2"
       >
         <v-text-field
           label="username"
@@ -21,12 +21,16 @@
     </v-row>
     <v-row justify="center">
       <v-col
-        cols="5"
+        cols="6"
+        offset="1"
       >
         <body-textarea
           v-model="post.body"
+          :error-message="bodyErrorMessage"
           :tab-index="2"
-          :rows="15"
+          :rows="10"
+          @blur="onBodyTextareaBlur"
+          @focus="onBodyTextareaFocus"
         />
       </v-col>
       <v-col cols="5">
@@ -44,7 +48,7 @@
 <script>
 import { createPost, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
 import Marked from 'marked';
-import SanitizeHtml from 'sanitize-html';
+import SanitizeHTML from 'sanitize-html';
 import Firebase from 'firebase/app';
 import BodyTextarea from './form/body/BodyTextarea.vue';
 import HeaderTextField from './form/header/HeaderTextField.vue';
@@ -62,28 +66,51 @@ export default {
       header: '',
       body: '',
     },
+    isValid: false,
+    isBodyTextareaFocus: false,
+    bodyErrorMessage: '',
   }),
 
   computed: {
     markedBody() {
-      return SanitizeHtml(Marked(this.post.body));
+      return SanitizeHTML(Marked(this.post.body));
     },
   },
 
   methods: {
+    onBodyTextareaBlur() {
+      this.processBodyTextareaErrorMessage();
+      this.isBodyTextareaFocus = false;
+    },
+    onBodyTextareaFocus() {
+      this.bodyErrorMessage = '';
+      this.isBodyTextareaFocus = true;
+    },
+    processBodyTextareaErrorMessage() {
+      let markedBody = SanitizeHTML(Marked(this.post.body));
+      const codeTagCount = markedBody.match(/(?<=<code>)(.|\n)*?(?=<\/code>)/g).length;
+      markedBody = markedBody.replace(/<code>(.|\n)*?<\/code>|\n/g, '').replace(/<(?!\/?c).*?>/g, '');
+      if (codeTagCount > 0 && markedBody.length === 0) {
+        this.bodyErrorMessage = 'Please add some context to explain the code sections (or check that you have not incorrectly formatted all of your question as code).';
+      } else if (codeTagCount * 4 > markedBody.length) {
+        this.bodyErrorMessage = 'It looks like your post is mostly code; please add some more details.';
+      }
+    },
     createPost() {
-      this.post.created_at = Firebase.firestore.Timestamp.now();
-      createPost(getQuestionCommunityReference(), this.post)
-        .then((doc) => {
-          console.log(doc);
-          this.$router.back();
-        })
-        .catch((error) => {
-          this.$toasted.show(error.message, {
-            type: 'error',
-            icon: 'mdi-account-outline',
+      if (this.isValid) {
+        this.post.created_at = Firebase.firestore.Timestamp.now();
+        createPost(getQuestionCommunityReference(), this.post)
+          .then((doc) => {
+            console.log(doc);
+            this.$router.back();
+          })
+          .catch((error) => {
+            this.$toasted.show(error.message, {
+              type: 'error',
+              icon: 'mdi-account-outline',
+            });
           });
-        });
+      }
     },
   },
 };

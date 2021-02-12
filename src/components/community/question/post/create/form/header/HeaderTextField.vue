@@ -3,7 +3,7 @@
     outlined
     :rules="rules"
     :tabindex="tabIndex"
-    error-messages="???"
+    placeholder="Please write the summary of the body"
     label="Question Post's header"
   />
 </template>
@@ -25,7 +25,8 @@ export default {
 
   data: () => ({
     rules: [
-      (v) => !!v || 'Post의 Header 입력해주세요.',
+      (v) => !!v || 'Header is missing',
+      (v) => (v || '').length >= 15 || 'Title must be at least 15 characters.',
     ],
   }),
 
