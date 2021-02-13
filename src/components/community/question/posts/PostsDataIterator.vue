@@ -5,14 +5,15 @@
     :search="searchText"
     :items-per-page="itemsPerPage"
     hide-default-footer
+    fixed-header
+    class="v-data-table__empty-wrapper"
   >
     <template #header>
-      <v-row justify="center">
-        <v-col
-          cols="8"
-        >
+      <v-row class="mb-16">
+        <v-col>
           <v-text-field
             v-model="searchText"
+            style="position: fixed; margin: 8px;right: 0;left: 0; z-index: 1;background: white"
             prepend-inner-icon="mdi-table-search"
           />
         </v-col>
