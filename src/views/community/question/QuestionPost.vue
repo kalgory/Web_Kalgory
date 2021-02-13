@@ -1,11 +1,9 @@
 <template>
-  <v-container>
-    <v-row class="mt-2">
-      <v-col>
-        <read-card />
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-row class="mt-2">
+    <v-col>
+      <read-card />
+    </v-col>
+  </v-row>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <posts-data-iterator />
     <v-btn
       style="position: fixed; right: 2%;bottom: 10%"
@@ -7,7 +7,7 @@
     >
       <v-icon>mdi-pencil</v-icon>
     </v-btn>
-  </v-container>
+  </div>
 </template>
 
 <script>
