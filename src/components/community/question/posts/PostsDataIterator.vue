@@ -44,7 +44,6 @@
         />
       </v-row>
     </template>
-    <v-btn />
   </v-data-iterator>
 </template>
 

@@ -1,6 +1,12 @@
 <template>
   <v-container>
     <posts-data-iterator />
+    <v-btn
+      style="position: fixed; right: 2%;bottom: 10%"
+      to="/community/question/create"
+    >
+      <v-icon>mdi-pencil</v-icon>
+    </v-btn>
   </v-container>
 </template>
 
