@@ -1,7 +1,9 @@
 <template>
   <v-card>
-    <v-card-title class="font-weight-bold">
-      {{ post.header }}
+    <v-card-title
+      @click="$router.push({path:`/community/question/${post.id}`})"
+    >
+      <a class="blue--text">{{ post.header }}</a>
     </v-card-title>
     <v-card-subtitle>
       {{ post.createdAt }}
