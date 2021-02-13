@@ -5,8 +5,6 @@
     :search="searchText"
     :items-per-page="itemsPerPage"
     hide-default-footer
-    fixed-header
-    class="v-data-table__empty-wrapper"
   >
     <template #header>
       <v-row class="mb-16">
@@ -28,9 +26,7 @@
         <v-col
           cols="8"
         >
-          <data-card
-            :post="post"
-          />
+          <data-card :post="post" />
         </v-col>
       </v-row>
       <v-row
