@@ -1,5 +1,8 @@
 <template>
-  <v-toolbar class="elevation-0">
+  <v-toolbar
+    class="elevation-0"
+    style="margin:0; position:fixed; left: 0; right: 0; z-index: inherit"
+  >
     <v-spacer />
     <v-btn
       to="/community/information"
