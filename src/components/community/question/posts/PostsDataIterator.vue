@@ -13,7 +13,7 @@
         <v-col>
           <v-text-field
             v-model="searchText"
-            style="position: fixed; margin: 8px;right: 0;left: 0; z-index: 1;background: white"
+            style="position: fixed; right: 0;left: 0; z-index: 1;background: white"
             prepend-inner-icon="mdi-table-search"
           />
         </v-col>
@@ -28,7 +28,9 @@
         <v-col
           cols="8"
         >
-          <data-card :post="post" />
+          <data-card
+            :post="post"
+          />
         </v-col>
       </v-row>
       <v-row
@@ -42,6 +44,7 @@
         />
       </v-row>
     </template>
+    <v-btn />
   </v-data-iterator>
 </template>
 

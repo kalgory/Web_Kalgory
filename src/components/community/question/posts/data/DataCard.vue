@@ -10,7 +10,7 @@
     </v-card-subtitle>
     <v-card-text
       class="font-weight-bold"
-      v-html="getProcessedBody()"
+      v-html="getProcessedBody"
     />
     <v-card-actions>
       <v-row>
@@ -50,7 +50,7 @@ export default {
     isExpand: false,
   }),
 
-  methods: {
+  computed: {
     getProcessedBody() {
       let markedBody = SanitizeHTML(Marked(this.post.body));
       const codeTagStrings = markedBody.match(/(?<=<code>)(.|\n)*?(?=<\/code>)/g);

@@ -1,6 +1,6 @@
 <template>
   <v-card-text>
-    <v-expansion-panels>
+    <v-expansion-panels style="z-index: 0">
       <v-expansion-panel
         v-for="(post, i) in posts"
         :key="i"

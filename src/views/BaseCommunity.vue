@@ -1,7 +1,7 @@
 <template>
   <div>
     <community-toolbar />
-    <router-view />
+    <router-view class="pt-15" />
   </div>
 </template>
 
