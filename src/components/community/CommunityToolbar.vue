@@ -1,7 +1,7 @@
 <template>
   <v-toolbar
     class="elevation-0"
-    style="margin:0; position:fixed; left: 0; right: 0; z-index: inherit"
+    style="margin:0; position:fixed; left: 0; right: 0; z-index: 1"
   >
     <v-spacer />
     <v-btn
