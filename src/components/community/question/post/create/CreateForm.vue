@@ -140,8 +140,8 @@ export default {
       if (this.isValid) {
         this.post.created_at = Firebase.firestore.Timestamp.now();
         createPost(getQuestionCommunityReference(), this.post)
-          .then((doc) => {
-            console.log(doc);
+        // eslint-disable-next-line no-unused-vars
+          .then((documentReference) => {
             this.$router.back();
           })
           .catch((error) => {

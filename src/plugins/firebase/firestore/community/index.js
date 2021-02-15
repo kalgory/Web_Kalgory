@@ -17,8 +17,8 @@ export function getInformationCommunityReference() {
 export function createPost(reference, post) {
   return new Promise((resolve, reject) => {
     reference.add(post)
-      .then((document) => {
-        resolve(document);
+      .then((documentReference) => {
+        resolve(documentReference);
       })
       .catch((error) => {
         reject(error);
