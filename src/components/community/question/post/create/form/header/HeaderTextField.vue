@@ -1,34 +1,23 @@
 <template>
   <v-text-field
     ref="textField"
-    :tabindex="tabIndex"
+    outlined
+    placeholder="Please write the summary of the body"
     :validate-on-blur="isValidateOnBlur"
-    clearable
-    :hint="hint"
-    maxlength="20"
-    :value="value"
     :rules="rules"
-    type="text"
-    label="Username"
-    prepend-inner-icon="mdi-account-outline"
-    placeholder="Type your username"
+    :tabindex="tabIndex"
     @input="onInput"
     @focus="onFocus"
     @blur="onBlur"
+    @update:error="onError"
   />
 </template>
 
 <script>
 export default {
-  name: 'NameTextField',
-
+  name: 'HeaderTextField',
   props: {
     value: {
-      type: String,
-      required: false,
-      default: '',
-    },
-    hint: {
       type: String,
       required: false,
       default: '',
@@ -44,14 +33,15 @@ export default {
     },
     isValidateOnBlur: {
       type: Boolean,
-      required: false,
+      required: true,
     },
   },
 
   data: () => ({
     rules: [
-      (v) => !!v || '이름을 입력해주세요',
-      (v) => (v || '').length >= 2 || '너무 짧은 이름입니다',
+      (v) => !!v || 'Header is missing',
+      (v) => (v || '').length >= 15 || 'Header must be at least 15 characters.',
+      (v) => (v || '').length <= 100 || 'Header cannot be longer than 100 characters.',
     ],
   }),
 
@@ -75,6 +65,13 @@ export default {
     onInput(value) {
       this.$emit('input', value);
     },
+    onError(value) {
+      this.$emit('error', value);
+    },
   },
 };
 </script>
+
+<style scoped>
+
+</style>

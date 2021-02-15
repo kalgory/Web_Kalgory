@@ -8,6 +8,8 @@
       v-model="email"
       :tab-index="1"
       :is-focus="isEmailTextFieldFocus"
+      :is-validate-on-blur="isEmailTextFieldValidateOnBlur"
+      @input="isEmailTextFieldValidateOnBlur=true"
       @blur="isEmailTextFieldFocus=false"
       @focus="isEmailTextFieldFocus=true"
     />
@@ -15,6 +17,8 @@
       v-model="password"
       :tab-index="2"
       :is-focus="isPasswordTextFieldFocus"
+      :is-validate-on-blur="isPasswordTextFieldValidateOnBlur"
+      @input="isPasswordTextFieldValidateOnBlur=true"
       @blur="isPasswordTextFieldFocus=false"
       @focus="isPasswordTextFieldFocus=true"
     />
@@ -48,6 +52,8 @@ export default {
     isLoading: false,
     isEmailTextFieldFocus: false,
     isPasswordTextFieldFocus: false,
+    isEmailTextFieldValidateOnBlur: true,
+    isPasswordTextFieldValidateOnBlur: true,
     email: '',
     password: '',
   }),
@@ -64,6 +70,8 @@ export default {
 
   methods: {
     submit() {
+      this.isEmailTextFieldValidateOnBlur = false;
+      this.isPasswordTextFieldValidateOnBlur = false;
       if (this.isValid) {
         this.$emit('ondStartLoad');
         this.isLoading = true;

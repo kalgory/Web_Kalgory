@@ -1,32 +1,49 @@
 <template>
-  <v-form>
+  <v-form
+    ref="form"
+    @submit.prevent="submit"
+  >
     <v-row>
       <v-col
-        cols="3"
+        cols="6"
         offset="1"
       >
-        <v-text-field
+        <header-text-field
           v-model="post.header"
-          label="header"
+          :tab-index="1"
+          :is-focus="isHeaderTextFieldFocus"
+          :is-validate-on-blur="isHeaderTextFieldValidateOnBlur"
+          @input="isHeaderTextFieldValidateOnBlur=true"
+          @blur="isHeaderTextFieldFocus=false"
+          @focus="isHeaderTextFieldFocus=true"
+          @error="onHeaderTextFieldError"
         />
       </v-col>
       <v-col
         cols="2"
-        offset="5"
+        offset="2"
       >
-        <v-text-field label="username" />
+        <v-text-field
+          label="username"
+        />
       </v-col>
     </v-row>
     <v-row justify="center">
       <v-col
-        cols="5"
+        cols="6"
+        offset="1"
       >
-        <v-textarea
+        <body-textarea
           v-model="post.body"
-          outlined
-          rows="10"
-          no-resize
-          label="body"
+          :error-message="bodyErrorMessage"
+          :tab-index="2"
+          :rows="10"
+          :is-focus="isBodyTextareaFocus"
+          :is-validate-on-blur="isBodyTextareaValidateOnBlur"
+          @input="isBodyTextareaValidateOnBlur=true"
+          @blur="onBodyTextareaBlur"
+          @focus="onBodyTextareaFocus"
+          @error="onBodyTextareaError"
         />
       </v-col>
       <v-col cols="5">
@@ -34,8 +51,13 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col offset="10">
-        <v-btn @click="createPost" />
+      <v-col offset="9">
+        <v-btn
+          tabindex="3"
+          type="submit"
+        >
+          Post Create
+        </v-btn>
       </v-col>
     </v-row>
   </v-form>
@@ -44,38 +66,97 @@
 <script>
 import { createPost, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
 import Marked from 'marked';
-import SanitizeHtml from 'sanitize-html';
+import SanitizeHTML from 'sanitize-html';
 import Firebase from 'firebase/app';
+import BodyTextarea from './form/body/BodyTextarea.vue';
+import HeaderTextField from './form/header/HeaderTextField.vue';
 
 export default {
   name: 'CreateForm',
+
+  components: {
+    BodyTextarea,
+    HeaderTextField,
+  },
+
   data: () => ({
     post: {
       header: '',
       body: '',
     },
+    isHeaderValid: false,
+    isBodyValid: false,
+    isHeaderTextFieldFocus: false,
+    isBodyTextareaFocus: false,
+    isHeaderTextFieldValidateOnBlur: true,
+    isBodyTextareaValidateOnBlur: true,
+    bodyErrorMessage: '',
   }),
 
   computed: {
     markedBody() {
-      return SanitizeHtml(Marked(this.post.body));
+      return SanitizeHTML(Marked(this.post.body));
+    },
+    isValid() {
+      return this.$refs.form.validate();
     },
   },
 
+  mounted() {
+    this.isHeaderTextFieldFocus = true;
+  },
+
   methods: {
-    createPost() {
-      this.post.created_at = Firebase.firestore.Timestamp.now();
-      createPost(getQuestionCommunityReference(), this.post)
-        .then((doc) => {
-          console.log(doc);
-          this.$router.back();
-        })
-        .catch((error) => {
-          this.$toasted.show(error.message, {
-            type: 'error',
-            icon: 'mdi-account-outline',
+    onHeaderTextFieldError(value) {
+      this.isHeaderValid = !value;
+    },
+    onBodyTextareaError(value) {
+      this.isBodyValid = !value;
+    },
+    onBodyTextareaBlur() {
+      this.processBodyTextareaErrorMessage();
+      this.isBodyTextareaFocus = false;
+    },
+    onBodyTextareaFocus() {
+      this.bodyErrorMessage = '';
+      this.isBodyTextareaFocus = true;
+    },
+    processBodyTextareaErrorMessage() {
+      let markedBody = SanitizeHTML(Marked(this.post.body));
+      const codeTagCount = markedBody.match(/(?<=<code>)(.|\n)*?(?=<\/code>)/g);
+      if (codeTagCount === null) return;
+      markedBody = markedBody.replace(/<code>(.|\n)*?<\/code>|\n/g, '').replace(/<(?!\/?c).*?>/g, '');
+      if (codeTagCount.length > 0 && markedBody.length === 0) {
+        this.bodyErrorMessage = 'Please add some context to explain the code sections (or check that you have not incorrectly formatted all of your question as code).';
+      } else if (codeTagCount.length * 4 > markedBody.length) {
+        this.bodyErrorMessage = 'It looks like your post is mostly code; please add some more details.';
+      } else {
+        console.log(codeTagCount, markedBody);
+      }
+    },
+    submit() {
+      this.isHeaderTextFieldValidateOnBlur = false;
+      this.isBodyTextareaValidateOnBlur = false;
+      if (this.isValid) {
+        this.post.created_at = Firebase.firestore.Timestamp.now();
+        createPost(getQuestionCommunityReference(), this.post)
+        // eslint-disable-next-line no-unused-vars
+          .then((documentReference) => {
+            this.$router.back();
+          })
+          .catch((error) => {
+            this.$toasted.global.error({ message: error.message });
           });
-        });
+      } else if (!this.isHeaderValid) {
+        this.isHeaderTextFieldFocus = true;
+        this.$toasted.global.error({ message: 'Header가 유효하지 않습니다.' });
+      } else if (!this.isBodyValid) {
+        this.isBodyTextareaFocus = true;
+        this.$toasted.global.error({ message: 'Body가 유효하지 않습니다.' });
+      } else {
+        // TODO 서버에 log 남기기
+        this.$toasted.global.error();
+      }
     },
   },
 };
