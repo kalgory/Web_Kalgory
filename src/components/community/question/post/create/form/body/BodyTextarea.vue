@@ -1,16 +1,18 @@
 <template>
   <v-textarea
     ref="textarea"
+    label="Question Post's Body"
     outlined
     :tabindex="tabIndex"
     :rules="rules"
     :value="value"
     :rows="rows"
     :error-messages="errorMessage"
-    label="Question Post's Body"
+    :validate-on-blur="isValidateOnBlur"
     @input="onInput"
     @focus="onFocus"
     @blur="onBlur"
+    @update:error="onError"
   />
 </template>
 
@@ -41,12 +43,17 @@ export default {
       required: false,
       default: false,
     },
+    isValidateOnBlur: {
+      type: Boolean,
+      required: true,
+    },
   },
 
   data: () => ({
     rules: [
       (v) => !!v || 'Body is missing',
       (v) => (v || '').length >= 30 || `Body must be at least 30 characters; you entered ${v.length}`,
+      (v) => (v || '').length <= 10000 || `Body cannot be longer than 10000 characters. ${v.length}`,
     ],
   }),
 
@@ -69,6 +76,9 @@ export default {
     },
     onInput(value) {
       this.$emit('input', value);
+    },
+    onError(value) {
+      this.$emit('error', value);
     },
   },
 };

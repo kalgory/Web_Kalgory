@@ -2,12 +2,14 @@
   <v-text-field
     ref="textField"
     outlined
+    placeholder="Please write the summary of the body"
+    :validate-on-blur="isValidateOnBlur"
     :rules="rules"
     :tabindex="tabIndex"
-    placeholder="Please write the summary of the body"
     @input="onInput"
     @focus="onFocus"
     @blur="onBlur"
+    @update:error="onError"
   />
 </template>
 
@@ -29,13 +31,17 @@ export default {
       required: false,
       default: false,
     },
+    isValidateOnBlur: {
+      type: Boolean,
+      required: true,
+    },
   },
 
   data: () => ({
     rules: [
       (v) => !!v || 'Header is missing',
       (v) => (v || '').length >= 15 || 'Header must be at least 15 characters.',
-      (v) => (v || '').length <= 100 || 'Header cannot be longer than 150 characters.',
+      (v) => (v || '').length <= 100 || 'Header cannot be longer than 100 characters.',
     ],
   }),
 
@@ -58,6 +64,9 @@ export default {
     },
     onInput(value) {
       this.$emit('input', value);
+    },
+    onError(value) {
+      this.$emit('error', value);
     },
   },
 };

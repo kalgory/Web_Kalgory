@@ -1,5 +1,8 @@
 <template>
-  <v-form>
+  <v-form
+    ref="form"
+    @submit.prevent="submit"
+  >
     <v-row>
       <v-col
         cols="6"
@@ -9,8 +12,11 @@
           v-model="post.header"
           :tab-index="1"
           :is-focus="isHeaderTextFieldFocus"
+          :is-validate-on-blur="isHeaderTextFieldValidateOnBlur"
+          @input="isHeaderTextFieldValidateOnBlur=true"
           @blur="isHeaderTextFieldFocus=false"
           @focus="isHeaderTextFieldFocus=true"
+          @error="onHeaderTextFieldError"
         />
       </v-col>
       <v-col
@@ -33,8 +39,11 @@
           :tab-index="2"
           :rows="10"
           :is-focus="isBodyTextareaFocus"
+          :is-validate-on-blur="isBodyTextareaValidateOnBlur"
+          @input="isBodyTextareaValidateOnBlur=true"
           @blur="onBodyTextareaBlur"
           @focus="onBodyTextareaFocus"
+          @error="onBodyTextareaError"
         />
       </v-col>
       <v-col cols="5">
@@ -45,7 +54,7 @@
       <v-col offset="9">
         <v-btn
           tabindex="3"
-          @click="createPost"
+          type="submit"
         >
           Post Create
         </v-btn>
@@ -79,12 +88,17 @@ export default {
     isBodyValid: false,
     isHeaderTextFieldFocus: false,
     isBodyTextareaFocus: false,
+    isHeaderTextFieldValidateOnBlur: true,
+    isBodyTextareaValidateOnBlur: true,
     bodyErrorMessage: '',
   }),
 
   computed: {
     markedBody() {
       return SanitizeHTML(Marked(this.post.body));
+    },
+    isValid() {
+      return this.$refs.form.validate();
     },
   },
 
@@ -93,6 +107,12 @@ export default {
   },
 
   methods: {
+    onHeaderTextFieldError(value) {
+      this.isHeaderValid = !value;
+    },
+    onBodyTextareaError(value) {
+      this.isBodyValid = !value;
+    },
     onBodyTextareaBlur() {
       this.processBodyTextareaErrorMessage();
       this.isBodyTextareaFocus = false;
@@ -104,23 +124,20 @@ export default {
     processBodyTextareaErrorMessage() {
       let markedBody = SanitizeHTML(Marked(this.post.body));
       const codeTagCount = markedBody.match(/(?<=<code>)(.|\n)*?(?=<\/code>)/g);
+      if (codeTagCount === null) return;
       markedBody = markedBody.replace(/<code>(.|\n)*?<\/code>|\n/g, '').replace(/<(?!\/?c).*?>/g, '');
-      if (codeTagCount !== null && codeTagCount.length > 0 && markedBody.length === 0) {
+      if (codeTagCount.length > 0 && markedBody.length === 0) {
         this.bodyErrorMessage = 'Please add some context to explain the code sections (or check that you have not incorrectly formatted all of your question as code).';
-      } else if (codeTagCount * 4 > markedBody.length) {
+      } else if (codeTagCount.length * 4 > markedBody.length) {
         this.bodyErrorMessage = 'It looks like your post is mostly code; please add some more details.';
+      } else {
+        console.log(codeTagCount, markedBody);
       }
     },
-    createPost() {
-      const bodyLength = this.post.body.length;
-      const headerLength = this.post.header.length;
-      if (headerLength >= 15 && headerLength <= 100) {
-        this.isHeaderValid = true;
-      }
-      if (bodyLength >= 30 && bodyLength <= 20000 && this.bodyErrorMessage === '') {
-        this.isBodyValid = true;
-      }
-      if (this.isBodyValid && this.isHeaderValid) {
+    submit() {
+      this.isHeaderTextFieldValidateOnBlur = false;
+      this.isBodyTextareaValidateOnBlur = false;
+      if (this.isValid) {
         this.post.created_at = Firebase.firestore.Timestamp.now();
         createPost(getQuestionCommunityReference(), this.post)
           .then((doc) => {
@@ -128,15 +145,17 @@ export default {
             this.$router.back();
           })
           .catch((error) => {
-            this.$toasted.show(error.message, {
-              type: 'error',
-              icon: 'mdi-account-outline',
-            });
+            this.$toasted.global.error({ message: error.message });
           });
       } else if (!this.isHeaderValid) {
         this.isHeaderTextFieldFocus = true;
-      } else {
+        this.$toasted.global.error({ message: 'Header가 유효하지 않습니다.' });
+      } else if (!this.isBodyValid) {
         this.isBodyTextareaFocus = true;
+        this.$toasted.global.error({ message: 'Body가 유효하지 않습니다.' });
+      } else {
+        // TODO 서버에 log 남기기
+        this.$toasted.global.error();
       }
     },
   },
