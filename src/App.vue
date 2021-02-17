@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <app-bar />
+    <app-bar v-if="$route.meta.isAppBarShow" />
 
     <v-main>
       <v-progress-linear

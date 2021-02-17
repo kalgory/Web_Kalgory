@@ -1,8 +1,5 @@
 <template>
-  <v-app-bar
-    v-if="isAppBarShow"
-    app
-  >
+  <v-app-bar app>
     <initial-logo />
     <v-btn
       text
@@ -57,16 +54,6 @@ export default {
   },
 
   computed: {
-    isAppBarShow() {
-      switch (this.$route.name) {
-        case 'sign in':
-          return false;
-        case 'sign up':
-          return false;
-        default:
-          return true;
-      }
-    },
     isAvatarShow() {
       if (this.$store.getters.getIsAuthLoading) {
         return localStorage.getItem('isAuth') === 'true';
