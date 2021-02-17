@@ -1,7 +1,7 @@
 <template>
   <div>
     <community-navigation-drawers />
-    <router-view class="pt-15" />
+    <router-view />
   </div>
 </template>
 

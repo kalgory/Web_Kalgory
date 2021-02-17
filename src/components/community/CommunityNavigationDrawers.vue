@@ -5,28 +5,19 @@
     flat
   >
     <v-list nav>
-      <v-list-item-group
-        active-class="deep-purple--text "
+      <v-list-item
+        v-for="(item,index) in communityListItems"
+        :key="index"
+        :to="item.path"
+        :exact="item.exact"
       >
-        <v-list-item
-          to="/community"
-          exact
-        >
-          <v-list-item-title>Default Community</v-list-item-title>
-        </v-list-item>
-
-        <v-list-item
-          to="/community/information"
-        >
-          <v-list-item-title>Information</v-list-item-title>
-        </v-list-item>
-
-        <v-list-item
-          to="/community/question"
-        >
-          <v-list-item-title>Question And Answer</v-list-item-title>
-        </v-list-item>
-      </v-list-item-group>
+        <v-list-item-icon>
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -37,6 +28,13 @@ export default {
 
   data: () => ({
     drawer: true,
+    communityListItems: [
+      {
+        icon: 'mdi-home', title: 'Default Community', path: '/community', exact: true,
+      },
+      { icon: 'mdi-frequently-asked-questions', title: 'Question And Answer', path: '/community/question' },
+      { icon: 'mdi-information-outline', title: 'Information', path: '/community/information' },
+    ],
   }),
 };
 </script>
