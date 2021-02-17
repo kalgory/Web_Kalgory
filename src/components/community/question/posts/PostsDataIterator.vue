@@ -6,17 +6,6 @@
     :items-per-page="itemsPerPage"
     hide-default-footer
   >
-    <template #header>
-      <v-row class="mb-16">
-        <v-col>
-          <v-text-field
-            v-model="searchText"
-            style="position: fixed; right: 0;left: 0; z-index: 1;background: white"
-            prepend-inner-icon="mdi-table-search"
-          />
-        </v-col>
-      </v-row>
-    </template>
     <template #default="props">
       <v-row
         v-for="(post,index) in props.items"

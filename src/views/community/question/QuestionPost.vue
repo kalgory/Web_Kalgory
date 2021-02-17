@@ -1,5 +1,5 @@
 <template>
-  <v-row class="mt-2">
+  <v-row>
     <v-col>
       <read-card />
     </v-col>

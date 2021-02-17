@@ -1,6 +1,6 @@
 <template>
   <v-container fill-height>
-    <v-row class="pt-3">
+    <v-row>
       <v-col>
         <default-card
           v-for="(cardType,index) in cardList"

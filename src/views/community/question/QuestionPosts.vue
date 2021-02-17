@@ -2,7 +2,10 @@
   <div>
     <posts-data-iterator />
     <v-btn
-      style="position: fixed; right: 2%;bottom: 10%"
+      fixed
+      right
+      top
+      class="mt-15"
       to="/community/question/create"
     >
       <v-icon>mdi-pencil</v-icon>
