@@ -1,29 +1,31 @@
 <template>
   <v-card-actions>
-    <v-row justify="end">
-      <v-col
-        v-if="communityType==='questions'"
-        offset="11"
-      >
-        <v-btn
-          icon
-          @click="$router.push('/community/question')"
+    <v-container>
+      <v-row justify="end">
+        <v-col
+          v-if="communityType==='questions'"
+          offset="11"
         >
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col
-        v-if="communityType==='information'"
-        offset="11"
-      >
-        <v-btn
-          icon
-          @click="$router.push('/community/information')"
+          <v-btn
+            icon
+            @click="$router.push('/community/question')"
+          >
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+        </v-col>
+        <v-col
+          v-if="communityType==='information'"
+          offset="11"
         >
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
+          <v-btn
+            icon
+            @click="$router.push('/community/information')"
+          >
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-card-actions>
 </template>
 

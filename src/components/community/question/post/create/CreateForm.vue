@@ -1,43 +1,45 @@
 <template>
   <v-form>
-    <v-row>
-      <v-col
-        cols="3"
-        offset="1"
-      >
-        <v-text-field
-          v-model="post.header"
-          label="header"
-        />
-      </v-col>
-      <v-col
-        cols="2"
-        offset="5"
-      >
-        <v-text-field label="username" />
-      </v-col>
-    </v-row>
-    <v-row justify="center">
-      <v-col
-        cols="5"
-      >
-        <v-textarea
-          v-model="post.body"
-          outlined
-          rows="10"
-          no-resize
-          label="body"
-        />
-      </v-col>
-      <v-col cols="5">
-        <div v-html="markedBody" />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col offset="10">
-        <v-btn @click="createPost" />
-      </v-col>
-    </v-row>
+    <v-container>
+      <v-row>
+        <v-col
+          cols="3"
+          offset="1"
+        >
+          <v-text-field
+            v-model="post.header"
+            label="header"
+          />
+        </v-col>
+        <v-col
+          cols="2"
+          offset="5"
+        >
+          <v-text-field label="username" />
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col
+          cols="5"
+        >
+          <v-textarea
+            v-model="post.body"
+            outlined
+            rows="10"
+            no-resize
+            label="body"
+          />
+        </v-col>
+        <v-col cols="5">
+          <div v-html="markedBody" />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col offset="10">
+          <v-btn @click="createPost" />
+        </v-col>
+      </v-row>
+    </v-container>
   </v-form>
 </template>
 

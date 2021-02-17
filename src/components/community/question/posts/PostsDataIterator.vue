@@ -7,27 +7,29 @@
     hide-default-footer
   >
     <template #default="props">
-      <v-row
-        v-for="(post,index) in props.items"
-        :key="index"
-        justify="center"
-      >
-        <v-col
-          cols="8"
+      <v-container>
+        <v-row
+          v-for="(post,index) in props.items"
+          :key="index"
+          justify="center"
         >
-          <data-card :post="post" />
-        </v-col>
-      </v-row>
-      <v-row
-        v-intersect="onIntersect"
-        justify="center"
-      >
-        <v-progress-circular
-          v-if="isLoading"
-          indeterminate
-          class="center"
-        />
-      </v-row>
+          <v-col
+            cols="8"
+          >
+            <data-card :post="post" />
+          </v-col>
+        </v-row>
+        <v-row
+          v-intersect="onIntersect"
+          justify="center"
+        >
+          <v-progress-circular
+            v-if="isLoading"
+            indeterminate
+            class="center"
+          />
+        </v-row>
+      </v-container>
     </template>
   </v-data-iterator>
 </template>
