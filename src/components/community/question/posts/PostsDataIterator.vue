@@ -3,7 +3,7 @@
     id="scroll-target"
     :items="posts"
     :search="searchText"
-    :items-per-page="itemsPerPage"
+    :items-per-page="itemCountPerPage"
     hide-default-footer
   >
     <template #default="props">
@@ -49,7 +49,7 @@ export default {
     searchText: '',
     lastSnapshot: undefined,
     completeRead: false,
-    itemsPerPage: 3,
+    itemCountPerPage: 3,
   }),
   watch: {
     isLoading(isLoading) {
@@ -85,7 +85,7 @@ export default {
           if (querySnapshot.size !== 3) {
             this.completeRead = true;
           }
-          this.itemsPerPage = this.posts.length;
+          this.itemCountPerPage = this.posts.length;
         })
         .catch((error) => {
           this.isLoading = false;
