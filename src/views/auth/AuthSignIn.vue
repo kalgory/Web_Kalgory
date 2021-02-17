@@ -1,18 +1,15 @@
 <template>
-  <auth-card
-    v-if="!isLoading"
-    auth-type="sign in"
-  />
+  <sign-in-card v-if="!isLoading" />
 </template>
 
 <script>
-import AuthCard from '@/components/auth/AuthCard.vue';
+import SignInCard from '@/components/auth/sign-in/SignInCard.vue';
 
 export default {
-  name: 'SignIn',
+  name: 'AuthSignIn',
 
   components: {
-    AuthCard,
+    SignInCard,
   },
 
   data: () => ({
