@@ -18,12 +18,12 @@ export default {
 
   created() {
     if (this.$store.getters.getIsAuthLoading) {
-      if (localStorage.getItem('isAuth') === 'true') {
+      if (localStorage.getItem('isAuthenticated') === 'true') {
         this.$router.back();
       } else {
         this.isLoading = false;
       }
-    } else if (this.$store.getters.getIsAuth) {
+    } else if (this.$store.getters.getIsAuthenticated) {
       this.$router.back();
     } else {
       this.isLoading = false;

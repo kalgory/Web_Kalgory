@@ -56,15 +56,15 @@ export default {
   computed: {
     isAvatarShow() {
       if (this.$store.getters.getIsAuthLoading) {
-        return localStorage.getItem('isAuth') === 'true';
+        return localStorage.getItem('isAuthenticated') === 'true';
       }
-      return this.$store.getters.getIsAuth;
+      return this.$store.getters.getIsAuthenticated;
     },
     isAuthShow() {
       if (this.$store.getters.getIsAuthLoading) {
-        return localStorage.getItem('isAuth') === 'false';
+        return localStorage.getItem('isAuthenticated') === 'false';
       }
-      return !this.$store.getters.getIsAuth;
+      return !this.$store.getters.getIsAuthenticated;
     },
   },
 };
