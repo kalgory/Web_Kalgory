@@ -88,9 +88,9 @@ export default {
       header: '',
       body: '',
     },
-    isBodySelection: false,
     isHeaderValid: false,
     isBodyValid: false,
+    isBodySelection: false,
     isHeaderTextFieldFocus: false,
     isBodyTextareaFocus: false,
     isHeaderTextFieldValidateOnBlur: true,
@@ -116,10 +116,15 @@ export default {
       console.log(value);
       const bodySelectionStart = this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea').selectionStart;
       const bodySelectionEnd = this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea').selectionEnd;
-      if (bodySelectionStart !== bodySelectionEnd) this.isBodySelection = true;
+      if (bodySelectionStart === bodySelectionEnd) {
+        this.isBodySelection = false;
+      } else {
+        this.isBodySelection = true;
+      }
       if (value === 'bold') {
         if (this.isBodySelection) {
           this.post.body = `${this.post.body.slice(0, bodySelectionStart)}**${this.post.body.slice(bodySelectionStart, bodySelectionEnd)}**${this.post.body.slice(bodySelectionEnd)}`;
+          setTimeout(() => this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea').setSelectionRange(bodySelectionStart + 2, bodySelectionEnd + 2));
         } else {
           this.post.body = `${this.post.body.slice(0, bodySelectionStart)}**Bold Text**${this.post.body.slice(bodySelectionStart)}`;
         }
@@ -127,10 +132,12 @@ export default {
       if (value === 'italic') {
         if (this.isBodySelection) {
           this.post.body = `${this.post.body.slice(0, bodySelectionStart)}*${this.post.body.slice(bodySelectionStart, bodySelectionEnd)}*${this.post.body.slice(bodySelectionEnd)}`;
+          setTimeout(() => this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea').setSelectionRange(bodySelectionStart + 1, bodySelectionEnd + 1));
         } else {
           this.post.body = `${this.post.body.slice(0, bodySelectionStart)}*Italic Text*${this.post.body.slice(bodySelectionStart)}`;
         }
       }
+      this.isBodyTextareaFocus = true;
     },
     onHeaderTextFieldError(value) {
       this.isHeaderValid = !value;
