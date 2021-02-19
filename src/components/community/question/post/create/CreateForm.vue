@@ -88,6 +88,7 @@ export default {
       header: '',
       body: '',
     },
+    hyperlinkCount: 0,
     isHeaderValid: false,
     isBodyValid: false,
     isBodySelection: false,
@@ -113,29 +114,29 @@ export default {
 
   methods: {
     onBodyToolbarButtonClick(value) {
-      console.log(value);
-      const bodySelectionStart = this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea').selectionStart;
-      const bodySelectionEnd = this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea').selectionEnd;
-      if (bodySelectionStart === bodySelectionEnd) {
-        this.isBodySelection = false;
-      } else {
-        this.isBodySelection = true;
-      }
       if (value === 'bold') {
-        if (this.isBodySelection) {
-          this.post.body = `${this.post.body.slice(0, bodySelectionStart)}**${this.post.body.slice(bodySelectionStart, bodySelectionEnd)}**${this.post.body.slice(bodySelectionEnd)}`;
-          setTimeout(() => this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea').setSelectionRange(bodySelectionStart + 2, bodySelectionEnd + 2));
-        } else {
-          this.post.body = `${this.post.body.slice(0, bodySelectionStart)}**Bold Text**${this.post.body.slice(bodySelectionStart)}`;
-        }
+        this.processWrapBodyText('**', '**', 'Bold Text');
       }
       if (value === 'italic') {
-        if (this.isBodySelection) {
-          this.post.body = `${this.post.body.slice(0, bodySelectionStart)}*${this.post.body.slice(bodySelectionStart, bodySelectionEnd)}*${this.post.body.slice(bodySelectionEnd)}`;
-          setTimeout(() => this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea').setSelectionRange(bodySelectionStart + 1, bodySelectionEnd + 1));
-        } else {
-          this.post.body = `${this.post.body.slice(0, bodySelectionStart)}*Italic Text*${this.post.body.slice(bodySelectionStart)}`;
-        }
+        this.processWrapBodyText('*', '*', 'Italic Text');
+      }
+      if (value === 'link') {
+        this.processWrapBodyText('[', `][${this.hyperlinkCount}]\n\n [${this.hyperlinkCount}]: https://linkHere\n`, 'link description here');
+      }
+      if (value === 'quote') {
+        this.processWrapBodyText('\n> ', '\n', 'Blockquote');
+      }
+      if (value === 'code') {
+        this.processWrapBodyText('`', '`', 'Add Code Here');
+      }
+      if (value === 'numberedList') {
+        this.processWrapBodyText('\n 1. ', '\n', 'List Item');
+      }
+      if (value === 'bulletedList') {
+        this.processWrapBodyText('\n - ', '\n', 'ListItem');
+      }
+      if (value === 'horizontal') {
+        this.processWrapBodyText('\n------------\n', '\n', '');
       }
       this.isBodyTextareaFocus = true;
     },
@@ -153,6 +154,25 @@ export default {
       this.bodyErrorMessage = '';
       this.isBodyTextareaFocus = true;
     },
+    processWrapBodyText(addMarkdownFrontString, addMarkdownEndString, addNotSelectionMessage) {
+      const bodySelectionStart = this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea').selectionStart;
+      const bodySelectionEnd = this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea').selectionEnd;
+      if (bodySelectionStart !== bodySelectionEnd) {
+        this.post.body = this.post.body.slice(0, bodySelectionStart)
+            + addMarkdownFrontString + this.post.body.slice(bodySelectionStart, bodySelectionEnd)
+            + addMarkdownEndString + this.post.body.slice(bodySelectionEnd);
+        setTimeout(() => this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea')
+          .setSelectionRange(bodySelectionStart + addMarkdownFrontString.length,
+            bodySelectionEnd + addMarkdownFrontString.length));
+      } else {
+        this.post.body = this.post.body.slice(0, bodySelectionStart)
+            + addMarkdownFrontString + addNotSelectionMessage + addMarkdownEndString
+            + this.post.body.slice(bodySelectionStart);
+        setTimeout(() => this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea')
+          .setSelectionRange(bodySelectionStart + addMarkdownFrontString.length,
+            bodySelectionEnd + addMarkdownFrontString.length + addNotSelectionMessage.length));
+      }
+    },
     processBodyTextareaErrorMessage() {
       let markedBody = SanitizeHTML(Marked(this.post.body));
       const codeTagCount = markedBody.match(/(?<=<code>)(.|\n)*?(?=<\/code>)/g);
@@ -162,8 +182,6 @@ export default {
         this.bodyErrorMessage = 'Please add some context to explain the code sections (or check that you have not incorrectly formatted all of your question as code).';
       } else if (codeTagCount.length * 4 > markedBody.length) {
         this.bodyErrorMessage = 'It looks like your post is mostly code; please add some more details.';
-      } else {
-        console.log(codeTagCount, markedBody);
       }
     },
     submit() {
