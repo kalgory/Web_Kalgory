@@ -7,16 +7,12 @@
       v-model="toggle_exclusive"
       mandatory
     >
-      <v-btn>
+      <v-btn @click="onClick('bold')">
         <v-icon>mdi-format-bold</v-icon>
       </v-btn>
 
-      <v-btn>
+      <v-btn @click="onClick('italic')">
         <v-icon>mdi-format-italic</v-icon>
-      </v-btn>
-
-      <v-btn>
-        <v-icon>mdi-format-underline</v-icon>
       </v-btn>
     </v-btn-toggle>
   </v-toolbar>
@@ -30,6 +26,11 @@ export default {
     toggle_exclusive: undefined,
   }),
 
+  methods: {
+    onClick(value) {
+      this.$emit('click', value);
+    },
+  },
 };
 </script>
 

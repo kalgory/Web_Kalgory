@@ -33,7 +33,9 @@
         cols="6"
         offset="1"
       >
+        <body-toolbar @click="onBodyToolbarButtonClick" />
         <body-textarea
+          ref="bodyTextarea"
           v-model="post.body"
           :error-message="bodyErrorMessage"
           :tab-index="2"
@@ -69,6 +71,7 @@ import Marked from 'marked';
 import SanitizeHTML from 'sanitize-html';
 import Firebase from 'firebase/app';
 import BodyTextarea from './form/body/BodyTextarea.vue';
+import BodyToolbar from './form/body/BodyToolbar.vue';
 import HeaderTextField from './form/header/HeaderTextField.vue';
 
 export default {
@@ -76,6 +79,7 @@ export default {
 
   components: {
     BodyTextarea,
+    BodyToolbar,
     HeaderTextField,
   },
 
@@ -84,6 +88,7 @@ export default {
       header: '',
       body: '',
     },
+    isBodySelection: false,
     isHeaderValid: false,
     isBodyValid: false,
     isHeaderTextFieldFocus: false,
@@ -107,6 +112,26 @@ export default {
   },
 
   methods: {
+    onBodyToolbarButtonClick(value) {
+      console.log(value);
+      const bodySelectionStart = this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea').selectionStart;
+      const bodySelectionEnd = this.$refs.bodyTextarea.$refs.textarea.$el.querySelector('textarea').selectionEnd;
+      if (bodySelectionStart !== bodySelectionEnd) this.isBodySelection = true;
+      if (value === 'bold') {
+        if (this.isBodySelection) {
+          this.post.body = `${this.post.body.slice(0, bodySelectionStart)}**${this.post.body.slice(bodySelectionStart, bodySelectionEnd)}**${this.post.body.slice(bodySelectionEnd)}`;
+        } else {
+          this.post.body = `${this.post.body.slice(0, bodySelectionStart)}**Bold Text**${this.post.body.slice(bodySelectionStart)}`;
+        }
+      }
+      if (value === 'italic') {
+        if (this.isBodySelection) {
+          this.post.body = `${this.post.body.slice(0, bodySelectionStart)}*${this.post.body.slice(bodySelectionStart, bodySelectionEnd)}*${this.post.body.slice(bodySelectionEnd)}`;
+        } else {
+          this.post.body = `${this.post.body.slice(0, bodySelectionStart)}*Italic Text*${this.post.body.slice(bodySelectionStart)}`;
+        }
+      }
+    },
     onHeaderTextFieldError(value) {
       this.isHeaderValid = !value;
     },
