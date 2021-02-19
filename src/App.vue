@@ -42,7 +42,7 @@ export default {
       return this.$store.getters.getIsAuthenticated;
     },
     isVerified() {
-      if (this.$store.getters.getUser) {
+      if (this.isAuthenticated) {
         return this.$store.getters.getUser.emailVerified;
       }
       return false;
@@ -63,6 +63,13 @@ export default {
     },
     isRequireAuth(value) {
       this.isLoading = value && this.isAuthLoading;
+    },
+    isAuthenticated(value) {
+      if (value) {
+        if (!this.isVerified) {
+          console.log('not verified');
+        }
+      }
     },
   },
 
