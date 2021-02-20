@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'CommunityNavigationDrawers',
+  name: 'CommunityNavigationDrawer',
 
   data: () => ({
     drawer: true,
