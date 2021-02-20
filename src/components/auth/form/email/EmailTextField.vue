@@ -48,11 +48,18 @@ export default {
   },
 
   data: () => ({
+    error: true,
     rules: [
       (v) => !!v || '이메일을 입력해주세요',
       (v) => /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(v) || '유효하지 않은 이메일이에요',
     ],
   }),
+
+  computed: {
+    hasError() {
+      return this.$refs.textField.hasError;
+    },
+  },
 
   watch: {
     isFocus(value) {
@@ -64,6 +71,12 @@ export default {
     },
   },
 
+  mounted() {
+    this.$watch('hasError', (value) => {
+      this.$emit('error', value);
+    });
+  },
+
   methods: {
     onBlur() {
       this.$emit('blur');
@@ -72,6 +85,7 @@ export default {
       this.$emit('focus');
     },
     onInput(value) {
+      this.$refs.textField.validate();
       this.$emit('input', value);
     },
   },

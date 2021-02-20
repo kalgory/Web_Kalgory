@@ -55,6 +55,12 @@ export default {
     ],
   }),
 
+  computed: {
+    hasError() {
+      return this.$refs.textField.hasError;
+    },
+  },
+
   watch: {
     isFocus(value) {
       if (value) {
@@ -65,6 +71,12 @@ export default {
     },
   },
 
+  mounted() {
+    this.$watch('hasError', (value) => {
+      this.$emit('error', value);
+    });
+  },
+
   methods: {
     onBlur() {
       this.$emit('blur');
@@ -73,6 +85,7 @@ export default {
       this.$emit('focus');
     },
     onInput(value) {
+      this.$refs.textField.validate();
       this.$emit('input', value);
     },
   },

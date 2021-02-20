@@ -13,6 +13,7 @@
       @input="isNameTextFieldValidateOnBlur=true"
       @blur="isNameTextFieldFocus=false"
       @focus="isNameTextFieldFocus=true"
+      @error="onNameTextFieldError"
     />
     <email-text-field
       v-model="email"
@@ -22,6 +23,7 @@
       @input="isEmailTextFieldValidateOnBlur=true"
       @blur="isEmailTextFieldFocus=false"
       @focus="isEmailTextFieldFocus=true"
+      @error="onEmailTextFieldError"
     />
     <password-text-field
       v-model="password"
@@ -33,6 +35,7 @@
       @input="isPasswordTextFieldValidateOnBlur=true"
       @blur="onPasswordTextFieldBlur"
       @focus="onPasswordTextFieldFocus"
+      @error="onPasswordTextFieldError"
     />
     <password-text-field
       v-model="confirmPassword"
@@ -46,6 +49,7 @@
       @input="isConfirmPasswordTextFieldFocus=true"
       @blur="onConfirmPasswordTextFieldBlur"
       @focus="onConfirmPasswordTextFieldFocus"
+      @error="onConfirmPasswordTextFieldError"
     />
     <v-btn
       tabindex="5"
@@ -76,6 +80,10 @@ export default {
   },
 
   data: () => ({
+    isNameValid: false,
+    isEmailValid: false,
+    isPasswordValid: false,
+    isConfirmPasswordValid: false,
     isNameTextFieldFocus: false,
     isEmailTextFieldFocus: false,
     isPasswordTextFieldFocus: false,
@@ -91,6 +99,7 @@ export default {
     password: '',
     confirmPassword: '',
   }),
+
   computed: {
     isPasswordMatching() {
       if (!this.confirmPassword || !this.password) {
@@ -111,6 +120,12 @@ export default {
   },
 
   methods: {
+    onNameTextFieldError(value) {
+      this.isNameValid = !value;
+    },
+    onEmailTextFieldError(value) {
+      this.isEmailValid = !value;
+    },
     onPasswordTextFieldBlur() {
       this.processConfirmPasswordErrorMessage();
       this.isPasswordTextFieldFocus = false;
@@ -119,6 +134,9 @@ export default {
       this.confirmPasswordErrorMessage = '';
       this.isPasswordTextFieldFocus = true;
     },
+    onPasswordTextFieldError(value) {
+      this.isPasswordValid = !value;
+    },
     onConfirmPasswordTextFieldBlur() {
       this.processConfirmPasswordErrorMessage();
       this.isConfirmPasswordTextFieldFocus = false;
@@ -126,6 +144,9 @@ export default {
     onConfirmPasswordTextFieldFocus() {
       this.confirmPasswordErrorMessage = '';
       this.isConfirmPasswordTextFieldFocus = true;
+    },
+    onConfirmPasswordTextFieldError(value) {
+      this.isConfirmPasswordValid = !value;
     },
     processConfirmPasswordErrorMessage() {
       if (!this.confirmPassword || !this.password) {
@@ -161,8 +182,20 @@ export default {
             this.$emit('onEndLoad');
             this.isLoading = false;
           });
+      } else if (!this.isNameValid) {
+        this.isNameTextFieldFocus = true;
+        this.$toasted.global.error({ message: '이름이 유효하지 않습니다.' });
+      } else if (!this.isEmailValid) {
+        this.isEmailTextFieldFocus = true;
+        this.$toasted.global.error({ message: '이메일이 유효하지 않습니다.' });
+      } else if (!this.isPasswordValid) {
+        this.isPasswordTextFieldFocus = true;
+        this.$toasted.global.error({ message: '비밀번호가 유효하지 않습니다.' });
+      } else if (!this.isConfirmPasswordValid) {
+        this.isConfirmPasswordTextFieldFocus = true;
+        this.$toasted.global.error({ message: '비밀번호 확인 유효하지 않습니다.' });
       } else {
-        this.$toasted.global.error({ message: '입력이 유효하지 않습니다.' });
+        this.$toasted.global.error();
       }
     },
   },
