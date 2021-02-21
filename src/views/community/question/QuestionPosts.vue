@@ -1,12 +1,16 @@
 <template>
-  <v-container>
-    <v-row justify="end">
-      <v-btn to="/community/question/create">
-        Post 생성
-      </v-btn>
-    </v-row>
+  <div>
     <posts-data-iterator />
-  </v-container>
+    <v-btn
+      fixed
+      right
+      top
+      class="mt-15"
+      to="/community/question/create"
+    >
+      <v-icon>mdi-pencil</v-icon>
+    </v-btn>
+  </div>
 </template>
 
 <script>
@@ -19,7 +23,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>

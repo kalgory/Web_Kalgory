@@ -1,17 +1,17 @@
 <template>
   <div>
-    <community-toolbar />
+    <community-navigation-drawer />
     <router-view />
   </div>
 </template>
 
 <script>
-import CommunityToolbar from '@/components/community/CommunityToolbar.vue';
+import CommunityNavigationDrawer from '@/components/community/CommunityNavigationDrawer.vue';
 
 export default {
   name: 'BaseCommunity',
   components: {
-    CommunityToolbar,
+    CommunityNavigationDrawer,
   },
 };
 </script>
