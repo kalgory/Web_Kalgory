@@ -2,7 +2,7 @@
   <v-text-field
     ref="textField"
     :tabindex="tabIndex"
-    validate-on-blur
+    :validate-on-blur="isValidateOnBlur"
     clearable
     :hint="hint"
     :value="value"
@@ -40,6 +40,10 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    isValidateOnBlur: {
+      type: Boolean,
+      required: false,
     },
   },
 

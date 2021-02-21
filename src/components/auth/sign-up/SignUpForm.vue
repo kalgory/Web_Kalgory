@@ -9,6 +9,8 @@
       hint="2자 이상의 이름을 입력해주세요"
       :tab-index="1"
       :is-focus="isNameTextFieldFocus"
+      :is-validate-on-blur="isNameTextFieldValidateOnBlur"
+      @input="isNameTextFieldValidateOnBlur=true"
       @blur="isNameTextFieldFocus=false"
       @focus="isNameTextFieldFocus=true"
     />
@@ -16,6 +18,8 @@
       v-model="email"
       :tab-index="2"
       :is-focus="isEmailTextFieldFocus"
+      :is-validate-on-blur="isEmailTextFieldValidateOnBlur"
+      @input="isEmailTextFieldValidateOnBlur=true"
       @blur="isEmailTextFieldFocus=false"
       @focus="isEmailTextFieldFocus=true"
     />
@@ -25,6 +29,8 @@
       :tab-index="3"
       :is-success="isPasswordMatching"
       :is-focus="isPasswordTextFieldFocus"
+      :is-validate-on-blur="isPasswordTextFieldValidateOnBlur"
+      @input="isPasswordTextFieldValidateOnBlur=true"
       @blur="onPasswordTextFieldBlur"
       @focus="onPasswordTextFieldFocus"
     />
@@ -36,6 +42,8 @@
       :is-success="isPasswordMatching"
       :error-message="confirmPasswordErrorMessage"
       :is-focus="isConfirmPasswordTextFieldFocus"
+      :is-validate-on-blur="isConfirmPasswordTextFieldFocus"
+      @input="isConfirmPasswordTextFieldFocus=true"
       @blur="onConfirmPasswordTextFieldBlur"
       @focus="onConfirmPasswordTextFieldFocus"
     />
@@ -72,6 +80,10 @@ export default {
     isEmailTextFieldFocus: false,
     isPasswordTextFieldFocus: false,
     isConfirmPasswordTextFieldFocus: false,
+    isNameTextFieldValidateOnBlur: true,
+    isEmailTextFieldValidateOnBlur: true,
+    isPasswordTextFieldValidateOnBlur: true,
+    isConfirmPasswordTextFieldValidateOnBlur: true,
     confirmPasswordErrorMessage: '',
     isLoading: false,
     name: '',
@@ -127,6 +139,10 @@ export default {
       }
     },
     submit() {
+      this.isNameTextFieldValidateOnBlur = false;
+      this.isEmailTextFieldValidateOnBlur = false;
+      this.isPasswordTextFieldValidateOnBlur = false;
+      this.isConfirmPasswordTextFieldFocus = false;
       this.processConfirmPasswordErrorMessage();
       if (this.isValid) {
         this.$emit('ondStartLoad');
