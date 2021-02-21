@@ -2,6 +2,7 @@
   <v-app-bar
     v-if="isAppBarShow"
     app
+    clipped-left
   >
     <initial-logo />
     <v-btn
