@@ -1,7 +1,7 @@
 export default {
   state: {
     isAuthLoading: true,
-    isAuth: false,
+    isAuthenticated: false,
     user: null,
   },
 
@@ -9,8 +9,8 @@ export default {
     getIsAuthLoading(state) {
       return state.isAuthLoading;
     },
-    getIsAuth(state) {
-      return state.isAuth;
+    getIsAuthenticated(state) {
+      return state.isAuthenticated;
     },
     getUser(state) {
       return state.user;
@@ -21,8 +21,8 @@ export default {
     setIsAuthLoading(state, value) {
       state.isAuthLoading = value;
     },
-    setIsAuth(state, value) {
-      state.isAuth = value;
+    setIsAuthenticated(state, value) {
+      state.isAuthenticated = value;
     },
     setUser(state, payload) {
       state.user = payload;

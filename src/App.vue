@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <app-bar />
+    <app-bar v-if="$route.meta.isAppBarShow" />
 
     <v-main>
       <v-progress-linear
@@ -38,8 +38,14 @@ export default {
     isRequireAuth() {
       return this.$route.meta.isRequireAuth;
     },
-    isAuth() {
-      return this.$store.getters.getIsAuth;
+    isAuthenticated() {
+      return this.$store.getters.getIsAuthenticated;
+    },
+    isVerified() {
+      if (this.isAuthenticated) {
+        return this.$store.getters.getUser.emailVerified;
+      }
+      return false;
     },
   },
 
@@ -47,7 +53,7 @@ export default {
     isAuthLoading(value) {
       if (value) {
         this.isLoading = true;
-      } else if (this.isAuth) {
+      } else if (this.isAuthenticated) {
         this.isLoading = false;
       } else if (this.isRequireAuth) {
         this.$router.push('/');
@@ -57,6 +63,13 @@ export default {
     },
     isRequireAuth(value) {
       this.isLoading = value && this.isAuthLoading;
+    },
+    isAuthenticated(value) {
+      if (value) {
+        if (!this.isVerified) {
+          console.log('not verified');
+        }
+      }
     },
   },
 
@@ -70,12 +83,12 @@ export default {
       onAuthStateChanged((user) => {
         this.$store.commit('setIsAuthLoading', false);
         if (user) {
-          localStorage.setItem('isAuth', 'true');
-          this.$store.commit('setIsAuth', true);
+          localStorage.setItem('isAuthenticated', 'true');
+          this.$store.commit('setIsAuthenticated', true);
           this.$store.commit('setUser', user);
         } else {
-          localStorage.setItem('isAuth', 'false');
-          this.$store.commit('setIsAuth', false);
+          localStorage.setItem('isAuthenticated', 'false');
+          this.$store.commit('setIsAuthenticated', false);
           this.$store.commit('setUser', {});
         }
       });

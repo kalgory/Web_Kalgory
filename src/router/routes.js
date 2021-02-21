@@ -9,6 +9,7 @@ const BaseUser = () => import('@/views/BaseUser');
 // Auth
 const AuthSignIn = () => import('@/views/auth/AuthSignIn');
 const AuthSignUp = () => import('@/views/auth/AuthSignUp');
+const AuthVerify = () => import('@/views/auth/AuthVerify');
 
 // Community
 const CommunityDefault = () => import('@/views/community/CommunityDefault');
@@ -31,6 +32,7 @@ export default [
     meta: {
       title: '',
       isRequireAuth: false,
+      isAppBarShow: true,
     },
   },
   {
@@ -39,6 +41,7 @@ export default [
     meta: {
       title: '',
       isRequireAuth: false,
+      isAppBarShow: true,
     },
   },
   {
@@ -48,6 +51,7 @@ export default [
     meta: {
       title: 'Problem',
       isRequireAuth: false,
+      isAppBarShow: true,
     },
   },
   {
@@ -57,6 +61,7 @@ export default [
     meta: {
       title: 'Concept',
       isRequireAuth: false,
+      isAppBarShow: true,
     },
   },
   {
@@ -67,6 +72,7 @@ export default [
     meta: {
       title: 'Auth',
       isRequireAuth: false,
+      isAppBarShow: false,
     },
     children: [
       {
@@ -76,6 +82,7 @@ export default [
         meta: {
           title: 'Sign in',
           isRequireAuth: false,
+          isAppBarShow: false,
         },
       },
       {
@@ -85,6 +92,17 @@ export default [
         meta: {
           title: 'Sign up',
           isRequireAuth: false,
+          isAppBarShow: false,
+        },
+      },
+      {
+        name: 'verify',
+        path: 'verify',
+        component: AuthVerify,
+        meta: {
+          title: 'verify',
+          isRequireAuth: false,
+          isAppBarShow: false,
         },
       },
     ],
@@ -97,6 +115,7 @@ export default [
     meta: {
       title: 'Community',
       isRequireAuth: false,
+      isAppBarShow: true,
     },
     children: [
       {
@@ -106,6 +125,7 @@ export default [
         meta: {
           title: 'Default',
           isRequireAuth: false,
+          isAppBarShow: true,
         },
       },
       {
@@ -116,6 +136,7 @@ export default [
         meta: {
           title: 'question',
           isRequireAuth: false,
+          isAppBarShow: true,
         },
         children: [
           {
@@ -125,6 +146,7 @@ export default [
             meta: {
               title: 'question posts',
               isRequireAuth: false,
+              isAppBarShow: true,
             },
           },
           {
@@ -134,6 +156,7 @@ export default [
             meta: {
               title: 'Create post',
               isRequireAuth: true,
+              isAppBarShow: true,
             },
           },
           {
@@ -144,6 +167,7 @@ export default [
             meta: {
               title: 'question post',
               isRequireAuth: false,
+              isAppBarShow: true,
             },
           },
         ],
@@ -155,6 +179,7 @@ export default [
         meta: {
           title: 'question post',
           isRequireAuth: false,
+          isAppBarShow: true,
         },
       },
     ],
@@ -167,6 +192,7 @@ export default [
     meta: {
       title: 'user',
       isRequireAuth: true,
+      isAppBarShow: true,
     },
     children: [
       {
@@ -176,6 +202,7 @@ export default [
         meta: {
           title: 'my profile',
           isRequireAuth: true,
+          isAppBarShow: true,
         },
       },
       {
@@ -185,6 +212,7 @@ export default [
         meta: {
           title: 'profile',
           isRequireAuth: false,
+          isAppBarShow: true,
         },
       },
     ],

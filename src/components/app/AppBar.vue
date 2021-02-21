@@ -58,27 +58,17 @@ export default {
   },
 
   computed: {
-    isAppBarShow() {
-      switch (this.$route.name) {
-        case 'sign in':
-          return false;
-        case 'sign up':
-          return false;
-        default:
-          return true;
-      }
-    },
     isAvatarShow() {
       if (this.$store.getters.getIsAuthLoading) {
-        return localStorage.getItem('isAuth') === 'true';
+        return localStorage.getItem('isAuthenticated') === 'true';
       }
-      return this.$store.getters.getIsAuth;
+      return this.$store.getters.getIsAuthenticated;
     },
     isAuthShow() {
       if (this.$store.getters.getIsAuthLoading) {
-        return localStorage.getItem('isAuth') === 'false';
+        return localStorage.getItem('isAuthenticated') === 'false';
       }
-      return !this.$store.getters.getIsAuth;
+      return !this.$store.getters.getIsAuthenticated;
     },
   },
 };

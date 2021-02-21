@@ -1,18 +1,15 @@
 <template>
-  <auth-card
-    v-if="!isLoading"
-    auth-type="sign up"
-  />
+  <sign-up-card v-if="!isLoading" />
 </template>
 
 <script>
-import AuthCard from '@/components/auth/AuthCard.vue';
+import SignUpCard from '@/components/auth/sign-up/SignUpCard.vue';
 
 export default {
-  name: 'SignUp',
+  name: 'AuthSignUp',
 
   components: {
-    AuthCard,
+    SignUpCard,
   },
 
   data: () => ({
@@ -21,12 +18,12 @@ export default {
 
   created() {
     if (this.$store.getters.getIsAuthLoading) {
-      if (localStorage.getItem('isAuth') === 'true') {
+      if (localStorage.getItem('isAuthenticated') === 'true') {
         this.$router.back();
       } else {
         this.isLoading = false;
       }
-    } else if (this.$store.getters.getIsAuth) {
+    } else if (this.$store.getters.getIsAuthenticated) {
       this.$router.back();
     } else {
       this.isLoading = false;

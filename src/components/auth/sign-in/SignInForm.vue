@@ -12,6 +12,7 @@
       @input="isEmailTextFieldValidateOnBlur=true"
       @blur="isEmailTextFieldFocus=false"
       @focus="isEmailTextFieldFocus=true"
+      @error="onEmailTextFieldError"
     />
     <password-text-field
       v-model="password"
@@ -21,6 +22,7 @@
       @input="isPasswordTextFieldValidateOnBlur=true"
       @blur="isPasswordTextFieldFocus=false"
       @focus="isPasswordTextFieldFocus=true"
+      @error="onPasswordTextFieldError"
     />
 
     <v-btn
@@ -48,8 +50,11 @@ export default {
     EmailTextField,
     PasswordTextField,
   },
+
   data: () => ({
     isLoading: false,
+    isEmailValid: false,
+    isPasswordValid: false,
     isEmailTextFieldFocus: false,
     isPasswordTextFieldFocus: false,
     isEmailTextFieldValidateOnBlur: true,
@@ -69,6 +74,12 @@ export default {
   },
 
   methods: {
+    onEmailTextFieldError(value) {
+      this.isEmailValid = !value;
+    },
+    onPasswordTextFieldError(value) {
+      this.isPasswordValid = !value;
+    },
     submit() {
       this.isEmailTextFieldValidateOnBlur = false;
       this.isPasswordTextFieldValidateOnBlur = false;
@@ -87,8 +98,14 @@ export default {
             this.$emit('onEndLoad');
             this.isLoading = false;
           });
+      } else if (!this.isEmailValid) {
+        this.isEmailTextFieldFocus = true;
+        this.$toasted.global.error({ message: '이메일이 유효하지 않습니다.' });
+      } else if (!this.isPasswordValid) {
+        this.isPasswordTextFieldFocus = true;
+        this.$toasted.global.error({ message: '비밀번호가 유효하지 않습니다.' });
       } else {
-        this.$toasted.global.error({ message: '입력이 유효하지 않습니다.' });
+        this.$toasted.global.error();
       }
     },
   },
