@@ -2,7 +2,7 @@
   <v-container fill-height>
     <v-row>
       <v-col>
-        <CommunityCard
+        <default-card
           v-for="(cardType,index) in cardList"
           :key="index"
           :community-type="cardType"
@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import CommunityCard from '@/components/community/CommunityCard.vue';
+import DefaultCard from '@/components/community/default/DefaultCard.vue';
 
 export default {
   name: 'BaseCommunityDefault',
   components: {
-    CommunityCard,
+    DefaultCard,
   },
   data: () => ({
     cardList: ['popular information', 'popular questions', 'information', 'questions'],

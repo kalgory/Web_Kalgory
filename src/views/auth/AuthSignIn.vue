@@ -1,18 +1,33 @@
 <template>
-  <auth-card auth-type="sign in" />
+  <sign-in-card v-if="!isLoading" />
 </template>
 
 <script>
-import AuthCard from '@/components/auth/AuthCard.vue';
+import SignInCard from '@/components/auth/sign-in/SignInCard.vue';
 
 export default {
-  name: 'SignIn',
+  name: 'AuthSignIn',
+
   components: {
-    AuthCard,
+    SignInCard,
+  },
+
+  data: () => ({
+    isLoading: true,
+  }),
+
+  created() {
+    if (this.$store.getters.getIsAuthLoading) {
+      if (localStorage.getItem('isAuthenticated') === 'true') {
+        this.$router.back();
+      } else {
+        this.isLoading = false;
+      }
+    } else if (this.$store.getters.getIsAuthenticated) {
+      this.$router.back();
+    } else {
+      this.isLoading = false;
+    }
   },
 };
 </script>
-
-<style scoped>
-
-</style>

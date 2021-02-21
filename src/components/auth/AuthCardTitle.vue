@@ -1,50 +1,35 @@
 <template>
-  <div>
-    <div class="text-center pt-10">
-      <v-btn to="/">
-        Home
-      </v-btn>
-    </div>
-
-    <div
-      v-once
-      class="text-center font-weight-black py-6 pt-2"
-    >
-      {{ title }}
-    </div>
-  </div>
+  <v-card-title>
+    <v-container>
+      <v-row justify="center">
+        <v-col cols="auto">
+          <v-btn
+            to="/"
+            icon
+          >
+            <initial-logo />
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="auto">
+          <p class="font-weight-bold">
+            <slot />
+          </p>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-card-title>
 </template>
 
 <script>
+import InitialLogo from '@/assets/InitialLogo.vue';
+
 export default {
   name: 'AuthCardTitle',
 
-  props: {
-    authType: {
-      type: String,
-      required: true,
-      validator(value) {
-        return value === 'sign in' || value === 'sign up';
-      },
-    },
-  },
-
-  data: () => ({
-    title: '',
-    signInTitle: 'Sign in to kalgory',
-    signUpTitle: 'Sign Up to kalgory',
-  }),
-
-  created() {
-    if (this.authType === 'sign in') {
-      this.title = this.signInTitle;
-    } else if (this.authType === 'sign up') {
-      this.title = this.signUpTitle;
-    }
+  components: {
+    InitialLogo,
   },
 };
 </script>
-
-<style scoped>
-
-</style>

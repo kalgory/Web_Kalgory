@@ -1,9 +1,13 @@
 <template>
   <v-app>
-    <app-bar />
+    <app-bar v-if="$route.meta.isAppBarShow" />
 
     <v-main>
-      <router-view />
+      <v-progress-linear
+        v-if="isLoading"
+        indeterminate
+      />
+      <router-view v-else />
     </v-main>
 
     <app-footer />
@@ -23,23 +27,72 @@ export default {
     AppFooter,
   },
 
-  created() {
-    this.$store.commit('setIsLoading', true);
-    onAuthStateChanged((user) => {
-      if (user) {
-        localStorage.setItem('isAuth', 'true');
-        localStorage.setItem('user', JSON.stringify(user));
-        this.$store.commit('setIsAuth', true);
-        this.$store.commit('setUser', user);
-        this.$store.commit('setIsLoading', false);
-      } else {
-        localStorage.setItem('isAuth', 'false');
-        localStorage.setItem('user', JSON.stringify({}));
-        this.$store.commit('setIsAuth', false);
-        this.$store.commit('setUser', null);
-        this.$store.commit('setIsLoading', false);
+  data: () => ({
+    isLoading: true,
+  }),
+
+  computed: {
+    isAuthLoading() {
+      return this.$store.getters.getIsAuthLoading;
+    },
+    isRequireAuth() {
+      return this.$route.meta.isRequireAuth;
+    },
+    isAuthenticated() {
+      return this.$store.getters.getIsAuthenticated;
+    },
+    isVerified() {
+      if (this.isAuthenticated) {
+        return this.$store.getters.getUser.emailVerified;
       }
-    });
+      return false;
+    },
+  },
+
+  watch: {
+    isAuthLoading(value) {
+      if (value) {
+        this.isLoading = true;
+      } else if (this.isAuthenticated) {
+        this.isLoading = false;
+      } else if (this.isRequireAuth) {
+        this.$router.push('/');
+      } else {
+        this.isLoading = false;
+      }
+    },
+    isRequireAuth(value) {
+      this.isLoading = value && this.isAuthLoading;
+    },
+    isAuthenticated(value) {
+      if (value) {
+        if (!this.isVerified) {
+          console.log('not verified');
+        }
+      }
+    },
+  },
+
+  created() {
+    this.onAuthStateChanged();
+  },
+
+  methods: {
+    onAuthStateChanged() {
+      this.$store.commit('setIsAuthLoading', true);
+      onAuthStateChanged((user) => {
+        this.$store.commit('setIsAuthLoading', false);
+        if (user) {
+          localStorage.setItem('isAuthenticated', 'true');
+          this.$store.commit('setIsAuthenticated', true);
+          this.$store.commit('setUser', user);
+        } else {
+          localStorage.setItem('isAuthenticated', 'false');
+          this.$store.commit('setIsAuthenticated', false);
+          this.$store.commit('setUser', {});
+        }
+      });
+    },
   },
 };
 </script>

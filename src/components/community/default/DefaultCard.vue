@@ -4,19 +4,19 @@
     max-width="800"
     min-width="400"
   >
-    <CommunityCardTitle :community-type="communityType" />
-    <CommunityCardText :community-type="communityType" />
-    <CommunityCardAction :community-type="communityType" />
+    <community-card-title :community-type="communityType" />
+    <community-card-text :community-type="communityType" />
+    <community-card-action :community-type="communityType" />
   </v-card>
 </template>
 
 <script>
-import CommunityCardTitle from '@/components/community/CommunityCardTitle.vue';
-import CommunityCardAction from '@/components/community/CommunityCardAction.vue';
-import CommunityCardText from '@/components/community/CommunityCardText.vue';
+import CommunityCardTitle from '@/components/community/default/DefaultCardTitle.vue';
+import CommunityCardAction from '@/components/community/default/DefaultCardAction.vue';
+import CommunityCardText from '@/components/community/default/DefaultCardText.vue';
 
 export default {
-  name: 'CommunityCard',
+  name: 'DefaultCard',
   components: {
     CommunityCardTitle,
     CommunityCardAction,

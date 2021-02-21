@@ -79,24 +79,21 @@ export default {
   },
 
   computed: {
-    localUser() {
-      return JSON.parse(localStorage.getItem('user'));
-    },
     name() {
-      if (this.$store.getters.getIsLoading) {
-        return this.localUser.displayName;
+      if (this.$store.getters.getIsAuthLoading) {
+        return '';
       }
       return this.$store.getters.getUser.displayName;
     },
     email() {
-      if (this.$store.getters.getIsLoading) {
-        return this.localUser.email;
+      if (this.$store.getters.getIsAuthLoading) {
+        return '';
       }
       return this.$store.getters.getUser.email;
     },
     photo() {
-      if (this.$store.getters.getIsLoading) {
-        return this.localUser.photoURL;
+      if (this.$store.getters.getIsAuthLoading) {
+        return '';
       }
       return this.$store.getters.getUser.photoURL;
     },
@@ -104,12 +101,22 @@ export default {
 
   methods: {
     signOut() {
+      this.$store.commit('setIsAuthLoading', true);
       signOut()
         .then(() => {
-
+          this.$toasted.show('로그아웃 완료', {
+            type: 'success',
+            icon: 'mdi-account-outline',
+          });
         })
         .catch((error) => {
-          console.warn(error);
+          this.$toasted.show(error.message, {
+            type: 'error',
+            icon: 'mdi-account-outline',
+          });
+        })
+        .finally(() => {
+          this.$store.commit('setIsAuthLoading', false);
         });
     },
   },

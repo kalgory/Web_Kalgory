@@ -13,7 +13,7 @@
       class="white--text"
       :style="{'font-size': size * 0.6 + 'px'}"
     >
-      {{ name.charAt(0) }}
+      {{ name.charAt(0).toUpperCase() }}
     </span>
   </v-avatar>
 </template>
@@ -29,11 +29,13 @@ export default {
     },
     name: {
       type: String,
-      required: true,
+      default: '',
+      required: false,
     },
     photo: {
       type: String,
-      required: true,
+      default: '',
+      required: false,
     },
   },
 

@@ -2,6 +2,7 @@
   <v-app-bar
     v-if="isAppBarShow"
     app
+    clipped-left
   >
     <initial-logo />
     <v-btn
@@ -57,27 +58,17 @@ export default {
   },
 
   computed: {
-    isAppBarShow() {
-      switch (this.$route.name) {
-        case 'sign in':
-          return false;
-        case 'sign up':
-          return false;
-        default:
-          return true;
-      }
-    },
     isAvatarShow() {
-      if (this.$store.getters.getIsLoading) {
-        return localStorage.getItem('isAuth') === 'true';
+      if (this.$store.getters.getIsAuthLoading) {
+        return localStorage.getItem('isAuthenticated') === 'true';
       }
-      return this.$store.getters.getIsAuth;
+      return this.$store.getters.getIsAuthenticated;
     },
     isAuthShow() {
-      if (this.$store.getters.getIsLoading) {
-        return localStorage.getItem('isAuth') === 'false';
+      if (this.$store.getters.getIsAuthLoading) {
+        return localStorage.getItem('isAuthenticated') === 'false';
       }
-      return !this.$store.getters.getIsAuth;
+      return !this.$store.getters.getIsAuthenticated;
     },
   },
 };

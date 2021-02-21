@@ -1,43 +1,25 @@
 <template>
-  <v-simple-table>
-    <tbody>
-      <tr
-        v-for="(post,index) in questionPosts"
-        :key="index"
-        @click="$router.push({name:'question post',params:{id:post.id}})"
-      >
-        <td>{{ post.header }}</td>
-        <td>{{ post.body }}</td>
-        <td>{{ post.created_time }}</td>
-      </tr>
-    </tbody>
-  </v-simple-table>
+  <div>
+    <posts-data-iterator />
+    <v-btn
+      fixed
+      right
+      top
+      class="mt-15"
+      to="/community/question/create"
+    >
+      <v-icon>mdi-pencil</v-icon>
+    </v-btn>
+  </div>
 </template>
 
 <script>
-import { readPosts } from '@/plugins/firebase/firestore/community';
-import { getQuestionCommunityReference } from '@/plugins/firebase/firestore/community/reference';
+import PostsDataIterator from '@/components/community/question/posts/PostsDataIterator.vue';
 
 export default {
   name: 'QuestionPosts',
-
-  data: () => ({
-    questionPosts: [],
-  }),
-
-  created() {
-    readPosts(getQuestionCommunityReference(), 10)
-      .then((posts) => {
-        console.log(posts);
-        this.questionPosts = posts;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  components: {
+    PostsDataIterator,
   },
 };
 </script>
-
-<style scoped>
-
-</style>
