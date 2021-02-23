@@ -3,8 +3,8 @@
     :loading="isLoading"
     width="400"
   >
-    <auth-card-title>
-      인증을 하면 계속 사용가능합니다
+    <auth-card-title :is-button-disabled="true">
+      계속 하려면 이메일을 인증해주세요.
     </auth-card-title>
     test
   </v-card>
