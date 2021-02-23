@@ -16,6 +16,27 @@ export default {
     isLoading: true,
   }),
 
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.getIsAuthenticated;
+    },
+    isVerified() {
+      return this.$store.getters.getIsVerified;
+    },
+  },
+
+  watch: {
+    isAuthenticated(value) {
+      if (value) {
+        if (this.isVerified) {
+          this.$router.back();
+        } else {
+          this.$router.push('/auth/verify');
+        }
+      }
+    },
+  },
+
   created() {
     if (this.$store.getters.getIsAuthLoading) {
       if (localStorage.getItem('isAuthenticated') === 'true') {
