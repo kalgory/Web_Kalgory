@@ -44,7 +44,7 @@ export default {
       } else {
         this.isLoading = false;
       }
-    } else if (this.$store.getters.getIsAuthenticated) {
+    } else if (this.isAuthenticated) {
       this.$router.back();
     } else {
       this.isLoading = false;

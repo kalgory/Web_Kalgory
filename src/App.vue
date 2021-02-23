@@ -67,10 +67,8 @@ export default {
   },
 
   beforeUpdate() {
-    if (!this.isAuthLoading) {
-      if (!this.isVerified) {
-        this.pushAuthVerifyRoute();
-      }
+    if (!this.isAuthLoading && this.isAuthenticated && !this.isVerified) {
+      this.pushAuthVerifyRoute();
     }
   },
 
