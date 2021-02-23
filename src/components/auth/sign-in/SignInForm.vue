@@ -89,7 +89,6 @@ export default {
         signInWithEmailAndPassword(this.email, this.password)
         // eslint-disable-next-line no-unused-vars
           .then((userCredential) => {
-            this.$router.back();
           })
           .catch((error) => {
             this.$toasted.global.error({ message: error.message });
