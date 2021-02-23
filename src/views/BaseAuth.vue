@@ -10,6 +10,6 @@
 
 <script>
 export default {
-  name: 'SignIn',
+  name: 'BaseAuth',
 };
 </script>
