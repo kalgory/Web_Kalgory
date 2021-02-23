@@ -52,6 +52,9 @@ export default {
         this.isLoading = true;
       } else if (this.isAuthenticated) {
         this.isLoading = false;
+        if (!this.isVerified) {
+          this.$router.push('/auth/verify');
+        }
       } else if (this.isRequireAuth) {
         this.$router.push('/');
       } else {
