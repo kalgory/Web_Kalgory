@@ -53,7 +53,7 @@ export default {
       } else if (this.isAuthenticated) {
         this.isLoading = false;
         if (!this.isVerified) {
-          this.$router.push('/auth/verify');
+          this.pushAuthVerifyRoute();
         }
       } else if (this.isRequireAuth) {
         this.$router.push('/');
@@ -66,11 +66,24 @@ export default {
     },
   },
 
+  beforeUpdate() {
+    if (!this.isAuthLoading) {
+      if (!this.isVerified) {
+        this.pushAuthVerifyRoute();
+      }
+    }
+  },
+
   created() {
     this.onAuthStateChanged();
   },
 
   methods: {
+    pushAuthVerifyRoute() {
+      if (this.$route.path !== '/auth/verify') {
+        this.$router.push('/auth/verify');
+      }
+    },
     onAuthStateChanged() {
       this.$store.commit('setIsAuthLoading', true);
       onAuthStateChanged((user) => {
