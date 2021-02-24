@@ -53,7 +53,7 @@ export default {
       } else if (this.isAuthenticated) {
         this.isLoading = false;
         if (!this.isVerified) {
-          this.pushAuthVerifyRoute();
+          this.routerPushVerify();
         }
       } else if (this.isRequireAuth) {
         this.$router.push('/');
@@ -68,7 +68,7 @@ export default {
 
   beforeUpdate() {
     if (!this.isAuthLoading && this.isAuthenticated && !this.isVerified) {
-      this.pushAuthVerifyRoute();
+      this.routerPushVerify();
     }
   },
 
@@ -77,7 +77,7 @@ export default {
   },
 
   methods: {
-    pushAuthVerifyRoute() {
+    routerPushVerify() {
       if (this.$route.path !== '/auth/verify') {
         this.$router.push('/auth/verify');
       }
