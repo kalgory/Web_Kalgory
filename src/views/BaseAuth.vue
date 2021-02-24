@@ -4,7 +4,6 @@
       <v-col cols="auto">
         <router-view :previous-route-name="previousRouteName" />
       </v-col>
-      {{ previousRouteName }}
     </v-row>
   </v-container>
 </template>

@@ -11,12 +11,6 @@ const router = new Router({
 });
 
 // eslint-disable-next-line no-unused-vars
-router.beforeEach((to, from, next) => {
-  console.log('before');
-  next();
-});
-
-// eslint-disable-next-line no-unused-vars
 router.afterEach((to, from) => {
   document.title = `${to.meta.title} - Kalgory`;
 });
