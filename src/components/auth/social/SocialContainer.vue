@@ -27,11 +27,6 @@ export default {
     signInWithGoogle() {
       signInWithGoogle()
         .then(() => {
-          this.$toasted.show('로그인 완료', {
-            type: 'success',
-            icon: 'mdi-account-outline',
-          });
-          this.$router.back();
         })
         .catch((error) => {
           this.$toasted.show(error.message, {

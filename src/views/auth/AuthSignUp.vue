@@ -12,6 +12,13 @@ export default {
     SignUpCard,
   },
 
+  props: {
+    previousRouteName: {
+      type: String,
+      required: true,
+    },
+  },
+
   data: () => ({
     isLoading: true,
   }),
@@ -29,7 +36,7 @@ export default {
     isAuthenticated(value) {
       if (value) {
         if (this.isVerified) {
-          this.$router.back();
+          this.routerBack();
         } else {
           this.$router.push('/auth/verify');
         }
@@ -40,15 +47,25 @@ export default {
   created() {
     if (this.$store.getters.getIsAuthLoading) {
       if (localStorage.getItem('isAuthenticated') === 'true') {
-        this.$router.back();
+        this.routerBack();
       } else {
         this.isLoading = false;
       }
     } else if (this.isAuthenticated) {
-      this.$router.back();
+      this.routerBack();
     } else {
       this.isLoading = false;
     }
+  },
+
+  methods: {
+    routerBack() {
+      if (this.previousRouteName) {
+        this.$router.back();
+      } else {
+        this.$router.push('/');
+      }
+    },
   },
 };
 </script>

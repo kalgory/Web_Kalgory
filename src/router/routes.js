@@ -36,6 +36,7 @@ export default [
     },
   },
   {
+    name: '404',
     path: '*',
     component: Base404,
     meta: {

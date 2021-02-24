@@ -12,6 +12,13 @@ export default {
     VerifyCard,
   },
 
+  props: {
+    previousRouteName: {
+      type: String,
+      required: true,
+    },
+  },
+
   data: () => ({
     isLoading: true,
   }),
@@ -28,32 +35,37 @@ export default {
   watch: {
     isAuthenticated(value) {
       if (!value) {
-        this.$router.back();
+        this.routerBack();
       }
     },
     isVerified(value) {
       if (value) {
         this.$toasted.global.success({ message: '인증을 마쳤습니다.' });
-        this.$router.back();
+        this.routerBack();
       }
     },
   },
 
   created() {
     if (this.$store.getters.getIsAuthLoading) {
-      if (localStorage.getItem('isAuthenticated') === 'false') {
-        this.$router.back();
-      } else {
-        this.isLoading = false;
-      }
+      this.routerBack();
     } else if (!this.isAuthenticated) {
-      this.$router.back();
+      this.routerBack();
+    } else if (this.isVerified) {
+      this.routerBack();
     } else {
-      if (this.isVerified) {
-        this.$router.back();
-      }
       this.isLoading = false;
     }
+  },
+
+  methods: {
+    routerBack() {
+      if (this.previousRouteName) {
+        this.$router.back();
+      } else {
+        this.$router.push('/');
+      }
+    },
   },
 };
 </script>
