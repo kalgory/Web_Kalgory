@@ -12,22 +12,60 @@ export default {
     SignInCard,
   },
 
+  props: {
+    isPreviousRouteExist: {
+      type: Boolean,
+      required: true,
+    },
+  },
+
   data: () => ({
     isLoading: true,
   }),
 
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.getIsAuthenticated;
+    },
+    isVerified() {
+      return this.$store.getters.getIsVerified;
+    },
+  },
+
+  watch: {
+    isAuthenticated(value) {
+      if (value) {
+        if (this.isVerified) {
+          this.routerBack();
+        } else {
+          this.$router.push('/auth/verify');
+        }
+      }
+    },
+  },
+
   created() {
     if (this.$store.getters.getIsAuthLoading) {
       if (localStorage.getItem('isAuthenticated') === 'true') {
-        this.$router.back();
+        this.routerBack();
       } else {
         this.isLoading = false;
       }
-    } else if (this.$store.getters.getIsAuthenticated) {
-      this.$router.back();
+    } else if (this.isAuthenticated) {
+      this.routerBack();
     } else {
       this.isLoading = false;
     }
+  },
+
+  methods: {
+    routerBack() {
+      if (this.isPreviousRouteExist) {
+        this.$router.back();
+      } else {
+        this.$router.push('/');
+      }
+    },
   },
 };
 </script>

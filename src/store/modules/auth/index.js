@@ -2,6 +2,7 @@ export default {
   state: {
     isAuthLoading: true,
     isAuthenticated: false,
+    isVerified: false,
     user: null,
   },
 
@@ -11,6 +12,9 @@ export default {
     },
     getIsAuthenticated(state) {
       return state.isAuthenticated;
+    },
+    getIsVerified(state) {
+      return state.isVerified;
     },
     getUser(state) {
       return state.user;
@@ -24,8 +28,11 @@ export default {
     setIsAuthenticated(state, value) {
       state.isAuthenticated = value;
     },
-    setUser(state, payload) {
-      state.user = payload;
+    setIsVerified(state, value) {
+      state.isVerified = value;
+    },
+    setUser(state, value) {
+      state.user = value;
     },
   },
 };
