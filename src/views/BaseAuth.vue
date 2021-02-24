@@ -20,7 +20,7 @@ export default {
   },
 
   data: () => ({
-    isPreviousRouteExist: '',
+    isPreviousRouteExist: false,
   }),
 };
 </script>
