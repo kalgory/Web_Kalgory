@@ -173,7 +173,6 @@ export default {
           .then((userCredential) => updateProfile({ displayName: this.name }))
           .then(() => {
             this.$toasted.global.success({ message: '회원가입 완료' });
-            this.$router.back();
           })
           .catch((error) => {
             this.$toasted.global.error({ message: error.message });

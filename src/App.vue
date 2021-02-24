@@ -42,10 +42,7 @@ export default {
       return this.$store.getters.getIsAuthenticated;
     },
     isVerified() {
-      if (this.isAuthenticated) {
-        return this.$store.getters.getUser.emailVerified;
-      }
-      return false;
+      return this.$store.getters.getIsVerified;
     },
   },
 
@@ -55,6 +52,9 @@ export default {
         this.isLoading = true;
       } else if (this.isAuthenticated) {
         this.isLoading = false;
+        if (!this.isVerified) {
+          this.routerPushVerify();
+        }
       } else if (this.isRequireAuth) {
         this.$router.push('/');
       } else {
@@ -64,13 +64,12 @@ export default {
     isRequireAuth(value) {
       this.isLoading = value && this.isAuthLoading;
     },
-    isAuthenticated(value) {
-      if (value) {
-        if (!this.isVerified) {
-          console.log('not verified');
-        }
-      }
-    },
+  },
+
+  beforeUpdate() {
+    if (!this.isAuthLoading && this.isAuthenticated && !this.isVerified) {
+      this.routerPushVerify();
+    }
   },
 
   created() {
@@ -78,17 +77,23 @@ export default {
   },
 
   methods: {
+    routerPushVerify() {
+      if (this.$route.path !== '/auth/verify') {
+        this.$router.push('/auth/verify');
+      }
+    },
     onAuthStateChanged() {
-      this.$store.commit('setIsAuthLoading', true);
       onAuthStateChanged((user) => {
         this.$store.commit('setIsAuthLoading', false);
         if (user) {
           localStorage.setItem('isAuthenticated', 'true');
           this.$store.commit('setIsAuthenticated', true);
+          this.$store.commit('setIsVerified', user.emailVerified);
           this.$store.commit('setUser', user);
         } else {
           localStorage.setItem('isAuthenticated', 'false');
           this.$store.commit('setIsAuthenticated', false);
+          this.$store.commit('setIsVerified', false);
           this.$store.commit('setUser', {});
         }
       });

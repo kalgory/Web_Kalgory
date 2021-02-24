@@ -4,6 +4,7 @@
       <v-row justify="center">
         <v-col cols="auto">
           <v-btn
+            :disabled="isButtonDisabled"
             to="/"
             icon
           >
@@ -30,6 +31,14 @@ export default {
 
   components: {
     InitialLogo,
+  },
+
+  props: {
+    isButtonDisabled: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
 };
 </script>
