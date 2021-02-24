@@ -2,7 +2,7 @@
   <v-container fill-height>
     <v-row justify="center">
       <v-col cols="auto">
-        <router-view :previous-route-name="previousRouteName" />
+        <router-view :previous-route-name="isPreviousRouteExist" />
       </v-col>
     </v-row>
   </v-container>
@@ -15,12 +15,12 @@ export default {
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       // eslint-disable-next-line no-param-reassign
-      vm.previousRouteName = from.name;
+      vm.isPreviousRouteExist = !!from.name;
     });
   },
 
   data: () => ({
-    previousRouteName: '',
+    isPreviousRouteExist: '',
   }),
 };
 </script>
