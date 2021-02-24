@@ -83,7 +83,6 @@ export default {
       }
     },
     onAuthStateChanged() {
-      this.$store.commit('setIsAuthLoading', true);
       onAuthStateChanged((user) => {
         this.$store.commit('setIsAuthLoading', false);
         if (user) {
