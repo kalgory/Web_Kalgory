@@ -14,6 +14,10 @@ export function getInformationCommunityReference() {
     .collection('INFORMATION');
 }
 
+export function getSubCollectionReference(reference, documentID, collection) {
+  return reference.doc(documentID).collection(collection);
+}
+
 export function createPost(reference, post) {
   return new Promise((resolve, reject) => {
     reference.add(post)

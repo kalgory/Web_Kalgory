@@ -1,6 +1,6 @@
 <template>
   <div>
-    <posts-data-iterator />
+    <posts-data-iterator target-collection="QUESTION" />
     <v-btn
       fixed
       right
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import PostsDataIterator from '@/components/community/question/posts/PostsDataIterator.vue';
+import PostsDataIterator from '@/components/community/common/table/TableSimpleTable.vue';
 
 export default {
   name: 'QuestionPosts',
