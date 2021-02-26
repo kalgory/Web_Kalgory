@@ -1,25 +1,15 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <read-card />
-      </v-col>
-    </v-row>
-  </v-container>
+  <question-container />
 </template>
 
 <script>
-import ReadCard from '@/components/community/question/post/read/ReadCard.vue';
+import QuestionContainer from '@/components/community/question/QuestionContainer.vue';
 
 export default {
   name: 'QuestionPost',
-  components: {
-    ReadCard,
-  },
 
+  components: {
+    QuestionContainer,
+  },
 };
 </script>
-
-<style scoped>
-
-</style>

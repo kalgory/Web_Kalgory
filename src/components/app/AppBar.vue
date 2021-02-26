@@ -1,6 +1,5 @@
 <template>
   <v-app-bar
-    v-if="isAppBarShow"
     app
     clipped-left
   >

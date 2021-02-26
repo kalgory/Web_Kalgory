@@ -1,8 +1,15 @@
 <template>
-  <v-card outlined>
-    <v-card-title v-text="post.header" />
-    <v-card-text v-text="post.body" />
-    <v-card-text v-text="post.createdAt" />
+  <v-card
+    :elevation="0"
+  >
+    <div v-if="isPostExist">
+      <v-card-title v-text="post.header" />
+      <v-card-text v-text="post.body" />
+      <v-card-text v-text="post.createdAt" />
+    </div>
+    <div v-if="!isPostExist">
+      <h1>Page Not Find</h1>
+    </div>
   </v-card>
 </template>
 
@@ -11,23 +18,28 @@ import { readPost, getQuestionCommunityReference } from '@/plugins/firebase/fire
 
 export default {
   name: 'ReadCard',
+
   data: () => ({
     post: {},
+    isPostExist: true,
   }),
 
   created() {
     readPost(getQuestionCommunityReference(), this.$route.params.id)
       .then((post) => {
-        console.log(post);
+        this.isPostExist = true;
         this.post = post;
       })
       .catch((error) => {
+        this.isPostExist = false;
         console.error(error);
       });
   },
+
+  methods: {
+    onPostNotExist() {
+      this.$emit('postNotExist');
+    },
+  },
 };
 </script>
-
-<style scoped>
-
-</style>
