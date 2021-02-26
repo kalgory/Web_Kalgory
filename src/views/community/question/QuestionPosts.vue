@@ -1,6 +1,6 @@
 <template>
   <div>
-    <posts-data-iterator target-collection="QUESTION" />
+    <common-simple-table target-collection="QUESTION" />
     <v-btn
       fixed
       right
@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import PostsDataIterator from '@/components/community/common/table/TableSimpleTable.vue';
+import CommonSimpleTable from '@/components/community/common/CommonSimpleTable.vue';
 
 export default {
   name: 'QuestionPosts',
   components: {
-    PostsDataIterator,
+    CommonSimpleTable,
   },
 };
 </script>

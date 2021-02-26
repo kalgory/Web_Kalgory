@@ -31,7 +31,9 @@ export default {
         this.post = post;
       })
       .catch((error) => {
-        this.isPostExist = false;
+        if (!this.post.id) {
+          this.isPostExist = false;
+        }
         console.error(error);
       });
   },

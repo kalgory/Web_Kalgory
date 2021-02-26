@@ -2,11 +2,11 @@
   <v-container>
     <v-row>
       <v-col>
-        <post-read-card />
+        <read-card />
       </v-col>
     </v-row>
     <v-row>
-      <posts-data-iterator
+      <common-simple-table
         target-collection="ANSWER"
         :read-number="10"
         :top-collection-reference="questionReference"
@@ -16,16 +16,16 @@
 </template>
 
 <script>
-import PostsDataIterator from '@/components/community/common/table/TableSimpleTable.vue';
+import CommonSimpleTable from '@/components/community/common/CommonSimpleTable.vue';
 import { getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
-import PostReadCard from './post/read/ReadCard.vue';
+import ReadCard from './post/read/ReadCard.vue';
 
 export default {
   name: 'QuestionContainer',
 
   components: {
-    PostReadCard,
-    PostsDataIterator,
+    ReadCard,
+    CommonSimpleTable,
   },
 
   computed: {

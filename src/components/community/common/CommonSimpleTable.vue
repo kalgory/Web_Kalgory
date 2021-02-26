@@ -39,10 +39,10 @@ import {
   readPosts, getQuestionCommunityReference,
   getInformationCommunityReference, getSubCollectionReference,
 } from '@/plugins/firebase/firestore/community';
-import DataCard from '@/components/community/common/table/data/DataCard.vue';
+import DataCard from '@/components/community/common/data/DataCard.vue';
 
 export default {
-  name: 'TableSimpleTable',
+  name: 'CommonSimpleTable',
 
   components: {
     DataCard,
