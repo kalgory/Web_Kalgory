@@ -1,32 +1,32 @@
 <template>
-  <v-data-iterator
-    :items="answers"
-    :items-per-page="itemCountPerPage"
+  <v-simple-table
     hide-default-footer
   >
-    <template #default="props">
+    <template #default>
       <v-container>
         <v-row
-          v-for="(answer,index) in props.items"
+          v-for="(answer,index) in answers"
           :key="index"
-          justify="center"
         >
-          <v-col
-            cols="8"
-          >
+          <v-col>
             <data-card :answer="answer" />
           </v-col>
         </v-row>
       </v-container>
     </template>
-  </v-data-iterator>
+  </v-simple-table>
 </template>
 
 <script>
 import { readAnswers, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
+import DataCard from './data/DataCard.vue';
 
 export default {
-  name: 'AnswerDataIterator.vue',
+  name: 'AnswerSimpleTable',
+
+  components: {
+    DataCard,
+  },
 
   data: () => ({
     itemCountPerPage: 0,

@@ -8,21 +8,21 @@
       </v-col>
     </v-row>
     <v-row>
-      <answer-read-card v-if="isPostExist" />
+      <answer-simple-table />
     </v-row>
   </v-container>
 </template>
 
 <script>
+import AnswerSimpleTable from '@/components/community/question/answer/AnswerSimpleTable.vue';
 import PostReadCard from './post/read/ReadCard.vue';
-import AnswerReadCard from './answer/data/DataCard.vue';
 
 export default {
   name: 'QuestionContainer',
 
   components: {
     PostReadCard,
-    AnswerReadCard,
+    AnswerSimpleTable,
   },
 
   data: () => ({
