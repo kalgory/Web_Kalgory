@@ -58,15 +58,3 @@ export function readPost(reference, documentID) {
       });
   });
 }
-
-export function readAnswers(reference, documentID) {
-  return new Promise((resolve, reject) => {
-    reference.doc(documentID).collection('ANSWER').orderBy('created_at', 'desc').get()
-      .then((querySnapshot) => {
-        resolve(querySnapshot);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
