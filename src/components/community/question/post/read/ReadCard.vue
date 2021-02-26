@@ -35,11 +35,5 @@ export default {
         console.error(error);
       });
   },
-
-  methods: {
-    onPostNotExist() {
-      this.$emit('postNotExist');
-    },
-  },
 };
 </script>

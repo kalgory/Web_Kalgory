@@ -2,9 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <post-read-card
-          @postNotExist="isPostExist=false"
-        />
+        <post-read-card />
       </v-col>
     </v-row>
     <v-row>
@@ -24,9 +22,5 @@ export default {
     PostReadCard,
     AnswerSimpleTable,
   },
-
-  data: () => ({
-    isPostExist: true,
-  }),
 };
 </script>
