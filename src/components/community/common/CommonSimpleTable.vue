@@ -56,7 +56,7 @@ export default {
     readNumber: {
       type: Number,
       required: false,
-      default: 5,
+      default: 3,
     },
     topCollectionReference: {
       type: Object,
@@ -66,12 +66,11 @@ export default {
   },
 
   data: () => ({
-    isLoading: true,
+    isLoading: false,
     items: [],
     searchText: '',
     lastSnapshot: undefined,
-    completeRead: false,
-    itemCountPerPage: 3,
+    isCompleteRead: false,
   }),
 
   computed: {
@@ -88,25 +87,14 @@ export default {
     },
   },
 
-  watch: {
-    isLoading(isLoading) {
-      if (isLoading) this.readPosts();
-    },
-  },
-
-  created() {
-    this.readPosts();
-  },
-
   methods: {
     onIntersect(entries) {
-      if (entries[0].isIntersecting && !this.completeRead) {
-        this.isLoading = true;
-      } else {
-        this.isLoading = false;
+      if (entries[0].isIntersecting && !this.isCompleteRead) {
+        this.readPosts();
       }
     },
     readPosts() {
+      this.isLoading = true;
       readPosts(this.getReference, this.readNumber, this.lastSnapshot)
         .then((querySnapshot) => {
           querySnapshot.forEach((snapshot) => {
@@ -118,15 +106,15 @@ export default {
             });
           });
           this.lastSnapshot = querySnapshot.docs[querySnapshot.size - 1];
-          this.isLoading = false;
           if (querySnapshot.size !== this.readNumber) {
-            this.completeRead = true;
+            this.isCompleteRead = true;
           }
-          this.itemCountPerPage = this.items.length;
         })
         .catch((error) => {
-          this.isLoading = false;
           console.error(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
   },
