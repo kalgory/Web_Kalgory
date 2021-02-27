@@ -1,15 +1,15 @@
 <template>
-  <question-container />
+  <post-container />
 </template>
 
 <script>
-import QuestionContainer from '@/components/community/question/QuestionContainer.vue';
+import PostContainer from '@/components/community/post/PostContainer.vue';
 
 export default {
   name: 'QuestionPost',
 
   components: {
-    QuestionContainer,
+    PostContainer,
   },
 };
 </script>

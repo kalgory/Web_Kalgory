@@ -1,6 +1,6 @@
 <template>
   <div>
-    <common-simple-table target-collection="QUESTION" />
+    <posts-simple-table collection-name="QUESTION" />
     <v-btn
       fixed
       right
@@ -14,12 +14,13 @@
 </template>
 
 <script>
-import CommonSimpleTable from '@/components/community/common/CommonSimpleTable.vue';
+import PostsSimpleTable from '@/components/community/posts/PostsSimpleTable.vue';
 
 export default {
   name: 'QuestionPosts',
+
   components: {
-    CommonSimpleTable,
+    PostsSimpleTable,
   },
 };
 </script>

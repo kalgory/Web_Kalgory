@@ -1,12 +1,16 @@
 <template>
   <v-card :elevation="elevation">
     <v-card-title
-      @click="$router.push({path:`/community/question/${data.id}`})"
+      v-if="!isBodyRenderingHtml"
+      @click="$router.push({path:`/community/question/${post.id}`})"
     >
-      <a class="blue--text">{{ data.header }}</a>
+      <a class="blue--text">{{ post.header }}</a>
     </v-card-title>
-    <v-card-subtitle>{{ data.createdAt }}</v-card-subtitle>
-    <v-card-text v-html="getDataBody" />
+    <v-card-title v-else>
+      {{ post.header }}
+    </v-card-title>
+    <v-card-subtitle>{{ post.createdAt }}</v-card-subtitle>
+    <v-card-text v-html="postBody" />
     <v-card-actions v-if="!isBodyRenderingHtml">
       <v-row>
         <v-col align="end">
@@ -29,10 +33,10 @@ import Marked from 'marked';
 import SanitizeHTML from 'sanitize-html';
 
 export default {
-  name: 'DataCard',
+  name: 'ReadCard',
 
   props: {
-    data: {
+    post: {
       type: Object,
       required: true,
     },
@@ -60,16 +64,16 @@ export default {
       return 'mdi-chevron-down';
     },
     markedBody() {
-      return SanitizeHTML(Marked(this.data.body));
+      return SanitizeHTML(Marked(this.post.body));
     },
-    getDataBody() {
+    postBody() {
       if (this.isBodyRenderingHtml) {
-        return this.data.body;
+        return this.post.body;
       }
-      return this.getProcessedBody;
+      return this.processedBody;
     },
-    getProcessedBody() {
-      let markedBody = SanitizeHTML(Marked(this.data.body));
+    processedBody() {
+      let markedBody = SanitizeHTML(Marked(this.post.body));
       const codeTagStrings = markedBody.match(/(?<=<code>)(.|\n)*?(?=<\/code>)/g);
       markedBody = markedBody.replace(/<code>(.|\n)*?<\/code>/g, '<c>').replace(/<(?!\/?c).*?>/g, '');
       if (codeTagStrings !== null) {
