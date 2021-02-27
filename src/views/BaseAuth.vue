@@ -2,7 +2,7 @@
   <v-container fill-height>
     <v-row justify="center">
       <v-col cols="auto">
-        <router-view :previous-route-name="isPreviousRouteExist" />
+        <router-view :is-previous-route-exist="isPreviousRouteExist" />
       </v-col>
     </v-row>
   </v-container>
