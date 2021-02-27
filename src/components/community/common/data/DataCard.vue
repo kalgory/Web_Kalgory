@@ -14,11 +14,8 @@
             icon
             @click="isExpand=!isExpand"
           >
-            <v-icon v-if="isExpand">
-              mdi-chevron-up
-            </v-icon>
-            <v-icon v-if="!isExpand">
-              mdi-chevron-down
+            <v-icon>
+              {{ expandButtonIcon }}
             </v-icon>
           </v-btn>
         </v-col>
@@ -56,6 +53,12 @@ export default {
   }),
 
   computed: {
+    expandButtonIcon() {
+      if (this.isExpand) {
+        return 'mdi-chevron-up';
+      }
+      return 'mdi-chevron-down';
+    },
     markedBody() {
       return SanitizeHTML(Marked(this.data.body));
     },

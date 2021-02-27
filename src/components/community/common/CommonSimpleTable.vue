@@ -68,13 +68,12 @@ export default {
   data: () => ({
     isLoading: false,
     items: [],
-    searchText: '',
     lastSnapshot: undefined,
     isCompleteRead: false,
   }),
 
   computed: {
-    getReference() {
+    reference() {
       if (!this.topCollectionReference) {
         if (this.targetCollection === 'QUESTION') {
           return getQuestionCommunityReference();
@@ -95,7 +94,7 @@ export default {
     },
     readPosts() {
       this.isLoading = true;
-      readPosts(this.getReference, this.readNumber, this.lastSnapshot)
+      readPosts(this.reference, this.readNumber, this.lastSnapshot)
         .then((querySnapshot) => {
           querySnapshot.forEach((snapshot) => {
             this.items.push({
