@@ -27,13 +27,14 @@ export default {
   created() {
     readPost(getQuestionCommunityReference(), this.$route.params.id)
       .then((post) => {
-        this.isPostExist = true;
-        this.post = post;
+        if (post === 'No such document') {
+          this.isPostExist = false;
+        } else {
+          this.isPostExist = true;
+          this.post = post;
+        }
       })
       .catch((error) => {
-        if (!this.post.id) {
-          this.isPostExist = false;
-        }
         console.error(error);
       });
   },

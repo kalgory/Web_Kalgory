@@ -46,6 +46,9 @@ export function readPost(reference, documentID) {
   return new Promise((resolve, reject) => {
     reference.doc(documentID).get()
       .then((snapshot) => {
+        if (!snapshot.exists) {
+          resolve('No such document');
+        }
         const post = {};
         post.id = snapshot.id;
         post.header = snapshot.data().header;
