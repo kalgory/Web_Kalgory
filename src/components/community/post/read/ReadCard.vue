@@ -1,14 +1,9 @@
 <template>
   <v-card
     :elevation="elevation"
+    @click.native="$router.push(`/community/question/${post.id}`)"
   >
-    <v-card-title
-      v-if="!isBodyRenderingHtml"
-      @click="$router.push({path:`/community/question/${post.id}`})"
-    >
-      <a class="blue--text">{{ post.header }}</a>
-    </v-card-title>
-    <v-card-title v-else>
+    <v-card-title>
       {{ post.header }}
     </v-card-title>
     <v-card-subtitle>{{ post.createdAt }}</v-card-subtitle>
@@ -18,7 +13,7 @@
         <v-col align="end">
           <v-btn
             icon
-            @click="isExpand=!isExpand"
+            @click.stop="isExpand=!isExpand"
           >
             <v-icon>
               {{ expandButtonIcon }}
@@ -89,6 +84,12 @@ export default {
         }
       }
       return markedBody;
+    },
+  },
+
+  methods: {
+    test2() {
+      console.log(this.$router);
     },
   },
 };

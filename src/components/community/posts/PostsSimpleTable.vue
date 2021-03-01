@@ -12,10 +12,13 @@
           <v-col
             cols="8"
           >
-            <read-card
-              :post="post"
-              :elevation="2"
-            />
+            <v-hover v-slot="{hover}">
+              <read-card
+                class="read-card"
+                :post="post"
+                :elevation="hover? 10:2"
+              />
+            </v-hover>
           </v-col>
         </v-row>
         <v-row
@@ -106,3 +109,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.read-card:hover{
+  cursor: pointer;
+}
+</style>
