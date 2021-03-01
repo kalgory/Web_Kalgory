@@ -1,6 +1,6 @@
 <template>
   <div>
-    <posts-simple-table collection-name="QUESTION" />
+    <posts-simple-table :reference="reference" />
     <v-btn
       fixed
       right
@@ -15,12 +15,19 @@
 
 <script>
 import PostsSimpleTable from '@/components/community/posts/PostsSimpleTable.vue';
+import { getQuestionCollectionReference } from '@/plugins/firebase/firestore/community';
 
 export default {
   name: 'QuestionPosts',
 
   components: {
     PostsSimpleTable,
+  },
+
+  computed: {
+    reference() {
+      return getQuestionCollectionReference();
+    },
   },
 };
 </script>

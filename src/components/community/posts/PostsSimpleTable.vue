@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { readPosts, getQuestionCollectionReference, getInformationCollectionReference } from '@/plugins/firebase/firestore/community';
+import { readPosts } from '@/plugins/firebase/firestore/community';
 import ReadCard from '@/components/community/post/read/ReadCard.vue';
 
 export default {
@@ -49,8 +49,8 @@ export default {
   },
 
   props: {
-    collectionName: {
-      type: String,
+    reference: {
+      type: Object,
       required: true,
     },
     readCount: {
@@ -66,15 +66,6 @@ export default {
     lastSnapshot: undefined,
     hasPostsToRead: true,
   }),
-
-  computed: {
-    reference() {
-      if (this.collectionName === 'QUESTION') {
-        return getQuestionCollectionReference();
-      }
-      return getInformationCollectionReference();
-    },
-  },
 
   methods: {
     onIntersect(entries) {
