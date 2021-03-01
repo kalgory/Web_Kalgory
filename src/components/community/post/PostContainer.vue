@@ -3,21 +3,22 @@
     <v-row>
       <v-col>
         <read-card
+          v-if="isCompleteRead"
           :post="post"
           :is-body-rendering-html="true"
         />
       </v-col>
     </v-row>
     <v-row>
-      <answers-simple-table :reference="answerReference" />
+      <answers-simple-table :reference="answerCollectionReference" />
     </v-row>
   </v-container>
 </template>
 
 <script>
 import AnswersSimpleTable from '@/components/community/answers/AnswersSimpleTable.vue';
-import { getQuestionCommunityReference, getSubCollectionReference, readPost } from '@/plugins/firebase/firestore/community';
 import ReadCard from '@/components/community/post/read/ReadCard.vue';
+import { getQuestionCollectionReference, readPost } from '@/plugins/firebase/firestore/community';
 
 export default {
   name: 'PostContainer',
@@ -30,26 +31,33 @@ export default {
   data: () => ({
     post: {},
     isPostExist: false,
+    isCompleteRead: false,
   }),
 
   computed: {
-    answerReference() {
-      return getSubCollectionReference(getQuestionCommunityReference(), this.$route.params.id, 'ANSWER');
+    answerCollectionReference() {
+      return getQuestionCollectionReference().doc(this.$route.params.id).collection('ANSWER');
     },
   },
 
   created() {
-    readPost(getQuestionCommunityReference(), this.$route.params.id)
-      .then((post) => {
-        this.isPostExist = true;
-        this.post = post;
-      })
-      .catch((error) => {
-        if (error === 'no such document') {
+    readPost(getQuestionCollectionReference(), this.$route.params.id)
+      .then((snapshot) => {
+        if (!snapshot.exists) {
           this.isPostExist = false;
         } else {
-          console.error(error);
+          this.isPostExist = true;
+          this.post.id = snapshot.id;
+          this.post.header = snapshot.data().header;
+          this.post.body = snapshot.data().body;
+          this.post.createdAt = snapshot.data().created_at;
         }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        this.isCompleteRead = true;
       });
   },
 };

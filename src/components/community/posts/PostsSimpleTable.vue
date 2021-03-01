@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { readPosts, getQuestionCommunityReference, getInformationCommunityReference } from '@/plugins/firebase/firestore/community';
+import { readPosts, getQuestionCollectionReference, getInformationCollectionReference } from '@/plugins/firebase/firestore/community';
 import ReadCard from '@/components/community/post/read/ReadCard.vue';
 
 export default {
@@ -61,21 +61,21 @@ export default {
     isLoading: false,
     posts: [],
     lastSnapshot: undefined,
-    isCompleteRead: false,
+    hasPostsToRead: true,
   }),
 
   computed: {
     reference() {
       if (this.collectionName === 'QUESTION') {
-        return getQuestionCommunityReference();
+        return getQuestionCollectionReference();
       }
-      return getInformationCommunityReference();
+      return getInformationCollectionReference();
     },
   },
 
   methods: {
     onIntersect(entries) {
-      if (entries[0].isIntersecting && !this.isCompleteRead) {
+      if (entries[0].isIntersecting && this.hasPostsToRead) {
         this.readPosts();
       }
     },
@@ -93,7 +93,7 @@ export default {
           });
           this.lastSnapshot = querySnapshot.docs[querySnapshot.size - 1];
           if (querySnapshot.size !== this.readCount) {
-            this.isCompleteRead = true;
+            this.hasPostsToRead = false;
           }
         })
         .catch((error) => {

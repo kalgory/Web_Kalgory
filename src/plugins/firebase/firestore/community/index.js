@@ -1,21 +1,17 @@
 import Firebase from 'firebase/app';
 
-export function getQuestionCommunityReference() {
+export function getQuestionCollectionReference() {
   return Firebase.firestore()
     .collection('COMMUNITY')
     .doc('6zh2VISAhIJnRTBTm2iY')
     .collection('QUESTION');
 }
 
-export function getInformationCommunityReference() {
+export function getInformationCollectionReference() {
   return Firebase.firestore()
     .collection('COMMUNITY')
     .doc('3Cgg1Dgk1skk1FcD1JHq')
     .collection('INFORMATION');
-}
-
-export function getSubCollectionReference(reference, documentID, collection) {
-  return reference.doc(documentID).collection(collection);
 }
 
 export function createPost(reference, post) {
@@ -46,16 +42,7 @@ export function readPost(reference, documentID) {
   return new Promise((resolve, reject) => {
     reference.doc(documentID).get()
       .then((snapshot) => {
-        if (!snapshot.exists) {
-          const error = 'no such document';
-          reject(error);
-        }
-        const post = {};
-        post.id = snapshot.id;
-        post.header = snapshot.data().header;
-        post.body = snapshot.data().body;
-        post.createdAt = snapshot.data().created_at;
-        resolve(post);
+        resolve(snapshot);
       })
       .catch((error) => {
         reject(error);

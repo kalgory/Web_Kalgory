@@ -1,5 +1,7 @@
 <template>
-  <v-card :elevation="elevation">
+  <v-card
+    :elevation="elevation"
+  >
     <v-card-title
       v-if="!isBodyRenderingHtml"
       @click="$router.push({path:`/community/question/${post.id}`})"
