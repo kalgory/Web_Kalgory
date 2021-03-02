@@ -1,6 +1,6 @@
 <template>
   <div>
-    <posts-data-iterator />
+    <posts-container :reference="reference" />
     <v-btn
       fixed
       right
@@ -14,12 +14,20 @@
 </template>
 
 <script>
-import PostsDataIterator from '@/components/community/question/posts/PostsDataIterator.vue';
+import PostsContainer from '@/components/community/posts/PostsContainer.vue';
+import { getQuestionCollectionReference } from '@/plugins/firebase/firestore/community';
 
 export default {
   name: 'QuestionPosts',
+
   components: {
-    PostsDataIterator,
+    PostsContainer,
+  },
+
+  computed: {
+    reference() {
+      return getQuestionCollectionReference();
+    },
   },
 };
 </script>

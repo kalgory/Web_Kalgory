@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { createPost, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
+import { createPost, getQuestionCollectionReference } from '@/plugins/firebase/firestore/community';
 import Marked from 'marked';
 import SanitizeHTML from 'sanitize-html';
 import Firebase from 'firebase/app';
@@ -139,7 +139,7 @@ export default {
       this.isBodyTextareaValidateOnBlur = false;
       if (this.isValid) {
         this.post.created_at = Firebase.firestore.Timestamp.now();
-        createPost(getQuestionCommunityReference(), this.post)
+        createPost(getQuestionCollectionReference(), this.post)
         // eslint-disable-next-line no-unused-vars
           .then((documentReference) => {
             this.$router.back();

@@ -1,45 +1,43 @@
 <template>
-  <v-card>
-    <v-container>
-      <v-card-title
-        @click="$router.push({path:`/community/question/${post.id}`})"
-      >
-        <a class="blue--text">{{ post.header }}</a>
-      </v-card-title>
-      <v-card-subtitle>
-        {{ post.createdAt }}
-      </v-card-subtitle>
-      <v-card-text
-        class="font-weight-bold"
-        v-html="getProcessedBody"
-      />
-      <v-card-actions>
-        <v-row>
-          <v-col offset="11">
+  <v-card
+    hover
+    @click.native="$router.push(`/community/question/${post.id}`)"
+  >
+    <v-card-title>
+      {{ post.header }}
+    </v-card-title>
+    <v-card-subtitle>
+      {{ post.createdAt }}
+    </v-card-subtitle>
+    <v-card-text>
+      {{ processedBody }}
+    </v-card-text>
+    <v-card-actions>
+      <v-container class="pa-0">
+        <v-row justify="end">
+          <v-col cols="auto">
             <v-btn
               icon
-              @click="isExpand=!isExpand"
+              @click.stop="isExpand=!isExpand"
             >
-              <v-icon v-if="isExpand">
-                mdi-chevron-up
-              </v-icon>
-              <v-icon v-if="!isExpand">
-                mdi-chevron-down
+              <v-icon>
+                {{ expandButtonIcon }}
               </v-icon>
             </v-btn>
           </v-col>
         </v-row>
-      </v-card-actions>
-    </v-container>
+      </v-container>
+    </v-card-actions>
   </v-card>
 </template>
 
 <script>
-import Marked from 'marked';
+
 import SanitizeHTML from 'sanitize-html';
+import Marked from 'marked';
 
 export default {
-  name: 'DataCard',
+  name: 'IteratorCard',
 
   props: {
     post: {
@@ -48,12 +46,8 @@ export default {
     },
   },
 
-  data: () => ({
-    isExpand: false,
-  }),
-
   computed: {
-    getProcessedBody() {
+    processedBody() {
       let markedBody = SanitizeHTML(Marked(this.post.body));
       const codeTagStrings = markedBody.match(/(?<=<code>)(.|\n)*?(?=<\/code>)/g);
       markedBody = markedBody.replace(/<code>(.|\n)*?<\/code>/g, '<c>').replace(/<(?!\/?c).*?>/g, '');
@@ -68,6 +62,12 @@ export default {
         }
       }
       return markedBody;
+    },
+    expandButtonIcon() {
+      if (this.isExpand) {
+        return 'mdi-chevron-up';
+      }
+      return 'mdi-chevron-down';
     },
   },
 };

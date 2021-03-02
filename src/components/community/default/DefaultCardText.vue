@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { readPosts, getQuestionCommunityReference } from '@/plugins/firebase/firestore/community';
+import { readPosts, getQuestionCollectionReference } from '@/plugins/firebase/firestore/community';
 
 export default {
   name: 'DefaultCardText',
@@ -40,7 +40,7 @@ export default {
 
   created() {
     if (this.communityType === 'questions') {
-      readPosts(getQuestionCommunityReference(), 5)
+      readPosts(getQuestionCollectionReference(), 5)
         .then((querySnapshot) => {
           querySnapshot.forEach((snapshot) => {
             this.posts.push({
