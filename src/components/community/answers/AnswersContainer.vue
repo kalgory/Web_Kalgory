@@ -1,31 +1,25 @@
 <template>
-  <v-simple-table
-    hide-default-footer
-  >
-    <template #default>
-      <v-container>
-        <v-row
-          v-for="(answer,index) in answers"
-          :key="index"
-        >
-          <v-col>
-            <read-card :answer="answer" />
-          </v-col>
-        </v-row>
-      </v-container>
-    </template>
-  </v-simple-table>
+  <v-container>
+    <v-row
+      v-for="(answer,index) in answers"
+      :key="index"
+    >
+      <v-col>
+        <iterator-card :post="answer" />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import ReadCard from '@/components/community/answer/read/ReadCard.vue';
+import IteratorCard from '@/components/community/answers/iterator/IteratorCard.vue';
 import { readPosts } from '@/plugins/firebase/firestore/community';
 
 export default {
-  name: 'AnswersSimpleTable',
+  name: 'AnswersContainer',
 
   components: {
-    ReadCard,
+    IteratorCard,
   },
 
   props: {

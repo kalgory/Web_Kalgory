@@ -1,51 +1,42 @@
 <template>
-  <v-simple-table
-    hide-default-footer
-  >
-    <template #default>
-      <v-container>
-        <v-row
-          v-for="(post,index) in posts"
-          :key="index"
-          justify="center"
-        >
-          <v-col
-            cols="8"
-          >
-            <v-hover v-slot="{hover}">
-              <read-card
-                class="read-card"
-                :post="post"
-                :elevation="hover? 10:2"
-              />
-            </v-hover>
-          </v-col>
-        </v-row>
-        <v-row
-          v-intersect="onIntersect"
-        >
-          <v-col align="center">
-            <v-progress-circular
-              v-if="isLoading"
-              indeterminate
-              class="center"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-    </template>
-  </v-simple-table>
+  <v-container>
+    <v-row
+      v-for="item in readCount"
+      v-show="isPostsEmpty"
+      :key="item"
+      justify="center"
+    >
+      <v-col cols="8">
+        <v-card>
+          <v-skeleton-loader
+            type="table-heading, list-item-two-line"
+          />
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row
+      v-for="(post,index) in posts"
+      v-show="!isPostsEmpty"
+      :key="index"
+      justify="center"
+    >
+      <v-col cols="8">
+        <iterator-card :post="post" />
+      </v-col>
+    </v-row>
+    <div v-intersect="onIntersect" />
+  </v-container>
 </template>
 
 <script>
 import { readPosts } from '@/plugins/firebase/firestore/community';
-import ReadCard from '@/components/community/post/read/ReadCard.vue';
+import IteratorCard from '@/components/community/posts/iterator/IteratorCard.vue';
 
 export default {
-  name: 'PostsSimpleTable',
+  name: 'PostsContainer',
 
   components: {
-    ReadCard,
+    IteratorCard,
   },
 
   props: {
@@ -61,20 +52,28 @@ export default {
   },
 
   data: () => ({
-    isLoading: false,
     posts: [],
     lastSnapshot: undefined,
     hasPostsToRead: true,
   }),
 
+  computed: {
+    isPostsEmpty() {
+      return this.posts.length === 0;
+    },
+  },
+
+  created() {
+    this.readPosts();
+  },
+
   methods: {
     onIntersect(entries) {
-      if (entries[0].isIntersecting && this.hasPostsToRead) {
+      if (this.posts.length !== 0 && entries[0].isIntersecting && this.hasPostsToRead) {
         this.readPosts();
       }
     },
     readPosts() {
-      this.isLoading = true;
       readPosts(this.reference, this.readCount, this.lastSnapshot)
         .then((querySnapshot) => {
           querySnapshot.forEach((snapshot) => {
@@ -92,17 +91,8 @@ export default {
         })
         .catch((error) => {
           console.error(error);
-        })
-        .finally(() => {
-          this.isLoading = false;
         });
     },
   },
 };
 </script>
-
-<style>
-.read-card:hover{
-  cursor: pointer;
-}
-</style>

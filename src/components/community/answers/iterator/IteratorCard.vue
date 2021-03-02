@@ -1,6 +1,6 @@
 <template>
-  <v-card :elevation="0">
-    <v-card-subtitle>{{ answer.createdAt }}</v-card-subtitle>
+  <v-card flat>
+    <v-card-subtitle>{{ post.createdAt }}</v-card-subtitle>
     <v-card-text v-html="markedBody" />
   </v-card>
 </template>
@@ -10,10 +10,10 @@ import SanitizeHTML from 'sanitize-html';
 import Marked from 'marked';
 
 export default {
-  name: 'ReadCard',
+  name: 'IteratorCard',
 
   props: {
-    answer: {
+    post: {
       type: Object,
       required: true,
     },
@@ -21,7 +21,7 @@ export default {
 
   computed: {
     markedBody() {
-      return SanitizeHTML(Marked(this.answer.body));
+      return SanitizeHTML(Marked(this.post.body));
     },
   },
 };

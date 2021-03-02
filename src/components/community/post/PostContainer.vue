@@ -1,22 +1,25 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col>
+    <v-row justify="center">
+      <v-col cols="10">
+        <v-skeleton-loader
+          v-show="isLoading"
+          type="table-heading, list-item-two-line"
+        />
         <read-card
-          v-if="isCompleteRead"
+          v-show="!isLoading"
           :post="post"
-          :is-body-rendering-html="true"
         />
       </v-col>
     </v-row>
     <v-row>
-      <answers-simple-table :reference="answerCollectionReference" />
+      <answers-container :reference="answerCollectionReference" />
     </v-row>
   </v-container>
 </template>
 
 <script>
-import AnswersSimpleTable from '@/components/community/answers/AnswersSimpleTable.vue';
+import AnswersContainer from '@/components/community/answers/AnswersContainer.vue';
 import ReadCard from '@/components/community/post/read/ReadCard.vue';
 import { getQuestionCollectionReference, readPost } from '@/plugins/firebase/firestore/community';
 
@@ -25,13 +28,13 @@ export default {
 
   components: {
     ReadCard,
-    AnswersSimpleTable,
+    AnswersContainer,
   },
 
   data: () => ({
     post: {},
     isPostExist: false,
-    isCompleteRead: false,
+    isLoading: true,
   }),
 
   computed: {
@@ -41,24 +44,32 @@ export default {
   },
 
   created() {
-    readPost(getQuestionCollectionReference(), this.$route.params.id)
-      .then((snapshot) => {
-        if (!snapshot.exists) {
-          this.isPostExist = false;
-        } else {
-          this.isPostExist = true;
-          this.post.id = snapshot.id;
-          this.post.header = snapshot.data().header;
-          this.post.body = snapshot.data().body;
-          this.post.createdAt = snapshot.data().created_at;
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        this.isCompleteRead = true;
-      });
+    this.readPost();
+  },
+
+  methods: {
+    readPost() {
+      readPost(getQuestionCollectionReference(), this.$route.params.id)
+        .then((snapshot) => {
+          if (!snapshot.exists) {
+            this.isPostExist = false;
+          } else {
+            this.isPostExist = true;
+            const post = {};
+            post.id = snapshot.id;
+            post.header = snapshot.data().header;
+            post.body = snapshot.data().body;
+            post.createdAt = snapshot.data().created_at;
+            this.post = post;
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
   },
 };
 </script>
