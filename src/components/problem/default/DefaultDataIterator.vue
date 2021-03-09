@@ -11,11 +11,7 @@
             :key="problem.id"
             cols="6"
           >
-            <v-card>
-              <v-card-title>
-                {{ problem.name }}
-              </v-card-title>
-            </v-card>
+            <default-card :problem="problem" />
           </v-col>
         </v-row>
       </v-container>
@@ -24,10 +20,15 @@
 </template>
 
 <script>
+import DefaultCard from '@/components/problem/default/DefaultCard.vue';
 import { readProblems } from '@/plugins/firebase/firestore/problem';
 
 export default {
   name: 'DefaultDataIterator',
+
+  components: {
+    DefaultCard,
+  },
 
   data: () => ({
     problems: [],
@@ -42,10 +43,12 @@ export default {
       readProblems()
         .then((querySnapshot) => {
           querySnapshot.forEach((snapshot) => {
+            console.log(snapshot.data().user);
             this.problems.push({
               id: snapshot.id,
               body: snapshot.data().body,
               header: snapshot.data().header,
+              userDocumentReference: snapshot.data().user,
             });
           });
         })
