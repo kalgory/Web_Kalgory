@@ -73,3 +73,19 @@ export function updateProfile(profile) {
       });
   });
 }
+
+export function getCurrentUser() {
+  return Firebase.auth().currentUser;
+}
+
+export function sendEmailVerification() {
+  return new Promise((resolve, reject) => {
+    getCurrentUser().sendEmailVerification()
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
