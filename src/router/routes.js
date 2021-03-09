@@ -6,6 +6,9 @@ const BaseCommunity = () => import('@/views/BaseCommunity');
 const BaseConcept = () => import('@/views/BaseConcept');
 const BaseUser = () => import('@/views/BaseUser');
 
+// Problem
+const ProblemDefault = () => import('@/views/problem/ProblemDefault');
+
 // Auth
 const AuthSignIn = () => import('@/views/auth/AuthSignIn');
 const AuthSignUp = () => import('@/views/auth/AuthSignUp');
@@ -48,12 +51,25 @@ export default [
   {
     name: 'problem',
     path: '/problem',
+    redirect: '/problem',
     component: BaseProblem,
     meta: {
       title: 'Problem',
       isRequireAuth: false,
       isAppBarShow: true,
     },
+    children: [
+      {
+        name: 'problem default',
+        path: '',
+        component: ProblemDefault,
+        meta: {
+          title: 'Default',
+          isRequireAuth: false,
+          isAppBarShow: true,
+        },
+      },
+    ],
   },
   {
     name: 'concept',
@@ -120,7 +136,7 @@ export default [
     },
     children: [
       {
-        name: 'default',
+        name: 'community default',
         path: '',
         component: CommunityDefault,
         meta: {
