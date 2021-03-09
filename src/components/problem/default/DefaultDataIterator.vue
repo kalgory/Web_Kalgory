@@ -42,13 +42,17 @@ export default {
     readPosts() {
       readProblems()
         .then((querySnapshot) => {
-          querySnapshot.forEach((snapshot) => {
-            console.log(snapshot.data().user);
+          querySnapshot.forEach((queryDocumentSnapshot) => {
             this.problems.push({
-              id: snapshot.id,
-              body: snapshot.data().body,
-              header: snapshot.data().header,
-              userDocumentReference: snapshot.data().user,
+              id: queryDocumentSnapshot.id,
+              body: queryDocumentSnapshot.data().body,
+              header: queryDocumentSnapshot.data().header,
+              difficulty: queryDocumentSnapshot.data().difficulty,
+              userDocumentReference: queryDocumentSnapshot.data().user,
+              wrong_user_count: queryDocumentSnapshot.data().wrong_user_count,
+              right_user_count: queryDocumentSnapshot.data().right_user_count,
+              vote_down_user_count: queryDocumentSnapshot.data().vote_down_user_count,
+              vote_up_user_count: queryDocumentSnapshot.data().vote_up_user_count,
             });
           });
         })
