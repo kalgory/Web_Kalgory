@@ -1,5 +1,7 @@
 <template>
-  <v-card>
+  <v-card
+    height="200"
+  >
     <v-container>
       <v-row>
         <v-col cols="auto">

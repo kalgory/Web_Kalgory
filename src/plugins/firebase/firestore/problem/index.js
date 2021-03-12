@@ -6,7 +6,6 @@ export function readProblems() {
     reference.get()
       .then((querySnapshot) => {
         resolve(querySnapshot);
-        console.log(querySnapshot.size);
       })
       .catch((error) => {
         reject(error);
