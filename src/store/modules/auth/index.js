@@ -4,7 +4,7 @@ export default {
     isAuthenticated: false,
     isVerified: false,
     user: null,
-    userReference: null,
+    userUID: '',
   },
 
   getters: {
@@ -20,8 +20,8 @@ export default {
     getUser(state) {
       return state.user;
     },
-    getUserReference(state) {
-      return state.userReference;
+    getUserUID(state) {
+      return state.userUID;
     },
   },
 
@@ -38,8 +38,8 @@ export default {
     setUser(state, value) {
       state.user = value;
     },
-    setUserReference(state, value) {
-      state.userReference = value;
+    setUserUID(state, value) {
+      state.userUID = value;
     },
   },
 };

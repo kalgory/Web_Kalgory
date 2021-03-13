@@ -59,8 +59,8 @@ export default {
   methods: {
     readUser(userUID) {
       readUserByUID(userUID)
-        .then((user) => {
-          this.user = user;
+        .then((documentSnapshot) => {
+          this.user = documentSnapshot.data();
         })
         .catch((error) => {
           this.$toasted.global.error({ message: error.message });
