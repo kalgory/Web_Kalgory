@@ -13,7 +13,7 @@ export default {
   },
 
   props: {
-    isPreviousRouteExist: {
+    hasPreviousRoute: {
       type: Boolean,
       required: true,
     },
@@ -60,7 +60,7 @@ export default {
 
   methods: {
     routerBack() {
-      if (this.isPreviousRouteExist) {
+      if (this.hasPreviousRoute) {
         this.$router.back();
       } else {
         this.$router.push('/');

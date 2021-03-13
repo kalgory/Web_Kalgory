@@ -7,7 +7,7 @@ export function readUserByUID(userUID) {
         if (querySnapshot.empty) {
           reject(new Error('user not exists'));
         }
-        resolve(querySnapshot.docs[0].data());
+        resolve(querySnapshot.docs[0]);
       })
       .catch((error) => {
         reject(error);
@@ -15,7 +15,7 @@ export function readUserByUID(userUID) {
   });
 }
 
-export function readUser(reference) {
+export function readUserByReference(reference) {
   return new Promise((resolve, reject) => {
     reference.get()
       .then((documentSnapshot) => {

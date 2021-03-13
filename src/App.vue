@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <app-bar v-if="$route.meta.isAppBarShow" />
+    <app-bar v-show="$route.meta.isAppBarShow" />
 
     <v-main>
       <v-progress-linear
@@ -89,12 +89,12 @@ export default {
           localStorage.setItem('isAuthenticated', 'true');
           this.$store.commit('setIsAuthenticated', true);
           this.$store.commit('setIsVerified', user.emailVerified);
-          this.$store.commit('setUser', user);
+          this.$store.commit('setUserUID', user.uid);
         } else {
           localStorage.setItem('isAuthenticated', 'false');
           this.$store.commit('setIsAuthenticated', false);
           this.$store.commit('setIsVerified', false);
-          this.$store.commit('setUser', {});
+          this.$store.commit('setUserUID', '');
         }
       });
     },

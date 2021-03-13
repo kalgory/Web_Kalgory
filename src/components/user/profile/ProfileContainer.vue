@@ -40,7 +40,7 @@ export default {
   computed: {
     userUID() {
       if (this.$route.name === 'myProfile') {
-        return this.$store.getters.getUser.uid;
+        return this.$store.getters.getUserUID;
       }
       return this.$route.params.uid;
     },
@@ -59,8 +59,8 @@ export default {
   methods: {
     readUser(userUID) {
       readUserByUID(userUID)
-        .then((user) => {
-          this.user = user;
+        .then((documentSnapshot) => {
+          this.user = documentSnapshot.data();
         })
         .catch((error) => {
           this.$toasted.global.error({ message: error.message });
