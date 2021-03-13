@@ -36,7 +36,7 @@ export default {
 
   computed: {
     email() {
-      return this.$store.getters.getUser.email;
+      return getCurrentUser.email;
     },
     isVerified() {
       return getCurrentUser.emailVerified;

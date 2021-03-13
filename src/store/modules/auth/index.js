@@ -3,7 +3,6 @@ export default {
     isAuthLoading: true,
     isAuthenticated: false,
     isVerified: false,
-    user: null,
     userUID: '',
   },
 
@@ -16,9 +15,6 @@ export default {
     },
     getIsVerified(state) {
       return state.isVerified;
-    },
-    getUser(state) {
-      return state.user;
     },
     getUserUID(state) {
       return state.userUID;
@@ -34,9 +30,6 @@ export default {
     },
     setIsVerified(state, value) {
       state.isVerified = value;
-    },
-    setUser(state, value) {
-      state.user = value;
     },
     setUserUID(state, value) {
       state.userUID = value;

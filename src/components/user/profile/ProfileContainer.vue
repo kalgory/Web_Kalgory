@@ -40,7 +40,7 @@ export default {
   computed: {
     userUID() {
       if (this.$route.name === 'myProfile') {
-        return this.$store.getters.getUser.uid;
+        return this.$store.getters.getUserUID;
       }
       return this.$route.params.uid;
     },

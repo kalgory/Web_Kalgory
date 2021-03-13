@@ -89,13 +89,11 @@ export default {
           localStorage.setItem('isAuthenticated', 'true');
           this.$store.commit('setIsAuthenticated', true);
           this.$store.commit('setIsVerified', user.emailVerified);
-          this.$store.commit('setUser', user);
           this.$store.commit('setUserUID', user.uid);
         } else {
           localStorage.setItem('isAuthenticated', 'false');
           this.$store.commit('setIsAuthenticated', false);
           this.$store.commit('setIsVerified', false);
-          this.$store.commit('setUser', null);
           this.$store.commit('setUserUID', '');
         }
       });
