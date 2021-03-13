@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { readUser } from '@/plugins/firebase/firestore/user';
+import { readUserByReference } from '@/plugins/firebase/firestore/user';
 
 export default {
   name: 'DefaultCard',
@@ -72,7 +72,7 @@ export default {
 
   methods: {
     readUser() {
-      readUser(this.problem.userDocumentReference)
+      readUserByReference(this.problem.userDocumentReference)
         .then((documentSnapshot) => {
           this.user = documentSnapshot.data();
         })
