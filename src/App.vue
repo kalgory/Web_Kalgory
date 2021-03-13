@@ -18,6 +18,7 @@
 import AppBar from '@/components/app/AppBar.vue';
 import AppFooter from '@/components/app/AppFooter.vue';
 import { onAuthStateChanged } from '@/plugins/firebase/auth';
+import { getUserReference } from '@/plugins/firebase/firestore/user';
 
 export default {
   name: 'App',
@@ -90,11 +91,19 @@ export default {
           this.$store.commit('setIsAuthenticated', true);
           this.$store.commit('setIsVerified', user.emailVerified);
           this.$store.commit('setUser', user);
+          getUserReference(user.uid)
+            .then((reference) => {
+              this.$store.commit('setUserReference', reference);
+            })
+            .catch((error) => {
+              this.$toasted.global.error({ message: error.message });
+            });
         } else {
           localStorage.setItem('isAuthenticated', 'false');
           this.$store.commit('setIsAuthenticated', false);
           this.$store.commit('setIsVerified', false);
-          this.$store.commit('setUser', {});
+          this.$store.commit('setUser', null);
+          this.$store.commit('setUserReference', null);
         }
       });
     },

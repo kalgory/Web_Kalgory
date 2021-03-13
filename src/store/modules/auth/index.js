@@ -4,6 +4,7 @@ export default {
     isAuthenticated: false,
     isVerified: false,
     user: null,
+    userReference: null,
   },
 
   getters: {
@@ -19,6 +20,9 @@ export default {
     getUser(state) {
       return state.user;
     },
+    getUserReference(state) {
+      return state.userReference;
+    },
   },
 
   mutations: {
@@ -33,6 +37,9 @@ export default {
     },
     setUser(state, value) {
       state.user = value;
+    },
+    setUserReference(state, value) {
+      state.userReference = value;
     },
   },
 };
