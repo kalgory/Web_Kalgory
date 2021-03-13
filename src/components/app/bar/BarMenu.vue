@@ -1,9 +1,6 @@
 <template>
   <v-menu
-    bottom
     min-width="324px"
-    rounded
-    offset-y
   >
     <template #activator="{ on }">
       <v-btn
@@ -68,46 +65,61 @@
 </template>
 
 <script>
+import { readUserByUID } from '@/plugins/firebase/firestore/user';
 import { signOut } from '@/plugins/firebase/auth';
 import UserAvatar from './user/UserAvatar.vue';
 
 export default {
-  name: 'BarUser',
+  name: 'BarMenu',
 
   components: {
     UserAvatar,
   },
 
+  data: () => ({
+    isLoading: true,
+    name: '',
+    email: '',
+    photo: '',
+  }),
+
   computed: {
-    name() {
-      if (this.$store.getters.getIsAuthLoading) {
-        return '';
-      }
-      return this.$store.getters.getUser.displayName;
+    userUID() {
+      return this.$store.getters.getUserUID;
     },
-    email() {
-      if (this.$store.getters.getIsAuthLoading) {
-        return '';
-      }
-      return this.$store.getters.getUser.email;
+    isAuthenticated() {
+      return this.$store.getters.getIsAuthenticated;
     },
-    photo() {
-      if (this.$store.getters.getIsAuthLoading) {
-        return '';
+  },
+
+  watch: {
+    isAuthenticated(value) {
+      if (value) {
+        this.readUser();
       }
-      return this.$store.getters.getUser.photoURL;
     },
   },
 
   methods: {
+    readUser() {
+      readUserByUID(this.userUID)
+        .then((documentSnapshot) => {
+          this.name = documentSnapshot.data().name;
+          this.email = documentSnapshot.data().email;
+          this.photo = documentSnapshot.data().photo;
+        })
+        .catch((error) => {
+          this.$toasted.global.error({ message: error.message });
+        });
+    },
     signOut() {
       this.$store.commit('setIsAuthLoading', true);
       signOut()
         .then(() => {
-          this.$toasted.global.success({ error: '로그아웃 완료' });
+          this.$toasted.global.success({ message: '로그아웃 완료' });
         })
         .catch((error) => {
-          this.$toasted.global.error({ error: error.message });
+          this.$toasted.global.error({ message: error.message });
         })
         .finally(() => {
           this.$store.commit('setIsAuthLoading', false);
