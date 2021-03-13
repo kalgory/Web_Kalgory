@@ -8,40 +8,49 @@
         v-on="on"
       >
         <user-avatar
+          :is-loading="isLoading"
           :name="name"
           :photo="photo"
         />
       </v-btn>
     </template>
-
     <v-card>
       <v-container>
-        <v-row justify="center">
-          <user-avatar
-            :name="name"
-            :photo="photo"
-            :size="72"
-            class="mt-4 mb-2"
-          />
-        </v-row>
-
         <v-row
           justify="center"
-          class="title"
+          no-gutters
         >
-          <p>{{ name }}</p>
+          <v-col cols="auto">
+            <user-avatar
+              :is-loading="isLoading"
+              :name="name"
+              :photo="photo"
+              :size="72"
+              class="mt-4 mb-2"
+            />
+          </v-col>
         </v-row>
-
         <v-row
           justify="center"
-          class="mt-n4"
+          no-gutters
         >
-          <p class="caption">
-            {{ email }}
-          </p>
+          <v-col cols="auto">
+            <p class="title">
+              {{ name }}
+            </p>
+          </v-col>
+        </v-row>
+        <v-row
+          justify="center"
+          class="mt-n6"
+        >
+          <v-col cols="auto">
+            <p class="caption">
+              {{ email }}
+            </p>
+          </v-col>
         </v-row>
       </v-container>
-
       <v-divider class="my-0" />
       <v-btn
         block
@@ -102,6 +111,7 @@ export default {
 
   methods: {
     readUser() {
+      console.log('test');
       readUserByUID(this.userUID)
         .then((documentSnapshot) => {
           this.name = documentSnapshot.data().name;
@@ -110,6 +120,9 @@ export default {
         })
         .catch((error) => {
           this.$toasted.global.error({ message: error.message });
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     signOut() {

@@ -24,36 +24,36 @@
     </v-btn>
     <v-spacer />
 
-    <bar-user
-      v-show="isAuthenticated"
-    />
+    <div v-show="isAuthenticated">
+      <bar-menu />
+    </div>
 
-    <v-btn
-      v-show="!isAuthenticated"
-      text
-      to="/auth/signin"
-    >
-      Sign in
-    </v-btn>
-    <v-btn
-      v-show="!isAuthenticated"
-      to="/auth/signup"
-    >
-      Sign up
-    </v-btn>
+    <div v-show="!isAuthenticated">
+      <v-btn
+        text
+        to="/auth/signin"
+      >
+        Sign in
+      </v-btn>
+      <v-btn
+        to="/auth/signup"
+      >
+        Sign up
+      </v-btn>
+    </div>
   </v-app-bar>
 </template>
 
 <script>
 import InitialLogo from '@/assets/InitialLogo.vue';
-import BarUser from '@/components/app/bar/BarUser.vue';
+import BarMenu from '@/components/app/bar/BarMenu.vue';
 
 export default {
   name: 'AppBar',
 
   components: {
     InitialLogo,
-    BarUser,
+    BarMenu,
   },
 
   computed: {

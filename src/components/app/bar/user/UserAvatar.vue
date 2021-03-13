@@ -3,13 +3,18 @@
     color="primary"
     :size="size"
   >
+    <v-progress-circular
+      v-if="isLoading"
+      indeterminate
+      color="white"
+    />
     <v-img
-      v-if="isPhotoExist"
+      v-if="isPhotoExist && !isLoading"
       :lazy-src="photo"
       :src="photo"
     />
     <span
-      v-if="!isPhotoExist"
+      v-if="!isPhotoExist && !isLoading"
       class="white--text"
       :style="{'font-size': size * 0.6 + 'px'}"
     >
@@ -36,6 +41,10 @@ export default {
       type: String,
       default: '',
       required: false,
+    },
+    isLoading: {
+      type: Boolean,
+      required: true,
     },
   },
 
