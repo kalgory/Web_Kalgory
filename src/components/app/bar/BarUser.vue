@@ -104,16 +104,10 @@ export default {
       this.$store.commit('setIsAuthLoading', true);
       signOut()
         .then(() => {
-          this.$toasted.show('로그아웃 완료', {
-            type: 'success',
-            icon: 'mdi-account-outline',
-          });
+          this.$toasted.global.success({ error: '로그아웃 완료' });
         })
         .catch((error) => {
-          this.$toasted.show(error.message, {
-            type: 'error',
-            icon: 'mdi-account-outline',
-          });
+          this.$toasted.global.error({ error: error.message });
         })
         .finally(() => {
           this.$store.commit('setIsAuthLoading', false);
