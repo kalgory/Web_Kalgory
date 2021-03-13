@@ -25,18 +25,18 @@
     <v-spacer />
 
     <bar-user
-      v-if="isAvatarShow"
+      v-show="isAuthenticated"
     />
 
     <v-btn
-      v-if="isAuthShow"
+      v-show="!isAuthenticated"
       text
       to="/auth/signin"
     >
       Sign in
     </v-btn>
     <v-btn
-      v-if="isAuthShow"
+      v-show="!isAuthenticated"
       to="/auth/signup"
     >
       Sign up
@@ -57,17 +57,11 @@ export default {
   },
 
   computed: {
-    isAvatarShow() {
+    isAuthenticated() {
       if (this.$store.getters.getIsAuthLoading) {
         return localStorage.getItem('isAuthenticated') === 'true';
       }
       return this.$store.getters.getIsAuthenticated;
-    },
-    isAuthShow() {
-      if (this.$store.getters.getIsAuthLoading) {
-        return localStorage.getItem('isAuthenticated') === 'false';
-      }
-      return !this.$store.getters.getIsAuthenticated;
     },
   },
 };
