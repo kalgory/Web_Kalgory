@@ -67,7 +67,7 @@ export default {
 
   data: () => ({
     problems: [],
-    problemsPerPage: 10,
+    problemsPerPage: 16,
     isLoading: true,
     page: 1,
   }),
