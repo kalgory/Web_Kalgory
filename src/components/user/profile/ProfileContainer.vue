@@ -24,7 +24,7 @@
 </template>
 <script>
 import UserAvatar from '@/components/app/bar/user/UserAvatar.vue';
-import { readUser } from '@/plugins/firebase/firestore/user';
+import { readUserByUID } from '@/plugins/firebase/firestore/user';
 
 export default {
   name: 'ProfileContainer',
@@ -58,15 +58,12 @@ export default {
 
   methods: {
     readUser(userUID) {
-      readUser(userUID)
+      readUserByUID(userUID)
         .then((user) => {
           this.user = user;
         })
         .catch((error) => {
-          this.$toasted.show(error.message, {
-            type: 'error',
-            icon: 'mdi-account-outline',
-          });
+          this.$toasted.global.error({ message: error.message });
         });
     },
   },
