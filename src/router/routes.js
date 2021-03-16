@@ -8,6 +8,7 @@ const BaseUser = () => import('@/views/BaseUser');
 
 // Problem
 const ProblemDefault = () => import('@/views/problem/ProblemDefault');
+const ProblemSolve = () => import('@/views/problem/ProblemSolve');
 
 // Auth
 const AuthSignIn = () => import('@/views/auth/AuthSignIn');
@@ -67,6 +68,16 @@ export default [
           title: 'Default',
           isRequireAuth: false,
           isAppBarShow: true,
+        },
+      },
+      {
+        name: 'problem solve',
+        path: ':id',
+        component: ProblemSolve,
+        meta: {
+          title: 'Problem Solve',
+          isRequireAuth: false,
+          isAppBarShow: false,
         },
       },
     ],
