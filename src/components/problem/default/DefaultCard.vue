@@ -1,6 +1,7 @@
 <template>
   <v-card
     height="200"
+    @click="pushProblemSolve"
   >
     <v-container>
       <v-row>
@@ -79,6 +80,9 @@ export default {
         .catch((error) => {
           this.$toasted.global.error({ message: error.message });
         });
+    },
+    pushProblemSolve() {
+      this.$router.push(`/problem/${this.problem.id}`);
     },
   },
 };
