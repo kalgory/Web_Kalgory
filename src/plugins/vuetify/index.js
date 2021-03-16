@@ -12,7 +12,9 @@ export default new Vuetify({
         error: '#f44336',
       },
       dark: {
-
+        primary: '#7C4DFE',
+        success: '#4caf50',
+        error: '#f44336',
       },
     },
   },
